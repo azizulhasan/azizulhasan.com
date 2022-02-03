@@ -1,7 +1,26 @@
 import React from "react";
 import "./assets/fontawesome-free/css/all.css";
 import "./assets/sb-admin-2.min.css";
+import { addScripts } from "../context/utilities";
 export default function Dashboard() {
+
+ 
+    /**
+     * Load all script of portfolio. and this url is based on "public/dashboard/assets" folder
+     * @param {url} script url
+     */
+  addScripts([
+    "assets/dashboard/vendor/jquery/jquery.min.js",
+    "assets/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js",
+    "assets/dashboard/vendor/jquery-easing/jquery.easing.min.js",
+    "assets/dashboard/js/sb-admin-2.min.js",
+    "assets/dashboard/vendor/chart.js/Chart.min.js",
+    "assets/dashboard/js/demo/chart-area-demo.js",
+    "assets/dashboard/js/demo/chart-pie-demo.js",
+  ])
+
+
+
   return (
     <React.Fragment>
       <div id="wrapper">

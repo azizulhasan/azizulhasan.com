@@ -1,6 +1,4 @@
 import React, {useEffect} from "react";
-import './assets/img/favicon.png';
-import './assets/img/apple-touch-icon.png';
 // import "./assets/vendor/aos/aos.css"
 import "./assets/vendor/bootstrap/css/bootstrap.min.css"
 import "./assets/vendor/bootstrap-icons/bootstrap-icons.css"
@@ -8,33 +6,28 @@ import "./assets/vendor/boxicons/css/boxicons.min.css"
 import "./assets/vendor/glightbox/css/glightbox.min.css"
 import "./assets/vendor/swiper/swiper-bundle.min.css"
 import "./assets/css/style.css"
+import {addScripts}  from '../../context/utilities'
 // import 'https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'
 export default function Home() {
   useEffect(()=>{
-    const addScripts = (script) => {
-      let script1 = document.createElement('script')
-      script1.async = true
-      script1.src = script
-      document.body.appendChild(script1);
-    }
-    
-
-    let scripts = [
-      // "assets/vendor/purecounter/purecounter.js",
-      // "assets/vendor/aos/aos.js",
-      // "assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
-      // "assets/vendor/glightbox/js/glightbox.min.js",
-      // "assets/vendor/isotope-layout/isotope.pkgd.min.js",
-      // "assets/vendor/swiper/swiper-bundle.min.js",
-      // "assets/vendor/typed.js/typed.min.js",
-      // "assets/vendor/waypoints/noframework.waypoints.js",
-      // "assets/vendor/php-email-form/validate.js",
-      // "assets/js/main.js",
-    ]
-    scripts.forEach(scirpt=>{
-      addScripts(scirpt)
-    })
+    /**
+     * Load all script of portfolio. and this url is based on "public/front/assets" folder
+     * @param {url} script url
+     */
+     addScripts( [
+      "assets/front/vendor/purecounter/purecounter.js",
+      "assets/front/vendor/aos/aos.js",
+      "assets/front/vendor/bootstrap/js/bootstrap.bundle.min.js",
+      "assets/front/vendor/glightbox/js/glightbox.min.js",
+      "assets/front/vendor/isotope-layout/isotope.pkgd.min.js",
+      "assets/front/vendor/swiper/swiper-bundle.min.js",
+      "assets/front/vendor/typed.js/typed.min.js",
+      "assets/front/vendor/waypoints/noframework.waypoints.js",
+      "assets/front/vendor/php-email-form/validate.js",
+      "assets/front/js/main.js",
+    ])
   })
+
 
   return (
     <React.Fragment>
@@ -130,7 +123,7 @@ export default function Home() {
             <div className="row">
               <div className="col-lg-4">
                 <img
-                  src="assets/img/profile-img.jpg"
+                  src="assets/front/img/profile-img.jpg"
                   className="img-fluid"
                   alt="about section"
                 />
@@ -535,7 +528,7 @@ export default function Home() {
               <div className="col-lg-4 col-md-6 portfolio-item filter-card">
                 <div className="portfolio-wrap">
                   <img
-                    src="assets/img/portfolio/portfolio-8.jpg"
+                    src="assets/front/img/portfolio/portfolio-8.jpg"
                     className="img-fluid"
                     alt="portfolios"
                   />
@@ -544,7 +537,7 @@ export default function Home() {
                     <p>Card</p>
                     <div className="portfolio-links">
                       <a
-                        href="assets/img/portfolio/portfolio-8.jpg"
+                        href="front/assets/img/portfolio/portfolio-8.jpg"
                         data-gallery="portfolioGallery"
                         className="portfolio-lightbox"
                         title="Card 3"
@@ -567,7 +560,7 @@ export default function Home() {
               <div className="col-lg-4 col-md-6 portfolio-item filter-web">
                 <div className="portfolio-wrap">
                   <img
-                    src="assets/img/portfolio/portfolio-9.jpg"
+                    src="assets/front/img/portfolio/portfolio-9.jpg"
                     className="img-fluid"
                     alt="portfolio"
                   />
@@ -576,7 +569,7 @@ export default function Home() {
                     <p>Web</p>
                     <div className="portfolio-links">
                       <a
-                        href="assets/img/portfolio/portfolio-9.jpg"
+                        href="front/assets/img/portfolio/portfolio-9.jpg"
                         data-gallery="portfolioGallery"
                         className="portfolio-lightbox"
                         title="Web 3"
@@ -824,7 +817,7 @@ export default function Home() {
                 <div className="swiper-slide">
                   <div className="testimonial-item">
                     <img
-                      src="assets/img/testimonials/testimonials-4.jpg"
+                      src="assets/front/img/testimonials/testimonials-4.jpg"
                       className="testimonial-img"
                       alt="testimonials"
                     />
@@ -845,7 +838,7 @@ export default function Home() {
                 <div className="swiper-slide">
                   <div className="testimonial-item">
                     <img
-                      src="assets/img/testimonials/testimonials-5.jpg"
+                      src="assets/front/img/testimonials/testimonials-5.jpg"
                       className="testimonial-img"
                       alt="testimonials"
                     />
