@@ -2,6 +2,13 @@ import React from "react";
 import "./assets/fontawesome-free/css/all.css";
 import "./assets/sb-admin-2.min.css";
 import { addScripts } from "../context/utilities";
+
+// import 'jquery'
+// import 'bootstrap'
+// import 'jquery-easing'
+
+
+
 export default function Dashboard() {
 
  
@@ -10,19 +17,23 @@ export default function Dashboard() {
      * @param {url} script url
      */
   addScripts([
-    "assets/dashboard/vendor/jquery/jquery.min.js",
-    "assets/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js",
-    "assets/dashboard/vendor/jquery-easing/jquery.easing.min.js",
-    "assets/dashboard/js/sb-admin-2.min.js",
-    "assets/dashboard/vendor/chart.js/Chart.min.js",
-    "assets/dashboard/js/demo/chart-area-demo.js",
-    "assets/dashboard/js/demo/chart-pie-demo.js",
+    
+    "assets/dashboard/jquery/jquery.js",
+    // "assets/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js",
+    "assets/dashboard/vendor/jquery-easing/jquery.easing.1.3.js",
+    // "assets/dashboard/js/sb-admin-2.min.js",
+    // "assets/dashboard/vendor/chart.js/Chart.min.js",
+    // "assets/dashboard/js/demo/chart-area-demo.js",
+    // "assets/dashboard/js/demo/chart-pie-demo.js",
   ])
 
 
 
   return (
     <React.Fragment>
+
+
+
       <div id="wrapper">
         {/** Sidebar */}
         <ul
