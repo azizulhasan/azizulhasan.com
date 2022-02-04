@@ -3,7 +3,7 @@
      * @param {url} script url
      */
     const addScripts = (scripts)=> {
-        scripts.forEach(scirpt=>{
+        [...scripts].forEach(scirpt=>{
             let tag = document.createElement('script')
             tag.async = true
             tag.src = scirpt
