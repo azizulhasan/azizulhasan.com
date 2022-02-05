@@ -19,7 +19,7 @@ import DashboardSideNav from "./dasboardcontent/DashboardSideNav";
 /**
  * Portfolio components
  */
-import Hero from "./portfolio/Hero";
+import Hero from "./portfolio/hero/Hero";
 import About from "./portfolio/About";
 import Facts from './portfolio/Facts'
 import Skills from "./portfolio/Skills";
@@ -40,9 +40,10 @@ export default function Dashboard() {
     addScripts(['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js'])
   return (
     <React.Fragment>
+        <Router>
         <DashboardTopNav/>
         <div id="layoutSidenav">
-        <Router>
+        
             <DashboardSideNav/>
             <div id="layoutSidenav_content">
                 <main>
@@ -76,9 +77,9 @@ export default function Dashboard() {
                     </div>
                 </footer>
             </div>
-            </Router>
+           
         </div>
-        
+        </Router>
     </React.Fragment>
   );
 }

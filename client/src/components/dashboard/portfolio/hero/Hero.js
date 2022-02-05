@@ -42,7 +42,7 @@ const STORY_HEADERS = [
 ];
 
 // Then, use it in a component.
-export default function CreateBlog() {
+export default function Hero() {
   return (
     <DatatableWrapper
       body={TABLE_BODY}
@@ -68,7 +68,7 @@ export default function CreateBlog() {
           lg={10}
           className="d-flex flex-col justify-content-end align-items-end"
         >
-          <Filter bsPrefix="azh_btn" />
+          <Filter />
         </Col>
         
       </Row>
@@ -76,19 +76,19 @@ export default function CreateBlog() {
         <TableHeader tableHeaders={STORY_HEADERS} />
         <TableBody />
       </Table>
-      <Row className='className="mb-2 p-2"'>
+      <Row className="mb-2 p-2">
       <Col
           xs={12}
           sm={6}
           lg={4}
-          className="d-flex flex-col justify-content-lg-center align-items-center justify-content-sm-start mb-4 mb-sm-0"
+          className="d-flex flex-col justify-content-lg-center align-items-center justify-content-sm-start mb-2 mb-sm-0"
         >
-          <PaginationOpts  />
+          <PaginationOpts />
         </Col>
         <Col
           xs={12}
           sm={6}
-          lg={4}
+          lg={8}
           className="d-flex flex-col justify-content-end align-items-end mb-2"
         >
           <Pagination />
