@@ -40,7 +40,7 @@ function Front() {
   });
   return (
     <Router>
-      <Navbar style={{zIndex: '9999'}} sticky="top" bg="light" expand="lg">
+      <Navbar style={{zIndex: '99999'}} sticky="top" bg="light" expand="lg">
         <Container>
           <Link className="navbar-brand" to="/">
             Hajar Zellal

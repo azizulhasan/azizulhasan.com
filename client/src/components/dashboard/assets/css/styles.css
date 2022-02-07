@@ -11740,3 +11740,5 @@ button
     border-color: rgb(240, 233, 224);
     border-radius: 2px;
 }
+
+.modal{background-color: rgba(0, 0, 0, .4)}

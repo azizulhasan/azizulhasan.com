@@ -1,8 +1,7 @@
-import React, {useState} from "react";
-import { Button , Modal, } from "react-bootstrap";
+import React, {useState} from 'react';
+import {Modal, Button} from 'react-bootstrap'
 
-
-export default function HeroModal(props) {
+export default function ModalBlog() {
     const [lgShow, setLgShow] = useState(false);
   
     return (
@@ -23,5 +22,4 @@ export default function HeroModal(props) {
         </Modal>
       </>
     );
-  }
-
+}

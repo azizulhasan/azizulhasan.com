@@ -13,7 +13,7 @@ import TABLE_BODY from "./data.json";
 /**
  * Components
  */
-import HeroModal from './HeroModal';
+import ModalBlog from './ModalBlog';
 
 // Create table headers consisting of 4 columns.
 const STORY_HEADERS = [
@@ -55,13 +55,12 @@ export default function CreateBlog() {
       }}
     >
       <Row className="mb-4 p-2">
-        
+        <ModalBlog/>
         <Col
           xs={12}
           lg={2}
           className="d-flex flex-col justify-content-end align-items-start"
         >
-          <HeroModal/>
         </Col>
         <Col
           xs={12}
