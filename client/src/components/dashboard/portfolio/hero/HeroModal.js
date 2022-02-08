@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 
-export default function HeroModal() {
+export default function HeroModal({setHeroData, updateBton}) {
   const [lgShow, setLgShow] = useState(false);
+    // const [newUser, setNewUser] = useState({
+  //   title: "",
+  //   profession: "",
+  //   social_icon_name: "",
+  //   social_icon_url: "",
+  //   backgroundImage: "",
+  //   backgroundImageOpacity: "",
+  // });
   /**
    * Add another social icon with url
    */
@@ -14,15 +22,11 @@ export default function HeroModal() {
       .firstChild.cloneNode(true);
     icon_col.appendChild(icon_row);
   };
-  const [newUser, setNewUser] = useState({
-    title: "",
-    profession: "",
-    social_icon_name: "",
-    social_icon_url: "",
-    backgroundImage: "",
-    backgroundImageOpacity: "",
-  });
-
+  /**
+   * Handle hero content form submission
+   * @param {event} e 
+   * @returns 
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     /**
@@ -62,18 +66,40 @@ export default function HeroModal() {
     axios
       .post("http://localhost:4000/api/hero", formData)
       .then((res) => {
-        console.log(res);
+        setHeroData(res.data)
+        setLgShow(false)
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  /**
+   * update hero content d
+   * @param {id} id 
+   */
+  const updateHeroContent = (id) => {
+    setLgShow(true)
+    axios
+      .get("http://localhost:4000/api/hero/"+id)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <>
-      <Button bsPrefix="azh_btn" onClick={(e) => setLgShow(true)}>
+      {updateBton.display
+      ?<Button bsPrefix="azh_btn"  onClick={(e) => updateHeroContent(updateBton.id)}>
+        Update Content
+      </Button>
+      :<Button bsPrefix="azh_btn" onClick={(e) => setLgShow(true)}>
         Hero Content
       </Button>
+      }
       <Modal
         size="lg"
         show={lgShow}
@@ -82,7 +108,7 @@ export default function HeroModal() {
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
-            Hero Section Content
+            {updateBton.display? "Update Section Content": "Hero Section Content"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

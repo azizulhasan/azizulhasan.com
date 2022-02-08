@@ -24,15 +24,15 @@ const hero_index = (req, res) => {
  * @param {Object} res 
  */
 const hero_details = (req, res) => {
-//   const id = req.params.id;
-//   Hero.findById(id)
-//     .then(result => {
-      
-//       res.json({ data: result });
-//     })
-//     .catch(err => {
-//       res.status(404).render('404', {title:"Not Found"})
-//     });
+  const id = req.params.id;
+  console.log(id)
+  Hero.findById(id)
+    .then(result => {
+      res.json(result);
+    })
+    .catch(err => {
+      res.status(404).render('404', {title:"Not Found"})
+    });
 }
 /**
  * Store image to "uploads" folder. after modifiying image namge.

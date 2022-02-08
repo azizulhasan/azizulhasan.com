@@ -1,5 +1,12 @@
-  // Example POST method implementation:
-  async function postHeroData(url = "",method = "GET", cors = "cors" ,  data = {}) {
+/**
+ * Post data method.
+ * @param {url} url api url
+ * @param {method} method request type
+ * @param {cors} cors 
+ * @param {data} data 
+ * @returns 
+ */
+  async function postData(url = "",method = "GET", cors = "no-cors" ,  data = {}) {
     // Default options are marked with *
     const response = await fetch(url, {
       method: method, // *GET, POST, PUT, DELETE, etc.
@@ -12,3 +19,30 @@
     });
     return response.json(); // parses JSON response into native JavaScript objects
   }
+
+
+  /**
+ * Post data method.
+ * @param {url} url api url
+ * @param {method} method request type
+ * @param {cors} cors 
+ * @param {data} data 
+ * @returns 
+ */
+   async function getData(url = "",method = "GET", cors = "no-cors" ) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: method, // *GET, POST, PUT, DELETE, etc.
+      mode: cors, // no-cors, *cors, same-origin
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+
+
+  module.exports = {
+    getData, postData
+  }  
