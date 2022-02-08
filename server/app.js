@@ -64,7 +64,7 @@ app.use('/blogs', blogRoutes);
 /**
  * Hero Routs
  */
-app.use('/hero', heroRoutes)
+app.use('/api/hero', heroRoutes)
 
 // 404 page
 app.use((req, res) => {

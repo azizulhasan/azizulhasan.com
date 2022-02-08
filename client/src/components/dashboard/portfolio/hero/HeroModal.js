@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
-import axios from 'axios'
+import axios from "axios";
 
 export default function HeroModal() {
   const [lgShow, setLgShow] = useState(false);
-
-  /**
-   * Create a js file of urls for solutions. found by search from google.
-   */
-
   /**
    * Add another social icon with url
    */
@@ -19,83 +14,60 @@ export default function HeroModal() {
       .firstChild.cloneNode(true);
     icon_col.appendChild(icon_row);
   };
+  const [newUser, setNewUser] = useState({
+    title: "",
+    profession: "",
+    social_icon_name: "",
+    social_icon_url: "",
+    backgroundImage: "",
+    backgroundImageOpacity: "",
+  });
 
-  // Example POST method implementation:
-  async function postHeroData(url = "", data = {}) {
-    // Default options are marked with *
-    const response = await fetch(url, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: data// body data type must match "Content-Type" header
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    /**
+     * Get full form data and modify them for saving to database.
+     */
+    let form = new FormData(e.target);
+    let iconMap = {};
+    let data = {};
+    data["icons"] = [];
+    for (let [key, value] of form.entries()) {
+      if (key === "" || value === "") {
+        alert("Please fill the value of : " + key);
+        return;
+      }
+      if (key === "social_icon_name") {
+        iconMap["icon"] = [value];
+      } else if (key === "social_icon_url") {
+        iconMap["icon"].push(value);
+        data["icons"].push(iconMap["icon"]);
+      } else {
+        data[key] = value;
+      }
+    }
+
+    let formData = new FormData();
+    Object.keys(data).forEach((key) => {
+      if (key == "icons") {
+        formData.append(key, JSON.stringify(data[key]));
+      } else {
+        formData.append(key, data[key]);
+      }
     });
-    return response.json(); // parses JSON response into native JavaScript objects
-  }
-
-  const [newUser, setNewUser] = useState(
-    {
-        title: '',
-        profession: '',
-        social_icon_name: '',
-        social_icon_url: '',
-        backgroundImage: '', 
-        backgroundImageOpacity: '', 
-    }
-);
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-  let form = new FormData(e.target)
-  let iconMap = {};
-  let data = {};
-  data["icons"] = [];
-  for (let [key, value] of form.entries()) {
-    if (key === "" || value === "") {
-      alert("Please fill the value of : " + key);
-      return;
-    }
-    if (key === "social_icon_name") {
-      iconMap["icon"] = [value];
-    } else if (key === "social_icon_url") {
-      iconMap["icon"].push(value);
-      data["icons"].push(iconMap["icon"]);
-    } else {
-      data[key] = value;
-    }
-  }
-  // data['icons'] = [{'adfa': 'adfa'}, {"ba": 'ba'} ]
-  let formData = new FormData()
-  Object.keys(data).forEach(key=>{
-   
-    if(key == 'icons'){
-      formData.append(key, JSON.stringify(data[key]))
-    }else{
-      formData.append(key, data[key])
-    }
-  })
-  // for(let [key, value] of formData.entries()){
-  //   console.log(key, value)
-  // }
-  // return;
-  axios.post('http://localhost:4000/hero', formData)
-       .then(res => {
-          console.log(res);
-       })
-       .catch(err => {
-          console.log(err);
-       });
-}
-
-
-  const handleChange = (e) => {
-    setNewUser({...newUser, [e.target.name]: e.target.value});
-}
-  const handleImage =(e) => {
-    setNewUser({...newUser, backgroundImage: e.target.files[0]});
-  }
+    // for(let [key, value] of formData.entries()){
+    //   console.log(key, value)
+    // }
+    // return;
+    axios
+      .post("http://localhost:4000/api/hero", formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
@@ -121,14 +93,13 @@ const handleSubmit = (e) => {
           >
             <Form.Group className="mb-4" controlId="hero.titlle">
               <Form.Label>Title</Form.Label>
-              <Form.Control type="text" onChange={handleChange} name="title" placeholder="Title" />
+              <Form.Control type="text" name="title" placeholder="Title" />
             </Form.Group>
             <Form.Group className="mb-4" controlId="hero.profession">
               <Form.Label>Profession</Form.Label>
               <Form.Control
                 type="text"
                 name="profession"
-                onChange={handleChange}
                 placeholder="Software Engineer, Teacher etc"
               />
             </Form.Group>
@@ -160,7 +131,6 @@ const handleSubmit = (e) => {
                       <Form.Label>Social Icon</Form.Label>
                       <Form.Select
                         name="social_icon_name"
-                        onChange={handleChange}
                         aria-label="Default select example"
                       >
                         <option>Open this select menu</option>
@@ -182,7 +152,6 @@ const handleSubmit = (e) => {
                         type="text"
                         name="social_icon_url"
                         placeholder="URL"
-                        onChange={handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -191,7 +160,11 @@ const handleSubmit = (e) => {
             </Row>
             <Form.Group className="mb-4" controlId="hero.backgroundImage">
               <Form.Label>Background Image</Form.Label>
-              <Form.Control accept=".png, .jpg, .jpeg" onChange={handleImage}   name="backgroundImage" type="file" />
+              <Form.Control
+                accept=".png, .jpg, .jpeg"
+                name="backgroundImage"
+                type="file"
+              />
             </Form.Group>
             <Form.Group
               className="mb-4"
@@ -202,8 +175,6 @@ const handleSubmit = (e) => {
                 type="text"
                 name="backgroundImageOpacity"
                 placeholder=".5"
-                onChange={handleChange}
-                
               />
             </Form.Group>
             <button className="azh_btn w-100" type="submit" id="hero.sumbit">
