@@ -2,6 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors')
+
+
 /**
  * Routes
  */
@@ -10,9 +12,9 @@ const heroRoutes = require('./routes/heroRoutes');
 
 // express app
 const app = express();
+
 app.use(cors())
 app.use(express.json())
-
 // connect to mongodb & listen for requests.
 const dbURI = "mongodb+srv://azizulhasan:azizulhasan@mern.b6fud.mongodb.net/mern?retryWrites=true&w=majority"
 
