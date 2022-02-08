@@ -8,15 +8,14 @@ const multer = require('multer')
  */
 const hero_index = (req, res) => {
 
-//   Hero.find().sort({ createdAt: -1 })
+  Hero.find().sort({ createdAt: -1 })
 
-//     .then(result => {
-//       res.set('Access-Control-Allow-Origin' ,'*')
-//       res.json({ data: result });
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
+    .then(result => {
+      res.json({ data: result });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 /**
@@ -36,29 +35,19 @@ const hero_details = (req, res) => {
 //     });
 }
 /**
- * blog creation page.
- * @param {Object} req for the page of blog creation.
- * @param {Object} res 
- */
-const hero_create_get = (req, res) => {
-  res.render('create', { title: 'Create a new blog' });
-}
-
-/**
  * Store image to "uploads" folder. after modifiying image namge.
  * 
  */
 const Storage = multer.diskStorage({
     destination: 'uploads',
     filename: (req, file, cb) => {
-        
         cb(null, Date.now()+"_"+file.originalname)
     }
 })
 
 const uploads = multer({
     storage: Storage
-}).single('image')
+}).single('backgroundImage')
 
 /**
  * Save the blog to databse and save image to "uploads" folder.
@@ -71,15 +60,15 @@ const hero_create_post = (req, res) => {
       if(err){
           console.log(err)
       }else{
-          const blog = new Blog({
+          const hero = new Hero({
               ...req.body, 
               ...{
-                  imageName: req.file.filename,
+                  backgroundImage: req.file.filename,
               }
           });
-      blog.save()
+      hero.save()
         .then(result => {
-          res.redirect('/blogs');
+          res.json(result)
         })
         .catch(err => {
           console.log(err);
@@ -88,26 +77,8 @@ const hero_create_post = (req, res) => {
   })
 }
 
-/**
- * Blog delete request.
- * @param {Object} req for single blog delete.
- * @param {Object} res 
- */
-const hero_delete = (req, res) => {
-//   const id = req.params.id;
-//   Hero.findByIdAndDelete(id)
-//     .then(result => {
-//       res.json({ redirect: '/blogs' });
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
-}
-
 module.exports = {
   hero_index, 
   hero_details, 
-  hero_create_get, 
   hero_create_post, 
-  hero_delete
 }
