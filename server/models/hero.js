@@ -19,7 +19,7 @@ const heroSchema = new Schema({
         required: true
     }, 
     backgroundImageOpacity:{
-        type:Float32Array,
+        type:String,
         required:true
     }
 }, { timestamps: true })
