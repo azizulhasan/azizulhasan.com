@@ -11737,8 +11737,8 @@ button
 .azh_btn{
   background-color: rgb(240, 233, 224);
   color: #000;
-    border-color: rgb(240, 233, 224);
-    border-radius: 2px;
+  border-color: rgb(240, 233, 224);
+  border-radius: 2px;
 }
 
 .modal{background-color: rgba(0, 0, 0, .4)}

@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 
+
+/**
+ * Css
+ */
+import './hero.css'
+
 export default function HeroModal({ setHeroData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
   const [hero, setData] = useState({
@@ -26,25 +32,16 @@ export default function HeroModal({ setHeroData, updateBton }) {
     "skype",
     "zoom",
   ];
-  // const [hero, setData] = useState({});
-  /**
-   * Add another social icon with url
-   */
-  const addSocialIcon = () => {
-    const icon_col = document.getElementById("social_icon_col");
-    const icon_row = document
-      .getElementById("social_icon_col")
-      .firstChild.cloneNode(true);
-    icon_col.appendChild(icon_row);
-  };
+
+
+
   /**
    * Handle content change value.
    * @param {event} e
    */
   const handleChange = (e) => {
-    // if(e.target.name !== 'social_icon_name' || e.target.name !== 'social_icon_url'){
+    console.log(e.target)
     setData({ ...hero, ...{ [e.target.name]: e.target.value } });
-    // }
   };
 
   /**
@@ -78,7 +75,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
 
     let formData = new FormData();
     Object.keys(data).forEach((key) => {
-      if (key == "icons") {
+      if (key === "icons") {
         formData.append(key, JSON.stringify(data[key]));
       } else {
         formData.append(key, data[key]);
@@ -123,6 +120,30 @@ export default function HeroModal({ setHeroData, updateBton }) {
     const url = URL.createObjectURL(e.target.files[0]);
     imgUrl.src = url;
   };
+    /**
+   * Add another social icon with url
+   */
+     const addSocialIcon = () => {
+      const icon_col = document.getElementById("social_icon_col");
+      const icon_row = document
+        .getElementById("social_icon_col")
+        .firstChild.cloneNode(true);
+      icon_col.appendChild(icon_row);
+      let iconNodes = document
+      .getElementById("social_icon_col").childNodes;
+      let lastDatId = iconNodes[iconNodes.length-2].getAttribute('data-id')
+      iconNodes[iconNodes.length-1].setAttribute('data-id', ++lastDatId)
+      console.log(lastDatId)
+    };
+
+  /**
+   * Delete social icon
+   */
+  const deleteSocialIcon = (e) => {
+   
+    let row = e.target.parentElement.parentElement;
+    e.target.parentElement.parentElement.parentElement.removeChild(row)
+  }
 
   return (
     <>
@@ -206,9 +227,9 @@ export default function HeroModal({ setHeroData, updateBton }) {
               </Col>
               <Col id="social_icon_col">
                 {hero.icons.length > 0 ? (
-                  JSON.parse(hero.icons).map((icon) => {
+                  JSON.parse(hero.icons).map((icon, i) => {
                     return (
-                      <Row>
+                      <Row data-id={++i}>
                         <Col
                           xs={12}
                           sm={6}
@@ -231,7 +252,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
                                   <option
                                     key={item}
                                     value={item}
-                                    selected={icon[0] == item ? "selected" : ""}
+                                    selected={icon[0] === item ? "selected" : ""}
                                   >
                                     {item[0].toUpperCase() + item.slice(1)}
                                   </option>
@@ -259,13 +280,8 @@ export default function HeroModal({ setHeroData, updateBton }) {
                               placeholder="URL"
                             />
                           </Form.Group>
-                          <button type="button" className="btn btn-danger" id="deleteSocialIcon" style={{
-                            padding:'2px', 
-                            margin: '35px 10px 0',
-                            height:'30px'
-                          }}
+                          <button type="button" className="azh_btn btn-danger azh_btn_delete deleteSocialIcon" onClick={deleteSocialIcon} 
                             >Delete</button>
-
                         </Col>
                       </Row>
                     );
@@ -339,6 +355,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
                     id="previewImage"
                     height="100"
                     width="100"
+                    alt={hero.backgroundImage}
                     src={hero.backgroundImage}
                   />
                 </Form.Group>
