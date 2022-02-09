@@ -47,15 +47,15 @@ export default function Hero() {
 
   const setHeroData = (data) => {
     setHero([data]);
-    setUpdateBtn({ display: true, id: hero[0]._id });
-    console.log(updateBton);
+    setUpdateBtn({ display: true, id: data._id });
+    console.log(data);
   };
   useEffect(() => {
     axios("http://localhost:4000/api/hero")
       .then((result) => {
         setHero(result.data.data);
         if (result.data.data.length > 0) {
-          setUpdateBtn({ display: true, id: hero[0]._id });
+          setTimeout(()=> setUpdateBtn({ display: true, id: result.data.data[0]._id }), 100)
         }
 
         console.log(updateBton);

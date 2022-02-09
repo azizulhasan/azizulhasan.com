@@ -2,16 +2,31 @@ import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 
-export default function HeroModal({setHeroData, updateBton}) {
+export default function HeroModal({ setHeroData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
-    // const [newUser, setNewUser] = useState({
-  //   title: "",
-  //   profession: "",
-  //   social_icon_name: "",
-  //   social_icon_url: "",
-  //   backgroundImage: "",
-  //   backgroundImageOpacity: "",
-  // });
+  const [hero, setData] = useState({
+    _id: "",
+    title: "",
+    profession: "",
+    social_icon_name: "",
+    social_icon_url: "",
+    backgroundImage: "",
+    backgroundImageOpacity: "",
+    icons: [],
+  });
+  const socialIcons = [
+    "facebook",
+    "linkedin",
+    "github",
+    "twitter",
+    "instagram",
+    "hackerrank",
+    "stackoverflow",
+    "leetcode",
+    "skype",
+    "zoom",
+  ];
+  // const [hero, setData] = useState({});
   /**
    * Add another social icon with url
    */
@@ -23,9 +38,19 @@ export default function HeroModal({setHeroData, updateBton}) {
     icon_col.appendChild(icon_row);
   };
   /**
+   * Handle content change value.
+   * @param {event} e
+   */
+  const handleChange = (e) => {
+    // if(e.target.name !== 'social_icon_name' || e.target.name !== 'social_icon_url'){
+    setData({ ...hero, ...{ [e.target.name]: e.target.value } });
+    // }
+  };
+
+  /**
    * Handle hero content form submission
-   * @param {event} e 
-   * @returns 
+   * @param {event} e
+   * @returns
    */
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,15 +84,14 @@ export default function HeroModal({setHeroData, updateBton}) {
         formData.append(key, data[key]);
       }
     });
-    // for(let [key, value] of formData.entries()){
-    //   console.log(key, value)
-    // }
-    // return;
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
     axios
       .post("http://localhost:4000/api/hero", formData)
       .then((res) => {
-        setHeroData(res.data)
-        setLgShow(false)
+        setHeroData(res.data);
+        setLgShow(false);
       })
       .catch((err) => {
         console.log(err);
@@ -75,31 +99,44 @@ export default function HeroModal({setHeroData, updateBton}) {
   };
 
   /**
-   * update hero content d
-   * @param {id} id 
+   * get hero content by id.
+   * @param {id} id
    */
-  const updateHeroContent = (id) => {
-    setLgShow(true)
+  const getHeroContent = (id) => {
     axios
-      .get("http://localhost:4000/api/hero/"+id)
+      .get("http://localhost:4000/api/hero/" + id)
       .then((res) => {
-        console.log(res)
+        setData(res.data);
+        setTimeout(() => console.log(hero), 10);
+        setLgShow(true);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
+  /**
+   * Preveiw Image
+   */
+  const previewImage = (e) => {
+    let imgUrl = document.getElementById("previewImage");
+    const url = URL.createObjectURL(e.target.files[0]);
+    imgUrl.src = url;
+  };
 
   return (
     <>
-      {updateBton.display
-      ?<Button bsPrefix="azh_btn"  onClick={(e) => updateHeroContent(updateBton.id)}>
-        Update Content
-      </Button>
-      :<Button bsPrefix="azh_btn" onClick={(e) => setLgShow(true)}>
-        Hero Content
-      </Button>
-      }
+      {updateBton.display ? (
+        <Button
+          bsPrefix="azh_btn"
+          onClick={(e) => getHeroContent(updateBton.id)}
+        >
+          Update Content
+        </Button>
+      ) : (
+        <Button bsPrefix="azh_btn" onClick={(e) => setLgShow(true)}>
+          Hero Content
+        </Button>
+      )}
       <Modal
         size="lg"
         show={lgShow}
@@ -108,7 +145,9 @@ export default function HeroModal({setHeroData, updateBton}) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
-            {updateBton.display? "Update Section Content": "Hero Section Content"}
+            {updateBton.display
+              ? "Update Section Content"
+              : "Hero Section Content"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -119,13 +158,32 @@ export default function HeroModal({setHeroData, updateBton}) {
           >
             <Form.Group className="mb-4" controlId="hero.titlle">
               <Form.Label>Title</Form.Label>
-              <Form.Control type="text" name="title" placeholder="Title" />
+              <Form.Control
+                type="text"
+                name="title"
+                onChange={handleChange}
+                value={hero.title}
+                placeholder="Title"
+              />
             </Form.Group>
+            {updateBton.display && (
+              <Form.Control
+                type="text"
+                id="_id"
+                onChange={handleChange}
+                value={hero._id}
+                name="_id"
+                placeholder="id"
+                hidden
+              />
+            )}
             <Form.Group className="mb-4" controlId="hero.profession">
               <Form.Label>Profession</Form.Label>
               <Form.Control
                 type="text"
                 name="profession"
+                onChange={handleChange}
+                value={hero.profession}
                 placeholder="Software Engineer, Teacher etc"
               />
             </Form.Group>
@@ -146,52 +204,137 @@ export default function HeroModal({setHeroData, updateBton}) {
                 </Button>
               </Col>
               <Col id="social_icon_col">
-                <Row id="social_icon_row">
-                  <Col
-                    xs={12}
-                    sm={6}
-                    lg={5}
-                    className="d-flex flex-col justify-content-start align-items-start mb-2"
-                  >
-                    <Form.Group className="mb-3" controlId="hero.social_icon">
-                      <Form.Label>Social Icon</Form.Label>
-                      <Form.Select
-                        name="social_icon_name"
-                        aria-label="Default select example"
-                      >
-                        <option>Open this select menu</option>
-                        <option value="twitter">Twitter</option>
-                        <option value="facebook">Fackebook</option>
-                        <option value="instagram">Instagram</option>
-                        <option value="github">Github</option>
-                        <option value="hackerrank">HackerRank</option>
-                        <option value="linkedin">LinkedIn</option>
-                        <option value="skype">Skype</option>
-                      </Form.Select>
-                    </Form.Group>
-                  </Col>
-
-                  <Col xs={12} sm={6} lg={7} className="d-flex flex-col  mb-2">
-                    <Form.Group className="mb-3" controlId="hero.social_url">
-                      <Form.Label>Social URL</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="social_icon_url"
-                        placeholder="URL"
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
+                {hero.icons.length > 0 ? (
+                  JSON.parse(hero.icons).map((icon) => {
+                    return (
+                      <Row>
+                        <Col
+                          xs={12}
+                          sm={6}
+                          lg={5}
+                          className="d-flex flex-col justify-content-start align-items-start mb-2"
+                        >
+                          <Form.Group
+                            className="mb-3"
+                            controlId="hero.social_icon"
+                          >
+                            <Form.Label>Social Icon</Form.Label>
+                            <Form.Select
+                              name="social_icon_name"
+                              onChange={handleChange}
+                              aria-label="Default select example"
+                            >
+                              <option>Open this select menu</option>
+                              {socialIcons.map((item) => {
+                                return (
+                                  <option
+                                    key={item}
+                                    value={item}
+                                    selected={icon[0] == item ? "selected" : ""}
+                                  >
+                                    {item[0].toUpperCase() + item.slice(1)}
+                                  </option>
+                                );
+                              })}
+                            </Form.Select>
+                          </Form.Group>
+                        </Col>
+                        <Col
+                          xs={12}
+                          sm={6}
+                          lg={7}
+                          className="d-flex flex-col  mb-2"
+                        >
+                          <Form.Group
+                            className="mb-3"
+                            controlId="hero.social_url"
+                          >
+                            <Form.Label>Social URL</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="social_icon_url"
+                              onChange={handleChange}
+                              value={icon[1]}
+                              placeholder="URL"
+                            />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                    );
+                  })
+                ) : (
+                  <Row>
+                    <Col
+                      xs={12}
+                      sm={6}
+                      lg={5}
+                      className="d-flex flex-col justify-content-start align-items-start mb-2"
+                    >
+                      <Form.Group className="mb-3" controlId="hero.social_icon">
+                        <Form.Label>Social Icon</Form.Label>
+                        <Form.Select
+                          name="social_icon_name"
+                          onChange={handleChange}
+                          aria-label="Default select example"
+                        >
+                          <option>Open this select menu</option>
+                          {socialIcons.map((item) => {
+                            return (
+                              <option key={item} value={item}>
+                                {item[0].toUpperCase() + item.slice(1)}
+                              </option>
+                            );
+                          })}
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+                    <Col
+                      xs={12}
+                      sm={6}
+                      lg={7}
+                      className="d-flex flex-col  mb-2"
+                    >
+                      <Form.Group className="mb-3" controlId="hero.social_url">
+                        <Form.Label>Social URL</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="social_icon_url"
+                          value={hero.social_icon_url}
+                          onChange={handleChange}
+                          placeholder="URL"
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                )}
               </Col>
             </Row>
-            <Form.Group className="mb-4" controlId="hero.backgroundImage">
-              <Form.Label>Background Image</Form.Label>
-              <Form.Control
-                accept=".png, .jpg, .jpeg"
-                name="backgroundImage"
-                type="file"
-              />
-            </Form.Group>
+            <Row>
+              <Col xs={12} sm={6} lg={6}>
+                <Form.Group className="mb-4" controlId="hero.backgroundImage">
+                  <Form.Label>Background Image</Form.Label>
+                  <Form.Control
+                    accept=".png, .jpg, .jpeg"
+                    name="backgroundImage"
+                    onChange={previewImage}
+                    type="file"
+                  />
+                </Form.Group>
+              </Col>
+              <Col xs={12} sm={6} lg={6}>
+                <Form.Group
+                  className="mb-4"
+                  controlId="hero.backgroundImagePreview"
+                >
+                  <img
+                    id="previewImage"
+                    height="100"
+                    width="100"
+                    src={hero.backgroundImage}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
             <Form.Group
               className="mb-4"
               controlId="hero.backgroundImageOpacity"
@@ -201,11 +344,19 @@ export default function HeroModal({setHeroData, updateBton}) {
                 type="text"
                 name="backgroundImageOpacity"
                 placeholder=".5"
+                onChange={handleChange}
+                value={hero.backgroundImageOpacity}
               />
             </Form.Group>
-            <button className="azh_btn w-100" type="submit" id="hero.sumbit">
-              Submit
-            </button>
+            {updateBton.display ? (
+              <button className="azh_btn w-100" type="submit" id="hero.sumbit">
+                Update
+              </button>
+            ) : (
+              <button className="azh_btn w-100" type="submit" id="hero.sumbit">
+                Submit
+              </button>
+            )}
           </Form>
         </Modal.Body>
       </Modal>
