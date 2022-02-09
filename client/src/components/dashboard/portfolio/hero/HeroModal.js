@@ -87,6 +87,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
+    return;
     axios
       .post("http://localhost:4000/api/hero", formData)
       .then((res) => {
@@ -242,22 +243,29 @@ export default function HeroModal({ setHeroData, updateBton }) {
                         <Col
                           xs={12}
                           sm={6}
-                          lg={7}
+                          lg={5}
                           className="d-flex flex-col  mb-2"
                         >
                           <Form.Group
                             className="mb-3"
-                            controlId="hero.social_url"
                           >
                             <Form.Label>Social URL</Form.Label>
                             <Form.Control
                               type="text"
                               name="social_icon_url"
-                              onChange={handleChange}
                               value={icon[1]}
+                              onChange={handleChange}
+                              id="social_icon_url"
                               placeholder="URL"
                             />
                           </Form.Group>
+                          <button type="button" className="btn btn-danger" id="deleteSocialIcon" style={{
+                            padding:'2px', 
+                            margin: '35px 10px 0',
+                            height:'30px'
+                          }}
+                            >Delete</button>
+
                         </Col>
                       </Row>
                     );
@@ -294,13 +302,14 @@ export default function HeroModal({ setHeroData, updateBton }) {
                       lg={7}
                       className="d-flex flex-col  mb-2"
                     >
-                      <Form.Group className="mb-3" controlId="hero.social_url">
+                      <Form.Group className="mb-3">
                         <Form.Label>Social URL</Form.Label>
                         <Form.Control
                           type="text"
                           name="social_icon_url"
                           value={hero.social_icon_url}
                           onChange={handleChange}
+                          id="social_icon_url"
                           placeholder="URL"
                         />
                       </Form.Group>
