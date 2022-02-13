@@ -40,7 +40,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
    * @param {event} e
    */
   const handleChange = (e) => {
-    console.log(e.target)
+    // console.log(e.target)
     setData({ ...hero, ...{ [e.target.name]: e.target.value } });
   };
 
@@ -59,10 +59,11 @@ export default function HeroModal({ setHeroData, updateBton }) {
     let data = {};
     data["icons"] = [];
     for (let [key, value] of form.entries()) {
-      if (key === "" || value === "") {
+      if (key === "" || value === "" || (key === 'backgroundImage' && value.name === '')) {
         alert("Please fill the value of : " + key);
         return;
       }
+
       if (key === "social_icon_name") {
         iconMap["icon"] = [value];
       } else if (key === "social_icon_url") {
@@ -77,15 +78,29 @@ export default function HeroModal({ setHeroData, updateBton }) {
     Object.keys(data).forEach((key) => {
       if (key === "icons") {
         formData.append(key, JSON.stringify(data[key]));
+      }else if(key === '_id'){
+
       } else {
         formData.append(key, data[key]);
       }
     });
+
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
-    return;
-    axios
+    // return;
+    if(data._id !== undefined){
+      axios
+      .post("http://localhost:4000/api/hero/"+data._id, formData)
+      .then((res) => {
+        setHeroData(res.data);
+        setLgShow(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }else{
+      axios
       .post("http://localhost:4000/api/hero", formData)
       .then((res) => {
         setHeroData(res.data);
@@ -94,6 +109,10 @@ export default function HeroModal({ setHeroData, updateBton }) {
       .catch((err) => {
         console.log(err);
       });
+    }
+
+    
+    
   };
 
   /**
@@ -229,7 +248,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
                 {hero.icons.length > 0 ? (
                   JSON.parse(hero.icons).map((icon, i) => {
                     return (
-                      <Row data-id={++i}>
+                      <Row key={i} data-id={++i}>
                         <Col
                           xs={12}
                           sm={6}
@@ -276,7 +295,6 @@ export default function HeroModal({ setHeroData, updateBton }) {
                               name="social_icon_url"
                               value={icon[1]}
                               onChange={handleChange}
-                              id="social_icon_url"
                               placeholder="URL"
                             />
                           </Form.Group>
@@ -325,7 +343,6 @@ export default function HeroModal({ setHeroData, updateBton }) {
                           name="social_icon_url"
                           value={hero.social_icon_url}
                           onChange={handleChange}
-                          id="social_icon_url"
                           placeholder="URL"
                         />
                       </Form.Group>
@@ -374,15 +391,9 @@ export default function HeroModal({ setHeroData, updateBton }) {
                 value={hero.backgroundImageOpacity}
               />
             </Form.Group>
-            {updateBton.display ? (
-              <button className="azh_btn w-100" type="submit" id="hero.sumbit">
-                Update
-              </button>
-            ) : (
-              <button className="azh_btn w-100" type="submit" id="hero.sumbit">
-                Submit
-              </button>
-            )}
+            <button className="azh_btn w-100" type="submit" id="hero.sumbit">
+            {updateBton.display ? 'Update' : 'Submit'}
+            </button>
           </Form>
         </Modal.Body>
       </Modal>
