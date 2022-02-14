@@ -12,33 +12,12 @@ import axios from "axios";
 /**
  * Hooks
  */
-import { getData } from "../../../hooks/hooks";
+import { getData , STORY_HEADERS} from "../../../hooks/HeroHooks";
 
 /**
  * Components
  */
 import HeroModal from "./HeroModal";
-
-// Create table headers consisting of 4 columns.
-const STORY_HEADERS = [
-  {
-    prop: "title",
-    title: "Title",
-    isFilterable: true,
-  },
-  {
-    prop: "profession",
-    title: "Profession",
-  },
-  {
-    prop: "backgroundImage",
-    title: "backgroundImage",
-  },
-  {
-    prop: "backgroundImageOpacity",
-    title: "backgroundImageOpacity",
-  },
-];
 
 // Then, use it in a component.
 export default function Hero() {
@@ -48,21 +27,17 @@ export default function Hero() {
   const setHeroData = (data) => {
     setHero([data]);
     setUpdateBtn({ display: true, id: data._id });
-    console.log(data);
   };
   useEffect(() => {
-    axios("http://localhost:4000/api/hero")
-      .then((result) => {
-        setHero(result.data.data);
-        if (result.data.data.length > 0) {
-          setTimeout(()=> setUpdateBtn({ display: true, id: result.data.data[0]._id }), 100)
+      /**
+       * Get data from and display to table.
+       */
+      getData("http://localhost:4000/api/hero").then(res=>{
+        setHero(res.data);
+        if (res.data.length > 0) {
+          setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
         }
-
-        console.log(updateBton);
       })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
 
   return (

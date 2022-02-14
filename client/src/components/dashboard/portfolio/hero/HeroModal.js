@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
-import axios from "axios";
-
-
+import {
+  socialIcons,
+  getData,
+  postData,
+  previewImage,
+  addSocialIcon,
+  deleteSocialIcon,
+} from "../../../hooks/HeroHooks";
 /**
  * Css
  */
-import './hero.css'
+import "./hero.css";
 
 export default function HeroModal({ setHeroData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
@@ -20,27 +25,11 @@ export default function HeroModal({ setHeroData, updateBton }) {
     backgroundImageOpacity: "",
     icons: [],
   });
-  const socialIcons = [
-    "facebook",
-    "linkedin",
-    "github",
-    "twitter",
-    "instagram",
-    "hackerrank",
-    "stackoverflow",
-    "leetcode",
-    "skype",
-    "zoom",
-  ];
-
-
-
   /**
    * Handle content change value.
    * @param {event} e
    */
   const handleChange = (e) => {
-    // console.log(e.target)
     setData({ ...hero, ...{ [e.target.name]: e.target.value } });
   };
 
@@ -59,7 +48,11 @@ export default function HeroModal({ setHeroData, updateBton }) {
     let data = {};
     data["icons"] = [];
     for (let [key, value] of form.entries()) {
-      if (key === "" || value === "" || (key === 'backgroundImage' && value.name === '')) {
+      if (
+        key === "" ||
+        value === "" ||
+        (key === "backgroundImage" && value.name === "")
+      ) {
         alert("Please fill the value of : " + key);
         return;
       }
@@ -78,41 +71,39 @@ export default function HeroModal({ setHeroData, updateBton }) {
     Object.keys(data).forEach((key) => {
       if (key === "icons") {
         formData.append(key, JSON.stringify(data[key]));
-      }else if(key === '_id'){
-
+      } else if (key === "_id") {
       } else {
         formData.append(key, data[key]);
       }
     });
 
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
     // return;
-    if(data._id !== undefined){
-      axios
-      .post("http://localhost:4000/api/hero/"+data._id, formData)
-      .then((res) => {
-        setHeroData(res.data);
-        setLgShow(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    }else{
-      axios
-      .post("http://localhost:4000/api/hero", formData)
-      .then((res) => {
-        setHeroData(res.data);
-        setLgShow(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    }
 
-    
-    
+    /**
+     * Update data if "_id" exists. else save form data.
+     */
+    if (data._id !== undefined) {
+      postData("http://localhost:4000/api/hero/" + data._id, formData)
+        .then((res) => {
+          setHeroData(res);
+          setLgShow(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      postData("http://localhost:4000/api/hero", formData)
+        .then((res) => {
+          setHeroData(res);
+          setLgShow(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   /**
@@ -120,64 +111,18 @@ export default function HeroModal({ setHeroData, updateBton }) {
    * @param {id} id
    */
   const getHeroContent = (id) => {
-    axios
-      .get("http://localhost:4000/api/hero/" + id)
-      .then((res) => {
-        setData(res.data);
-        setTimeout(() => console.log(hero), 10);
-        setLgShow(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getData("http://localhost:4000/api/hero/" + id).then((res) => {
+      setData(res);
+      setLgShow(true);
+    });
   };
-  /**
-   * Preveiw Image
-   */
-  const previewImage = (e) => {
-    let imgUrl = document.getElementById("previewImage");
-    const url = URL.createObjectURL(e.target.files[0]);
-    imgUrl.src = url;
-  };
-    /**
-   * Add another social icon with url
-   */
-     const addSocialIcon = () => {
-      const icon_col = document.getElementById("social_icon_col");
-      const icon_row = document
-        .getElementById("social_icon_col")
-        .firstChild.cloneNode(true);
-      icon_col.appendChild(icon_row);
-      let iconNodes = document
-      .getElementById("social_icon_col").childNodes;
-      let lastDatId = iconNodes[iconNodes.length-2].getAttribute('data-id')
-      iconNodes[iconNodes.length-1].setAttribute('data-id', ++lastDatId)
-      console.log(lastDatId)
-    };
-
-  /**
-   * Delete social icon
-   */
-  const deleteSocialIcon = (e) => {
-   
-    let row = e.target.parentElement.parentElement;
-    e.target.parentElement.parentElement.parentElement.removeChild(row)
-  }
 
   return (
     <>
-      {updateBton.display ? (
-        <Button
-          bsPrefix="azh_btn"
-          onClick={(e) => getHeroContent(updateBton.id)}
-        >
-          Update Content
-        </Button>
-      ) : (
-        <Button bsPrefix="azh_btn" onClick={(e) => setLgShow(true)}>
-          Hero Content
-        </Button>
-      )}
+      <Button bsPrefix="azh_btn" onClick={(e) => getHeroContent(updateBton.id)}>
+        {updateBton.display ? "Update Content" : "Add Content"}
+      </Button>
+
       <Modal
         size="lg"
         show={lgShow}
@@ -263,16 +208,13 @@ export default function HeroModal({ setHeroData, updateBton }) {
                             <Form.Select
                               name="social_icon_name"
                               onChange={handleChange}
+                              value={icon[0]}
                               aria-label="Default select example"
                             >
-                              <option>Open this select menu</option>
+                              <option disabled>Open this select menu</option>
                               {socialIcons.map((item) => {
                                 return (
-                                  <option
-                                    key={item}
-                                    value={item}
-                                    selected={icon[0] === item ? "selected" : ""}
-                                  >
+                                  <option key={item} value={item}>
                                     {item[0].toUpperCase() + item.slice(1)}
                                   </option>
                                 );
@@ -286,9 +228,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
                           lg={5}
                           className="d-flex flex-col  mb-2"
                         >
-                          <Form.Group
-                            className="mb-3"
-                          >
+                          <Form.Group className="mb-3">
                             <Form.Label>Social URL</Form.Label>
                             <Form.Control
                               type="text"
@@ -298,8 +238,13 @@ export default function HeroModal({ setHeroData, updateBton }) {
                               placeholder="URL"
                             />
                           </Form.Group>
-                          <button type="button" className="azh_btn btn-danger azh_btn_delete deleteSocialIcon" onClick={deleteSocialIcon} 
-                            >Delete</button>
+                          <button
+                            type="button"
+                            className="azh_btn btn-danger azh_btn_delete deleteSocialIcon"
+                            onClick={deleteSocialIcon}
+                          >
+                            Delete
+                          </button>
                         </Col>
                       </Row>
                     );
@@ -318,8 +263,11 @@ export default function HeroModal({ setHeroData, updateBton }) {
                           name="social_icon_name"
                           onChange={handleChange}
                           aria-label="Default select example"
+                          defaultValue={"DEFAULT"}
                         >
-                          <option>Open this select menu</option>
+                          <option value="DEFAULT" disabled>
+                            Open this select menu
+                          </option>
                           {socialIcons.map((item) => {
                             return (
                               <option key={item} value={item}>
@@ -392,7 +340,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
               />
             </Form.Group>
             <button className="azh_btn w-100" type="submit" id="hero.sumbit">
-            {updateBton.display ? 'Update' : 'Submit'}
+              {updateBton.display ? "Update" : "Submit"}
             </button>
           </Form>
         </Modal.Body>
