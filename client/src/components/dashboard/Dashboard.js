@@ -21,8 +21,8 @@ import DashboardSideNav from "./dasboardcontent/DashboardSideNav";
  */
 import Hero from "./portfolio/hero/Hero";
 import About from "./portfolio/about/About";
+import Skills from './portfolio/skills/Skills'
 import Facts from './portfolio/Facts'
-import Skills from "./portfolio/Skills";
 import Resume from "./portfolio/Resume";
 import Portfolio from "./portfolio/Portfolio";
 import Services from "./portfolio/Services";
