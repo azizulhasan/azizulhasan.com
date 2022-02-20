@@ -20,7 +20,7 @@ import DashboardSideNav from "./dasboardcontent/DashboardSideNav";
  * Portfolio components
  */
 import Hero from "./portfolio/hero/Hero";
-import About from "./portfolio/About";
+import About from "./portfolio/about/About";
 import Facts from './portfolio/Facts'
 import Skills from "./portfolio/Skills";
 import Resume from "./portfolio/Resume";

@@ -12,15 +12,15 @@ import axios from "axios";
 /**
  * Hooks
  */
-import { getData , STORY_HEADERS} from "./HeroHooks";
+import { getData , STORY_HEADERS} from "./AboutHooks";
 
 /**
  * Components
  */
-import HeroModal from "./HeroModal";
+import AboutModal from "./AboutModal";
 
 // Then, use it in a component.
-export default function Hero() {
+export default function About() {
   const [hero, setHero] = useState([]);
   const [updateBton, setUpdateBtn] = useState({ display: false, id: "" });
 
@@ -32,12 +32,12 @@ export default function Hero() {
       /**
        * Get data from and display to table.
        */
-      getData("http://localhost:4000/api/hero").then(res=>{
-        setHero(res.data);
-        if (res.data.length > 0) {
-          setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
-        }
-      })
+      // getData("http://localhost:4000/api/hero").then(res=>{
+      //   setHero(res.data);
+      //   if (res.data.length > 0) {
+      //     setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
+      //   }
+      // })
   }, []);
 
   return (
@@ -57,7 +57,7 @@ export default function Hero() {
           lg={2}
           className="d-flex flex-col justify-content-end align-items-start"
         >
-          <HeroModal updateBton={updateBton} setHeroData={setHeroData} />
+          <AboutModal updateBton={updateBton} setHeroData={setHeroData} />
         </Col>
         <Col
           xs={12}

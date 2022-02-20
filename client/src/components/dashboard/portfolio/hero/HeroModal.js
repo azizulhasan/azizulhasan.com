@@ -7,7 +7,7 @@ import {
   previewImage,
   addSocialIcon,
   deleteSocialIcon,
-} from "../../../hooks/HeroHooks";
+} from "./HeroHooks";
 /**
  * Css
  */
@@ -67,6 +67,9 @@ export default function HeroModal({ setHeroData, updateBton }) {
       }
     }
 
+    /**
+     * format form data.
+     */
     let formData = new FormData();
     Object.keys(data).forEach((key) => {
       if (key === "icons") {
@@ -119,9 +122,15 @@ export default function HeroModal({ setHeroData, updateBton }) {
 
   return (
     <>
-      <Button bsPrefix="azh_btn" onClick={(e) => getHeroContent(updateBton.id)}>
-        {updateBton.display ? "Update Content" : "Add Content"}
+      {updateBton.display ?(
+        <Button bsPrefix="azh_btn" onClick={(e) => getHeroContent(updateBton.id)}>
+        Update Content
       </Button>
+    ):(
+        <Button bsPrefix="azh_btn" onClick={(e) => setLgShow(true)}>
+         Add Content
+      </Button>
+    )}
 
       <Modal
         size="lg"
