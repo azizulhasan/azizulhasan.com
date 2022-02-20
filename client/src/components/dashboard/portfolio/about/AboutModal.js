@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import {
-  socialIcons,
   getData,
   postData,
   previewImage,
-  addSocialIcon,
-  deleteSocialIcon,
 } from "./AboutHooks";
 import { Editor } from "@tinymce/tinymce-react";
 /**
@@ -14,12 +11,12 @@ import { Editor } from "@tinymce/tinymce-react";
  */
 import "./about.css";
 
-export default function AboutModal({ setHeroData, updateBton }) {
+export default function AboutModal({ setAboutData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
   const [about, setData] = useState({
     _id: "",
     profession: "",
-    details: "",
+    details: "<p>asdgfasdf</p>",
     portfolioImage: "",
   });
   /**
@@ -32,7 +29,8 @@ export default function AboutModal({ setHeroData, updateBton }) {
 
   const handleDetailsChange = (ed) => {
     ed.on("change", function (e) {
-      setData({ ...about, ...{ ["details"]: ed.getContent() } });
+      about.details = ed.getContent()
+      console.log(about)
     });
   };
 
@@ -76,7 +74,7 @@ export default function AboutModal({ setHeroData, updateBton }) {
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
-    return;
+    // return;
 
     /**
      * Update data if "_id" exists. else save form data.
@@ -84,7 +82,7 @@ export default function AboutModal({ setHeroData, updateBton }) {
     if (data._id !== undefined) {
       postData("http://localhost:4000/api/about/" + data._id, formData)
         .then((res) => {
-          setHeroData(res);
+          setAboutData(res);
           setLgShow(false);
         })
         .catch((err) => {
@@ -93,7 +91,7 @@ export default function AboutModal({ setHeroData, updateBton }) {
     } else {
       postData("http://localhost:4000/api/about", formData)
         .then((res) => {
-          setHeroData(res);
+          setAboutData(res);
           setLgShow(false);
         })
         .catch((err) => {
@@ -108,7 +106,7 @@ export default function AboutModal({ setHeroData, updateBton }) {
    */
   const getAboutContent = (id) => {
     getData("http://localhost:4000/api/about/" + id).then((res) => {
-      setData([res]);
+      setData(res);
       setLgShow(true);
     });
   };
@@ -165,7 +163,8 @@ export default function AboutModal({ setHeroData, updateBton }) {
             <Form.Group className="mb-4" controlId="about.details">
               <Form.Label>Profession Details</Form.Label>
               <Editor
-                initialValue="<p>This is the initial content of the editor.</p>"
+               initialValue={about.details}
+               name = "details"
                 init={{
                   height: 200,
                   menubar: true,

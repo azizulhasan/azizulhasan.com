@@ -9,6 +9,7 @@ const cors = require('cors')
  */
 const blogRoutes = require('./routes/blogRoutes');
 const heroRoutes = require('./routes/heroRoutes');
+const aboutRoutes = require('./routes/aboutRoutes');
 
 // express app
 const app = express();
@@ -65,6 +66,12 @@ app.use('/blogs', blogRoutes);
  * Hero Routs
  */
 app.use('/api/hero', heroRoutes)
+
+
+/**
+ * About Routes
+ */
+ app.use('/api/about', aboutRoutes)
 
 // 404 page
 app.use((req, res) => {

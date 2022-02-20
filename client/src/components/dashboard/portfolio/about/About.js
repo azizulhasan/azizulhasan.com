@@ -8,7 +8,6 @@ import {
   TableBody,
   TableHeader,
 } from "react-bs-datatable";
-import axios from "axios";
 /**
  * Hooks
  */
@@ -21,28 +20,28 @@ import AboutModal from "./AboutModal";
 
 // Then, use it in a component.
 export default function About() {
-  const [hero, setHero] = useState([]);
+  const [about, setAbout] = useState([]);
   const [updateBton, setUpdateBtn] = useState({ display: false, id: "" });
 
-  const setHeroData = (data) => {
-    setHero([data]);
+  const setAboutData = (data) => {
+    setAbout([data]);
     setUpdateBtn({ display: true, id: data._id });
   };
   useEffect(() => {
       /**
        * Get data from and display to table.
        */
-      // getData("http://localhost:4000/api/hero").then(res=>{
-      //   setHero(res.data);
-      //   if (res.data.length > 0) {
-      //     setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
-      //   }
-      // })
+      getData("http://localhost:4000/api/about").then(res=>{
+        setAbout(res.data);
+        if (res.data.length > 0) {
+          setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
+        }
+      })
   }, []);
 
   return (
     <DatatableWrapper
-      body={hero}
+      body={about}
       headers={STORY_HEADERS}
       paginationOptionsProps={{
         initialState: {
@@ -57,7 +56,7 @@ export default function About() {
           lg={2}
           className="d-flex flex-col justify-content-end align-items-start"
         >
-          <AboutModal updateBton={updateBton} setHeroData={setHeroData} />
+          <AboutModal updateBton={updateBton} setAboutData={setAboutData} />
         </Col>
         <Col
           xs={12}

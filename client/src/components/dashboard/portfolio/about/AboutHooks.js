@@ -73,20 +73,16 @@
   // Create table headers consisting of 4 columns.
   const STORY_HEADERS = [
     {
-      prop: "title",
-      title: "Title",
-    },
-    {
       prop: "profession",
       title: "Profession",
     },
     {
-      prop: "backgroundImage",
-      title: "backgroundImage",
+      prop: "portfolioImage",
+      title: "Portfolio Image",
     },
     {
-      prop: "backgroundImageOpacity",
-      title: "backgroundImageOpacity",
+      prop: "details",
+      title: "Details",
     },
   ];
   module.exports = {
