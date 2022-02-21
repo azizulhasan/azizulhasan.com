@@ -23,7 +23,7 @@ import Hero from "./portfolio/hero/Hero";
 import About from "./portfolio/about/About";
 import Skills from './portfolio/skills/Skills'
 import Facts from './portfolio/Facts'
-import Resume from "./portfolio/Resume";
+import Resume from "./portfolio/resume/Resume";
 import Portfolio from "./portfolio/Portfolio";
 import Services from "./portfolio/Services";
 import Contact from "./portfolio/Contact";

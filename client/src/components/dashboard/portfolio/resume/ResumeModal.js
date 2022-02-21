@@ -1,41 +1,35 @@
 import React, { useState } from "react";
-import { Button, Modal, Form, Row, Col } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 import {
   getData,
   postData,
-  previewImage,
-} from "./AboutHooks";
+  getIframeContent
+} from "./ResumeHooks";
 import { Editor } from "@tinymce/tinymce-react";
 /**
  * Css
  */
-import "./about.css";
+import "./resume.css";
 
-export default function AboutModal({ setAboutData, updateBton }) {
+export default function ResumeModal({ setAboutData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
-  const [about, setData] = useState({
+  const [resume, setData] = useState({
     _id: "",
-    profession: "",
     details: "",
-    portfolioImage: "",
+    name: "",
+    summery: ""
   });
+
+
   /**
    * Handle content change value.
    * @param {event} e
    */
   const handleChange = (e) => {
-    setData({ ...about, ...{ [e.target.name]: e.target.value } });
+    setData({ ...resume, ...{ [e.target.name]: e.target.value } });
   };
-
-  const handleDetailsChange = (ed) => {
-    ed.on("change", function (e) {
-      about.details = ed.getContent()
-      console.log(about)
-    });
-  };
-
   /**
-   * Handle about content form submission
+   * Handle resume content form submission
    * @param {event} e
    * @returns
    */
@@ -49,16 +43,13 @@ export default function AboutModal({ setAboutData, updateBton }) {
     for (let [key, value] of form.entries()) {
       if (
         key === "" ||
-        value === "" ||
-        (key === "portfolioImage" && value.name === "")
+        value === ""
       ) {
         alert("Please fill the value of : " + key);
         return;
       }
-
       data[key] = value;
     }
-
     /**
      * format form data.
      */
@@ -69,18 +60,18 @@ export default function AboutModal({ setAboutData, updateBton }) {
         formData.append(key, data[key]);
       }
     });
-    formData.append("details", about.details);
 
+    formData.append("summery", getIframeContent());
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
-    // return;
+    return;
 
     /**
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/about/" + data._id, formData)
+      postData("http://localhost:4000/api/resume/" + data._id, formData)
         .then((res) => {
           setAboutData(res);
           setLgShow(false);
@@ -89,7 +80,7 @@ export default function AboutModal({ setAboutData, updateBton }) {
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/about", formData)
+      postData("http://localhost:4000/api/resume", formData)
         .then((res) => {
           setAboutData(res);
           setLgShow(false);
@@ -104,8 +95,8 @@ export default function AboutModal({ setAboutData, updateBton }) {
    * get hero content by id.
    * @param {id} id
    */
-  const getAboutContent = (id) => {
-    getData("http://localhost:4000/api/about/" + id).then((res) => {
+  const getResumeContent = (id) => {
+    getData("http://localhost:4000/api/resume/" + id).then((res) => {
       setData(res);
       setLgShow(true);
     });
@@ -115,7 +106,7 @@ export default function AboutModal({ setAboutData, updateBton }) {
       {updateBton.display ? (
         <Button
           bsPrefix="azh_btn"
-          onClick={(e) => getAboutContent(updateBton.id)}
+          onClick={(e) => getResumeContent(updateBton.id)}
         >
           Update Content
         </Button>
@@ -134,37 +125,48 @@ export default function AboutModal({ setAboutData, updateBton }) {
           <Modal.Title id="example-modal-sizes-title-lg">
             {updateBton.display
               ? "Update Section Content"
-              : "About Section Content"}
+              : "Resume Section Content"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit} encType="multipart/form-data">
+          <Form onSubmit={handleSubmit}>
             {updateBton.display && (
               <Form.Control
                 type="text"
                 id="_id"
                 onChange={handleChange}
-                value={about._id}
+                value={resume._id}
                 name="_id"
                 placeholder="id"
                 hidden
               />
             )}
-            <Form.Group className="mb-4" controlId="about.profession">
-              <Form.Label>Profession Title</Form.Label>
+            <Form.Group className="mb-4" controlId="resume.details">
+              <Form.Label>Details</Form.Label>
               <Form.Control
-                type="text"
-                name="profession"
+                as="textarea"
+                row={2}
+                name="details"
                 onChange={handleChange}
-                value={about.profession}
-                placeholder="Software Engineer, Teacher etc"
+                value={resume.details}
+                placeholder="Details"
               />
             </Form.Group>
-            <Form.Group className="mb-4" controlId="about.details">
-              <Form.Label>Profession Details</Form.Label>
+            <Form.Group className="mb-4" controlId="resume.name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                onChange={handleChange}
+                value={resume.name}
+                placeholder="name"
+              />
+            </Form.Group>
+            <Form.Group className="mb-4" controlId="resume.summery">
+              <Form.Label>Summery</Form.Label>
               <Editor
-               initialValue={about.details}
-               name = "details"
+               initialValue={resume.summery}
+               name = "summery"
                 init={{
                   height: 200,
                   menubar: true,
@@ -177,38 +179,10 @@ export default function AboutModal({ setAboutData, updateBton }) {
                     "insertfile a11ycheck undo redo | bold italic | forecolor backcolor | template codesample | alignleft aligncenter alignright alignjustify | bullist numlist | link image tinydrive",
                   content_style:
                     "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                  setup: handleDetailsChange,
                 }}
               />
             </Form.Group>
-            <Row>
-              <Col xs={12} sm={6} lg={6}>
-                <Form.Group className="mb-4" controlId="about.portfolioImage">
-                  <Form.Label>Portfolio Image</Form.Label>
-                  <Form.Control
-                    accept=".png, .jpg, .jpeg"
-                    name="portfolioImage"
-                    onChange={previewImage}
-                    type="file"
-                  />
-                </Form.Group>
-              </Col>
-              <Col xs={12} sm={6} lg={6}>
-                <Form.Group
-                  className="mb-4"
-                  controlId="about.portfolioImagePreview"
-                >
-                  <img
-                    id="previewImage"
-                    height="100"
-                    width="100"
-                    alt={about.backgroundImage}
-                    src={about.backgroundImage}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <button className="azh_btn w-100" type="submit" id="about.sumbit">
+            <button className="azh_btn w-100" type="submit" id="resume.sumbit">
               {updateBton.display ? "Update" : "Submit"}
             </button>
           </Form>

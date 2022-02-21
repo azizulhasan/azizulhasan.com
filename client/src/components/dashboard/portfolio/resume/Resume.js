@@ -11,33 +11,30 @@ import {
 /**
  * Hooks
  */
-import { STORY_HEADERS} from "./SkillsHooks";
-import {
-  getData,
-} from "../../../Context/utilities";
+import { getData , STORY_HEADERS} from "./ResumeHooks";
 
 /**
  * Components
  */
-import SkillsModal from "./SkillsModal";
+import AboutModal from "./ResumeModal";
 
 // Then, use it in a component.
-export default function Skills() {
-  const [about, setSkills] = useState([]);
+export default function Resume() {
+  const [about, setAbout] = useState([]);
   const [updateBton, setUpdateBtn] = useState({ display: false, id: "" });
 
-  const setSkillsData = (data) => {
-    setSkills([data]);
+  const setAboutData = (data) => {
+    setAbout([data]);
     setUpdateBtn({ display: true, id: data._id });
   };
   useEffect(() => {
       /**
        * Get data from and display to table.
        */
-      getData("http://localhost:4000/api/skills").then(res=>{
-        setSkills(res.data);
+      getData("http://localhost:4000/api/about").then(res=>{
+        // setAbout(res.data);
         if (res.data.length > 0) {
-          setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
+          // setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
         }
       })
   }, []);
@@ -59,7 +56,7 @@ export default function Skills() {
           lg={2}
           className="d-flex flex-col justify-content-end align-items-start"
         >
-          <SkillsModal updateBton={updateBton} setSkillsData={setSkillsData} />
+          <AboutModal updateBton={updateBton} setAboutData={setAboutData} />
         </Col>
         <Col
           xs={12}

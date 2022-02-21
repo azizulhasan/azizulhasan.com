@@ -7,7 +7,7 @@ import { deleteSkill, addSkill } from "./SkillsHooks";
  */
 import "./skills.css";
 
-export default function AboutModal({ setAboutData, updateBton }) {
+export default function AboutModal({ setSkillsData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
   const [skills, setData] = useState({
     _id: "",
@@ -37,21 +37,21 @@ export default function AboutModal({ setAboutData, updateBton }) {
      let form = new FormData(e.target);
      let skillMap = {};
      let data = {};
-     data["skill"] = [];
+     data["skills"] = [];
      for (let [key, value] of form.entries()) {
        if (
          key === "" ||
          value === ""
        ) {
-        //  alert("Please fill the value of : " + key);
-        //  return;
+         alert("Please fill the value of : " + key);
+         return;
        }
  
        if (key === "skill_name") {
-         skillMap["skill"] = [value];
+         skillMap["skills"] = [value];
        } else if (key === "skill_proficiency") {
-         skillMap["skill"].push(value);
-         data["skill"].push(skillMap["skill"]);
+         skillMap["skills"].push(value);
+         data["skills"].push(skillMap["skills"]);
        } else {
          data[key] = value;
        }
@@ -62,7 +62,9 @@ export default function AboutModal({ setAboutData, updateBton }) {
      */
     let formData = new FormData();
     Object.keys(data).forEach((key) => {
-      if (key === "_id") {
+      if (key === "skills") {
+        formData.append(key, JSON.stringify(data[key]));
+      } else if (key === "_id") {
       } else {
         formData.append(key, data[key]);
       }
@@ -71,24 +73,24 @@ export default function AboutModal({ setAboutData, updateBton }) {
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
-    return;
+    // return;
 
     /**
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/about/" + data._id, formData)
+      postData("http://localhost:4000/api/skills/" + data._id, formData)
         .then((res) => {
-          setAboutData(res);
+          setSkillsData(res);
           setLgShow(false);
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/about", formData)
+      postData("http://localhost:4000/api/skills", formData)
         .then((res) => {
-          setAboutData(res);
+          setSkillsData(res);
           setLgShow(false);
         })
         .catch((err) => {
@@ -101,8 +103,8 @@ export default function AboutModal({ setAboutData, updateBton }) {
    * get hero content by id.
    * @param {id} id
    */
-  const getAboutContent = (id) => {
-    getData("http://localhost:4000/api/about/" + id).then((res) => {
+  const getSkillsContent = (id) => {
+    getData("http://localhost:4000/api/skills/" + id).then((res) => {
 
     //   setData(res);
       setLgShow(true);
@@ -113,7 +115,7 @@ export default function AboutModal({ setAboutData, updateBton }) {
       {updateBton.display ? (
         <Button
           bsPrefix="azh_btn"
-          onClick={(e) => getAboutContent(updateBton.id)}
+          onClick={(e) => getSkillsContent(updateBton.id)}
         >
           Update Content
         </Button>
