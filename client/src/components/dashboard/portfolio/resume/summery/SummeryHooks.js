@@ -25,16 +25,6 @@
     const data = await response.json();
     return data; // parses JSON response into native JavaScript objects
   };
-  
-  /**
-   * Preveiw Image
-   */
-  const previewImage = (e) => {
-    let imgUrl = document.getElementById("previewImage");
-    const url = URL.createObjectURL(e.target.files[0]);
-    imgUrl.src = url;
-  };
-
   /**
    * Get ifram content
    */
@@ -48,16 +38,16 @@ const getIframeContent = ()=> {
   // Create table headers consisting of 4 columns.
   const STORY_HEADERS = [
     {
-      prop: "profession",
-      title: "Profession",
-    },
-    {
-      prop: "portfolioImage",
-      title: "Portfolio Image",
-    },
-    {
       prop: "details",
       title: "Details",
+    },
+    {
+      prop: "name",
+      title: "Name",
+    },
+    {
+      prop: "summery",
+      title: "Summery",
     },
   ];
 
@@ -65,7 +55,6 @@ const getIframeContent = ()=> {
   module.exports = {
     getData,
     postData,
-    previewImage,
     getIframeContent,
     STORY_HEADERS,
   };

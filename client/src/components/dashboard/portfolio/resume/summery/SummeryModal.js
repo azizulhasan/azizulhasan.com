@@ -4,16 +4,16 @@ import {
   getData,
   postData,
   getIframeContent
-} from "./ResumeHooks";
+} from "./SummeryHooks";
 import { Editor } from "@tinymce/tinymce-react";
 /**
  * Css
  */
-import "./resume.css";
+import "./summery.css";
 
 export default function ResumeModal({ setAboutData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
-  const [resume, setData] = useState({
+  const [summery, setData] = useState({
     _id: "",
     details: "",
     name: "",
@@ -26,10 +26,10 @@ export default function ResumeModal({ setAboutData, updateBton }) {
    * @param {event} e
    */
   const handleChange = (e) => {
-    setData({ ...resume, ...{ [e.target.name]: e.target.value } });
+    setData({ ...summery, ...{ [e.target.name]: e.target.value } });
   };
   /**
-   * Handle resume content form submission
+   * Handle summery content form submission
    * @param {event} e
    * @returns
    */
@@ -65,13 +65,12 @@ export default function ResumeModal({ setAboutData, updateBton }) {
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
-    return;
-
+    // return
     /**
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/resume/" + data._id, formData)
+      postData("http://localhost:4000/api/summery/" + data._id, formData)
         .then((res) => {
           setAboutData(res);
           setLgShow(false);
@@ -80,10 +79,11 @@ export default function ResumeModal({ setAboutData, updateBton }) {
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/resume", formData)
+      postData("http://localhost:4000/api/summery", data)   
         .then((res) => {
-          setAboutData(res);
-          setLgShow(false);
+            console.log(res)
+        //   setAboutData(res);
+        //   setLgShow(false);
         })
         .catch((err) => {
           console.log(err);
@@ -95,8 +95,8 @@ export default function ResumeModal({ setAboutData, updateBton }) {
    * get hero content by id.
    * @param {id} id
    */
-  const getResumeContent = (id) => {
-    getData("http://localhost:4000/api/resume/" + id).then((res) => {
+  const getSummeryContent = (id) => {
+    getData("http://localhost:4000/api/summery/" + id).then((res) => {
       setData(res);
       setLgShow(true);
     });
@@ -106,7 +106,7 @@ export default function ResumeModal({ setAboutData, updateBton }) {
       {updateBton.display ? (
         <Button
           bsPrefix="azh_btn"
-          onClick={(e) => getResumeContent(updateBton.id)}
+          onClick={(e) => getSummeryContent(updateBton.id)}
         >
           Update Content
         </Button>
@@ -125,7 +125,7 @@ export default function ResumeModal({ setAboutData, updateBton }) {
           <Modal.Title id="example-modal-sizes-title-lg">
             {updateBton.display
               ? "Update Section Content"
-              : "Resume Section Content"}
+              : "Summery Section Content"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -135,37 +135,37 @@ export default function ResumeModal({ setAboutData, updateBton }) {
                 type="text"
                 id="_id"
                 onChange={handleChange}
-                value={resume._id}
+                value={summery._id}
                 name="_id"
                 placeholder="id"
                 hidden
               />
             )}
-            <Form.Group className="mb-4" controlId="resume.details">
+            <Form.Group className="mb-4" controlId="summery.details">
               <Form.Label>Details</Form.Label>
               <Form.Control
                 as="textarea"
                 row={2}
                 name="details"
                 onChange={handleChange}
-                value={resume.details}
+                value={summery.details}
                 placeholder="Details"
               />
             </Form.Group>
-            <Form.Group className="mb-4" controlId="resume.name">
+            <Form.Group className="mb-4" controlId="summery.name">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
                 name="name"
                 onChange={handleChange}
-                value={resume.name}
+                value={summery.name}
                 placeholder="name"
               />
             </Form.Group>
-            <Form.Group className="mb-4" controlId="resume.summery">
+            <Form.Group className="mb-4" controlId="summery.summery">
               <Form.Label>Summery</Form.Label>
               <Editor
-               initialValue={resume.summery}
+               initialValue={summery.summery}
                name = "summery"
                 init={{
                   height: 200,
@@ -182,7 +182,7 @@ export default function ResumeModal({ setAboutData, updateBton }) {
                 }}
               />
             </Form.Group>
-            <button className="azh_btn w-100" type="submit" id="resume.sumbit">
+            <button className="azh_btn w-100" type="submit" id="summery.sumbit">
               {updateBton.display ? "Update" : "Submit"}
             </button>
           </Form>

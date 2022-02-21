@@ -23,7 +23,7 @@ import Hero from "./portfolio/hero/Hero";
 import About from "./portfolio/about/About";
 import Skills from './portfolio/skills/Skills'
 import Facts from './portfolio/Facts'
-import Resume from "./portfolio/resume/Resume";
+import Summery from "./portfolio/resume/summery/Summery";
 import Portfolio from "./portfolio/Portfolio";
 import Services from "./portfolio/Services";
 import Contact from "./portfolio/Contact";
@@ -43,7 +43,6 @@ export default function Dashboard() {
         <Router>
         <DashboardTopNav/>
         <div id="layoutSidenav">
-        
             <DashboardSideNav/>
             <div id="layoutSidenav_content">
                 <main>
@@ -58,7 +57,7 @@ export default function Dashboard() {
                           <Route path="/dashboard/about" element={<About/>}/>
                           <Route path="/dashboard/facts" element={<Facts/>}/>
                           <Route path="/dashboard/skills" element={<Skills/>}/>
-                          <Route path="/dashboard/resume" element={<Resume/>}/>
+                          <Route path="/dashboard/resume/summery" element={<Summery/>}/>
                           <Route path="/dashboard/portfolio" element={<Portfolio/>}/>
                           <Route path="/dashboard/services" element={<Services/>}/>
                           <Route path="/dashboard/testimonials" element={<Testimonials/>}/>

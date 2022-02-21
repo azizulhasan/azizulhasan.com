@@ -11,6 +11,7 @@ const blogRoutes = require('./routes/blogRoutes');
 const heroRoutes = require('./routes/heroRoutes');
 const aboutRoutes = require('./routes/aboutRoutes');
 const skillsRoutes = require('./routes/skillsRoutes');
+const summeryRoutes = require('./routes/summeryRoutes');
 
 // express app
 const app = express();
@@ -36,7 +37,7 @@ app.use(express.static('public'));
  * This middleware is used for recognizing request object as string or array.
  * and "express.json()" function recognize request object as json format.
  */
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 /**
  * This middleware is used to console errors more elegent way.
  */
@@ -79,6 +80,11 @@ app.use('/api/hero', heroRoutes)
  * Skills Routes
  */
  app.use('/api/skills', skillsRoutes)
+
+ /**
+ * Summery Routes
+ */
+  app.use('/api/summery', summeryRoutes)
 
 // 404 page
 app.use((req, res) => {

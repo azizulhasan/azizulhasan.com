@@ -11,28 +11,28 @@ import {
 /**
  * Hooks
  */
-import { getData , STORY_HEADERS} from "./ResumeHooks";
+import { getData , STORY_HEADERS} from "./SummeryHooks";
 
 /**
  * Components
  */
-import AboutModal from "./ResumeModal";
+import SummeryModal from "./SummeryModal";
 
 // Then, use it in a component.
 export default function Resume() {
-  const [about, setAbout] = useState([]);
+  const [summery, setResume] = useState([]);
   const [updateBton, setUpdateBtn] = useState({ display: false, id: "" });
 
   const setAboutData = (data) => {
-    setAbout([data]);
+    setResume([data]);
     setUpdateBtn({ display: true, id: data._id });
   };
   useEffect(() => {
       /**
        * Get data from and display to table.
        */
-      getData("http://localhost:4000/api/about").then(res=>{
-        // setAbout(res.data);
+      getData("http://localhost:4000/api/summery").then(res=>{
+        // setResume(res.data);
         if (res.data.length > 0) {
           // setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
         }
@@ -41,7 +41,7 @@ export default function Resume() {
 
   return (
     <DatatableWrapper
-      body={about}
+      body={summery}
       headers={STORY_HEADERS}
       paginationOptionsProps={{
         initialState: {
@@ -56,7 +56,7 @@ export default function Resume() {
           lg={2}
           className="d-flex flex-col justify-content-end align-items-start"
         >
-          <AboutModal updateBton={updateBton} setAboutData={setAboutData} />
+          <SummeryModal updateBton={updateBton} setAboutData={setAboutData} />
         </Col>
         <Col
           xs={12}

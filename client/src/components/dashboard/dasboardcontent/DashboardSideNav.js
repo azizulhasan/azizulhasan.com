@@ -28,13 +28,13 @@ export default function DashboardSideNav() {
               className="nav-link collapsed"
               href="#"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseLayouts"
+              data-bs-target="#portfolioLaouts"
               aria-expanded="false"
-              aria-controls="collapseLayouts"
+              aria-controls="portfolioLaouts"
             >
-            {/* Portfolio Menu */}
+              {/* Portfolio Menu */}
               <div className="sb-nav-link-icon">
-                <i className="fas fa-columns"></i>
+                <i className="fas fa-book-open"></i>
               </div>
               Portfolio
               <div className="sb-sidenav-collapse-arrow">
@@ -43,41 +43,74 @@ export default function DashboardSideNav() {
             </a>
             <div
               className="collapse"
-              id="collapseLayouts"
-              aria-labelledby="headingOne"
+              id="portfolioLaouts"
+              aria-labelledby="headingTwo"
               data-bs-parent="#sidenavAccordion"
             >
               <nav className="sb-sidenav-menu-nested nav">
                 <Link className="nav-link" to="/dashboard/hero">
-                  Hero 
+                  Hero
                 </Link>
                 <Link className="nav-link" to="/dashboard/about">
-                  About 
+                  About
                 </Link>
                 <Link className="nav-link" to="/dashboard/facts">
-                  Facts 
+                  Facts
                 </Link>
                 <Link className="nav-link" to="/dashboard/skills">
-                  Skills 
+                  Skills
                 </Link>
-                <Link className="nav-link" to="/dashboard/resume">
-                  Resume 
-                </Link>
+
+                <a
+                  className="nav-link collapsed"
+                  href="#"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#resumeLaouts"
+                  aria-expanded="false"
+                  aria-controls="resumeLaouts"
+                >
+                  {/* Resume Menu */}
+                  <div className="sb-nav-link-icon">
+                    <i className="fas fa-columns"></i>
+                  </div>
+                  Resume
+                  <div className="sb-sidenav-collapse-arrow">
+                    <i className="fas fa-angle-down"></i>
+                  </div>
+                </a>
+                <div
+                  className="collapse"
+                  id="resumeLaouts"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#sidenavAccordion"
+                >
+                  <nav className="sb-sidenav-menu-nested nav accordion">
+                    <Link className="nav-link" to="/dashboard/resume/summery">
+                      Summery
+                    </Link>
+                    <Link className="nav-link" to="/dashboard/resume/education">
+                      Education
+                    </Link>
+                    <Link className="nav-link" to="/dashboard/resume/experience">
+                      Experience
+                    </Link>
+                  </nav>
+                </div>
+
                 <Link className="nav-link" to="/dashboard/portfolio">
-                  Portfolio 
+                  Portfolio
                 </Link>
                 <Link className="nav-link" to="/dashboard/services">
-                  Services 
+                  Services
                 </Link>
                 <Link className="nav-link" to="/dashboard/testimonials">
-                  Testimonials 
+                  Testimonials
                 </Link>
                 <Link className="nav-link" to="/dashboard/contact">
-                  Contact 
+                  Contact
                 </Link>
               </nav>
             </div>
-
 
             <a
               className="nav-link collapsed"
@@ -86,8 +119,9 @@ export default function DashboardSideNav() {
               data-bs-target="#blogLaout"
               aria-expanded="false"
               aria-controls="blogLaout"
-            >{/* Portfolio Menu */}
-                        <div className="sb-nav-link-icon">
+            >
+              {/* Portfolio Menu */}
+              <div className="sb-nav-link-icon">
                 <i className="fas fa-columns"></i>
               </div>
               Blogs
@@ -103,14 +137,13 @@ export default function DashboardSideNav() {
             >
               <nav className="sb-sidenav-menu-nested nav">
                 <Link className="nav-link" to="/dashboard/blogs">
-                  Blogs 
+                  Blogs
                 </Link>
                 <Link className="nav-link" to="/dashboard/category">
-                  Category 
+                  Category
                 </Link>
               </nav>
             </div>
-
           </div>
         </div>
         <div className="sb-sidenav-footer">
