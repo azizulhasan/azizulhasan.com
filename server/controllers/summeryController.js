@@ -41,7 +41,7 @@ const summery_details = (req, res) => {
 const summery_create_post = (req, res) => {
 
   console.log(req.body)
-  return;
+  // return;
   const summery = new Summery({
     ...req.body,
   });

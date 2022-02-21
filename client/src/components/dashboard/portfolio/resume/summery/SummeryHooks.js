@@ -6,9 +6,14 @@
  */
  const postData = async (url = "", data = {}) => {
     // Default options are marked with *
+    console.log(JSON.stringify(data))
     const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
       method: "POST", // *GET, POST, PUT, DELETE, etc.
-      body: data, // body data type must match "Content-Type" header
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
     });
     const responseData = await response.json(); // parses JSON response into native JavaScript objects
   

@@ -32,9 +32,9 @@ export default function Resume() {
        * Get data from and display to table.
        */
       getData("http://localhost:4000/api/summery").then(res=>{
-        // setResume(res.data);
+        setResume(res.data);
         if (res.data.length > 0) {
-          // setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
+          setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
         }
       })
   }, []);

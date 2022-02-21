@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
-import { getData, postData } from "../../../Context/utilities";
-import { deleteSkill, addSkill } from "./SkillsHooks";
+import { deleteSkill, addSkill, getData, postData } from "./SkillsHooks";
 /**
  * Css
  */
@@ -13,8 +12,8 @@ export default function AboutModal({ setSkillsData, updateBton }) {
     _id: "",
     details: "",
     skills: [],
-    skill_name: '',
-    skill_proficiency:''
+    skill_name: "",
+    skill_proficiency: "",
   });
   /**
    * Handle content change value.
@@ -34,52 +33,51 @@ export default function AboutModal({ setSkillsData, updateBton }) {
     /**
      * Get full form data and modify them for saving to database.
      */
-     let form = new FormData(e.target);
-     let skillMap = {};
-     let data = {};
-     data["skills"] = [];
-     for (let [key, value] of form.entries()) {
-       if (
-         key === "" ||
-         value === ""
-       ) {
-         alert("Please fill the value of : " + key);
-         return;
-       }
- 
-       if (key === "skill_name") {
-         skillMap["skills"] = [value];
-       } else if (key === "skill_proficiency") {
-         skillMap["skills"].push(value);
-         data["skills"].push(skillMap["skills"]);
-       } else {
-         data[key] = value;
-       }
-     }
+    let form = new FormData(e.target);
+    let skillMap = {};
+    let data = {};
+    data["skills"] = [];
+    for (let [key, value] of form.entries()) {
+      if (key === "" || value === "") {
+        alert("Please fill the value of : " + key);
+        return;
+      }
+
+      if (key === "skill_name") {
+        skillMap["skills"] = [value];
+      } else if (key === "skill_proficiency") {
+        skillMap["skills"].push(value);
+        data["skills"].push(skillMap["skills"]);
+      } else {
+        data[key] = value;
+      }
+    }
 
     /**
      * format form data.
      */
-    let formData = new FormData();
-    Object.keys(data).forEach((key) => {
-      if (key === "skills") {
-        formData.append(key, JSON.stringify(data[key]));
-      } else if (key === "_id") {
-      } else {
-        formData.append(key, data[key]);
-      }
-    });
+    // let formData = new FormData();
+    // Object.keys(data).forEach((key) => {
+    //   if (key === "skills") {
+    //     formData.append(key, JSON.stringify(data[key]));
+    //   } else if (key === "_id") {
+    //   } else {
+    //     formData.append(key, data[key]);
+    //   }
+    // });
 
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+
+    // console.log(JSON.stringify(data))
     // return;
 
     /**
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/skills/" + data._id, formData)
+      postData("http://localhost:4000/api/skills/" + data._id, data)
         .then((res) => {
           setSkillsData(res);
           setLgShow(false);
@@ -88,7 +86,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/skills", formData)
+      postData("http://localhost:4000/api/skills", data)
         .then((res) => {
           setSkillsData(res);
           setLgShow(false);
@@ -105,8 +103,8 @@ export default function AboutModal({ setSkillsData, updateBton }) {
    */
   const getSkillsContent = (id) => {
     getData("http://localhost:4000/api/skills/" + id).then((res) => {
-
-    //   setData(res);
+      console.log(res)
+        // setData(res);
       setLgShow(true);
     });
   };
@@ -264,12 +262,12 @@ export default function AboutModal({ setSkillsData, updateBton }) {
                         />
                       </Form.Group>
                       <button
-                            type="button"
-                            className="azh_btn btn-danger azh_btn_delete deleteSocialIcon"
-                            onClick={deleteSkill}
-                          >
-                            Delete
-                          </button>
+                        type="button"
+                        className="azh_btn btn-danger azh_btn_delete deleteSocialIcon"
+                        onClick={deleteSkill}
+                      >
+                        Delete
+                      </button>
                     </Col>
                   </Row>
                 )}

@@ -11,10 +11,7 @@ import {
 /**
  * Hooks
  */
-import { STORY_HEADERS} from "./SkillsHooks";
-import {
-  getData,
-} from "../../../Context/utilities";
+import { STORY_HEADERS, getData} from "./SkillsHooks";
 
 /**
  * Components

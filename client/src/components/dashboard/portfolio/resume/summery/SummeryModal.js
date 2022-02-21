@@ -50,27 +50,14 @@ export default function ResumeModal({ setAboutData, updateBton }) {
       }
       data[key] = value;
     }
-    /**
-     * format form data.
-     */
-    let formData = new FormData();
-    Object.keys(data).forEach((key) => {
-      if (key === "_id") {
-      } else {
-        formData.append(key, data[key]);
-      }
-    });
+    data['summery'] = getIframeContent();
 
-    formData.append("summery", getIframeContent());
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
     // return
     /**
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/summery/" + data._id, formData)
+      postData("http://localhost:4000/api/summery/" + data._id, data)
         .then((res) => {
           setAboutData(res);
           setLgShow(false);
@@ -82,8 +69,8 @@ export default function ResumeModal({ setAboutData, updateBton }) {
       postData("http://localhost:4000/api/summery", data)   
         .then((res) => {
             console.log(res)
-        //   setAboutData(res);
-        //   setLgShow(false);
+          setAboutData(res);
+          setLgShow(false);
         })
         .catch((err) => {
           console.log(err);

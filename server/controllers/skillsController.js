@@ -41,7 +41,7 @@ const skill_details = (req, res) => {
 const skill_create_post = (req, res) => {
 
   console.log(req.body)
-  return;
+  // return;
   const skills = new Skills({
     ...req.body,
   });
