@@ -53,22 +53,6 @@ export default function AboutModal({ setSkillsData, updateBton }) {
       }
     }
 
-    /**
-     * format form data.
-     */
-    // let formData = new FormData();
-    // Object.keys(data).forEach((key) => {
-    //   if (key === "skills") {
-    //     formData.append(key, JSON.stringify(data[key]));
-    //   } else if (key === "_id") {
-    //   } else {
-    //     formData.append(key, data[key]);
-    //   }
-    // });
-
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(key, value);
-    // }
 
     // console.log(JSON.stringify(data))
     // return;
@@ -104,7 +88,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
   const getSkillsContent = (id) => {
     getData("http://localhost:4000/api/skills/" + id).then((res) => {
       console.log(res)
-        // setData(res);
+        setData(res);
       setLgShow(true);
     });
   };
@@ -176,7 +160,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
               </Col>
               <Col id="skill_col">
                 {skills.skills.length > 0 ? (
-                  JSON.parse(skills.skills).map((skill, i) => {
+                  skills.skills.map((skill, i) => {
                     return (
                       <Row key={i}>
                         <Col

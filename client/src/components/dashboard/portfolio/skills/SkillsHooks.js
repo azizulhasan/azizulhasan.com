@@ -52,17 +52,14 @@ const getData = async (url = "") => {
   // Create table headers consisting of 4 columns.
   const STORY_HEADERS = [
     {
-      prop: "profession",
-      title: "Profession",
+      prop: "0",
+      title: "Skill Name",
     },
     {
-      prop: "portfolioImage",
-      title: "Portfolio Image",
+      prop: "1",
+      title: "Skill Proficiency",
     },
-    {
-      prop: "details",
-      title: "Details",
-    },
+    
   ];
   module.exports = {
     STORY_HEADERS,

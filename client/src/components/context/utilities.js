@@ -39,8 +39,37 @@ const getData = async (url = "") => {
   return data; // parses JSON response into native JavaScript objects
 };
 
+
+let lastUrl = window.location.pathname;
+let componentName = ''
+
+new MutationObserver(() => {
+  const url = window.location.pathname;
+  if (url !== lastUrl) {
+    lastUrl = url.split('/');
+    
+     componentName = lastUrl[lastUrl.length - 1];
+     
+    componentName = componentName[0].toUpperCase() + "" + componentName.slice(1);
+   
+    
+  }
+}).observe(document, { subtree: true, childList: true });
+
+/**
+ * Get component name
+ */
+const getComponentName = () => {
+
+  console.log(componentName)
+  return componentName;
+};
+
+
+
 module.exports = {
   addScripts,
   getData,
-  postData
+  postData,
+  getComponentName,
 };

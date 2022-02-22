@@ -20,11 +20,11 @@ import SkillsModal from "./SkillsModal";
 
 // Then, use it in a component.
 export default function Skills() {
-  const [about, setSkills] = useState([]);
   const [updateBton, setUpdateBtn] = useState({ display: false, id: "" });
+  const [totalSkills, setTotalSkills] = useState([]) 
 
   const setSkillsData = (data) => {
-    setSkills([data]);
+    setTotalSkills(data.skills)
     setUpdateBtn({ display: true, id: data._id });
   };
   useEffect(() => {
@@ -32,7 +32,8 @@ export default function Skills() {
        * Get data from and display to table.
        */
       getData("http://localhost:4000/api/skills").then(res=>{
-        setSkills(res.data);
+        setTotalSkills(res.data[0].skills)
+        
         if (res.data.length > 0) {
           setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
         }
@@ -41,7 +42,7 @@ export default function Skills() {
 
   return (
     <DatatableWrapper
-      body={about}
+      body={totalSkills}
       headers={STORY_HEADERS}
       paginationOptionsProps={{
         initialState: {

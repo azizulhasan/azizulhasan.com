@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import {
   getData,
   postData,
   getIframeContent
-} from "./SummeryHooks";
+} from "./EducationHooks";
 import { Editor } from "@tinymce/tinymce-react";
+import {getComponentName}  from '../../../../Context/utilities'
 /**
  * Css
  */
-import "./summery.css";
+import "./education.css";
 
-export default function SummeryModal({ setAboutData, updateBton }) {
+export default function ResumeModal({ setAboutData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
   const [summery, setData] = useState({
     _id: "",
@@ -19,8 +20,6 @@ export default function SummeryModal({ setAboutData, updateBton }) {
     name: "",
     summery: ""
   });
-
-
   /**
    * Handle content change value.
    * @param {event} e
@@ -111,8 +110,8 @@ export default function SummeryModal({ setAboutData, updateBton }) {
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
             {updateBton.display
-              ? "Update Section Content"
-              : "Summery Section Content"}
+              ? `Update ${getComponentName()} Section Content`
+              : `${getComponentName()} Section Content`}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

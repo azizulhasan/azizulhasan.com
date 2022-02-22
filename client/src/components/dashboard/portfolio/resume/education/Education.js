@@ -11,20 +11,20 @@ import {
 /**
  * Hooks
  */
-import { getData , STORY_HEADERS} from "./SummeryHooks";
+import { getData , STORY_HEADERS} from "./EducationHooks";
 
 /**
  * Components
  */
-import SummeryModal from "./SummeryModal";
+import EducationModal from "./EducationModal";
 
 // Then, use it in a component.
-export default function Summery() {
-  const [summery, setSummery] = useState([]);
+export default function Education() {
+  const [summery, setResume] = useState([]);
   const [updateBton, setUpdateBtn] = useState({ display: false, id: "" });
 
   const setAboutData = (data) => {
-    setSummery([data]);
+    setResume([data]);
     setUpdateBtn({ display: true, id: data._id });
   };
   useEffect(() => {
@@ -32,10 +32,10 @@ export default function Summery() {
        * Get data from and display to table.
        */
       getData("http://localhost:4000/api/summery").then(res=>{
-        setSummery(res.data);
-        if (res.data.length > 0) {
-          setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
-        }
+        setResume(res.data);
+        // if (res.data.length > 0) {
+        //   setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
+        // }
       })
   }, []);
 
@@ -56,7 +56,7 @@ export default function Summery() {
           lg={2}
           className="d-flex flex-col justify-content-end align-items-start"
         >
-          <SummeryModal updateBton={updateBton} setAboutData={setAboutData} />
+          <EducationModal updateBton={updateBton} setAboutData={setAboutData} />
         </Col>
         <Col
           xs={12}

@@ -115,6 +115,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
    */
   const getHeroContent = (id) => {
     getData("http://localhost:4000/api/hero/" + id).then((res) => {
+      console.log(res)
       setData(res);
       setLgShow(true);
     });
