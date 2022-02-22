@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import { deleteSkill, addSkill, getData, postData } from "./SkillsHooks";
+import {getComponentName}  from '../../../Context/utilities'
+
 /**
  * Css
  */
@@ -115,8 +117,8 @@ export default function AboutModal({ setSkillsData, updateBton }) {
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
             {updateBton.display
-              ? "Update Skills Section Content"
-              : "Sills Section Content"}
+              ? `Update ${getComponentName()} Section Content`
+              : `${getComponentName()} Section Content`}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

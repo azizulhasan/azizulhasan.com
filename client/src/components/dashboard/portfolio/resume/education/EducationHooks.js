@@ -35,36 +35,30 @@ const getData = async (url = "") => {
  */
 const getIframeContent = () => {
   let textareaId = document
-    .getElementsByTagName("textarea")[1]
+    .getElementsByTagName("textarea")[0]
     .getAttribute("id");
   let iframeContent = document.getElementById(textareaId + "_ifr").contentWindow
     .document.body.innerHTML;
 
   return iframeContent;
 };
-/**
- * Get component name
- */
-const getComponentName = () => {
-  let pathArr = window.location.pathname.split("/");
-  let componentName = pathArr[pathArr.length - 1];
-
-  return componentName[0].toUpperCase() + "" + componentName.slice(1);
-};
-
 // Create table headers consisting of 4 columns.
 const STORY_HEADERS = [
   {
-    prop: "details",
-    title: "Details",
+    prop: "degree",
+    title: "Degree",
   },
   {
-    prop: "name",
-    title: "Name",
+    prop: "institution",
+    title: "Institution",
   },
   {
-    prop: "summery",
-    title: "Summery",
+    prop: "address",
+    title: "Address",
+  },
+  {
+    prop: "action",
+    title: "Action",
   },
 ];
 
@@ -72,6 +66,5 @@ module.exports = {
   getData,
   postData,
   getIframeContent,
-  getComponentName,
   STORY_HEADERS,
 };

@@ -8,6 +8,8 @@ import {
   addSocialIcon,
   deleteSocialIcon,
 } from "./HeroHooks";
+import {getComponentName}  from '../../../Context/utilities'
+
 /**
  * Css
  */
@@ -142,8 +144,8 @@ export default function HeroModal({ setHeroData, updateBton }) {
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
             {updateBton.display
-              ? "Update Section Content"
-              : "Hero Section Content"}
+              ? `Update ${getComponentName()} Section Content`
+              : `${getComponentName()} Section Content`}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

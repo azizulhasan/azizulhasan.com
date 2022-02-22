@@ -5,6 +5,8 @@ import {
   postData,
   previewImage,
 } from "./AboutHooks";
+import {getComponentName}  from '../../../Context/utilities'
+
 import { Editor } from "@tinymce/tinymce-react";
 /**
  * Css
@@ -133,8 +135,8 @@ export default function AboutModal({ setAboutData, updateBton }) {
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
             {updateBton.display
-              ? "Update Section Content"
-              : "About Section Content"}
+              ? `Update ${getComponentName()} Section Content`
+              : `${getComponentName()} Section Content`}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
