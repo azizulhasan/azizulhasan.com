@@ -22,7 +22,7 @@ import "./education.css";
 // Then, use it in a component.
 export default function Education() {
   const [educations, setEducation] = useState([]);
-  const [updateBton, setUpdateBtn] = useState({ display: false, id: "" });
+  const [updateBtn, setUpdateBtn] = useState({ display: false, id: "" });
   const [lgShow, setLgShow] = useState(false);
 
   const setEducationData = (data) => {
@@ -30,29 +30,20 @@ export default function Education() {
     setUpdateBtn({ display: true, id: data._id });
   };
 
-  /**
-   * get education content by id.
-   * @param {id} id
-   */
-  const getEducationContent = (id) => {
-    getData("http://localhost:4000/api/education/" + id).then((res) => {
-      console.log(res);
-      // setEducation(res);
-      setLgShow(true);
-    });
+  const modalShow = (value, id = null) => {
+    setLgShow(value);
+    console.log(id)
+    if (id !== null) {
+      setUpdateBtn({ display: true, id: id });
+    }
   };
+
   useEffect(() => {
     /**
      * Get data from and display to table.
      */
     getData("http://localhost:4000/api/education").then((res) => {
       setEducation(res.data);
-      if (res.data.length > 0) {
-        setTimeout(
-          () => setUpdateBtn({ display: true, id: res.data[0]._id }),
-          100
-        );
-      }
     });
   }, []);
 
@@ -65,7 +56,9 @@ export default function Education() {
           className="d-flex flex-col justify-content-end align-items-start"
         >
           <EducationModal
-            updateBton={updateBton}
+            updateBtn={updateBtn}
+            modalShow={modalShow}
+            lgShow={lgShow}
             setEducationData={setEducationData}
           />
         </Col>
@@ -107,7 +100,7 @@ export default function Education() {
                   <Button
                     bsPrefix="azh_btn"
                     onClick={(e) =>
-                      getEducationContent(educations[index]["_id"])
+                      modalShow(true, educations[index]["_id"])
                     }
                   >
                     Edit

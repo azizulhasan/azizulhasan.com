@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import { getData, postData, getIframeContent } from "./EducationHooks";
 import { Editor } from "@tinymce/tinymce-react";
@@ -7,8 +7,12 @@ import { getComponentName } from "../../../../Context/utilities";
  * Css
  */
 
-export default function EducationModal({ setEducationData, updateBton }) {
-  const [lgShow, setLgShow] = useState(false);
+export default function EducationModal({
+  setEducationData,
+  updateBtn,
+  modalShow,
+  lgShow,
+}) {
   const [education, setData] = useState({
     _id: "",
     degree: "",
@@ -18,6 +22,21 @@ export default function EducationModal({ setEducationData, updateBton }) {
     address: "",
     details: "",
   });
+  useEffect(() => {
+    if (lgShow === true) {
+      getEducationContent(updateBtn.id);
+    }
+  }, [lgShow]);
+
+  /**
+   * get education content by id.
+   * @param {id} id
+   */
+  const getEducationContent = (id) => {
+    getData("http://localhost:4000/api/education/" + id).then((res) => {
+      setData(res);
+    });
+  };
   /**
    * Handle content change value.
    * @param {event} e
@@ -54,7 +73,7 @@ export default function EducationModal({ setEducationData, updateBton }) {
       postData("http://localhost:4000/api/education/" + data._id, data)
         .then((res) => {
           setEducationData(res);
-          setLgShow(false);
+          modalShow(false);
         })
         .catch((err) => {
           console.log(err);
@@ -64,7 +83,7 @@ export default function EducationModal({ setEducationData, updateBton }) {
         .then((res) => {
           console.log(res);
           setEducationData(res);
-          setLgShow(false);
+          modalShow(false);
         })
         .catch((err) => {
           console.log(err);
@@ -72,28 +91,27 @@ export default function EducationModal({ setEducationData, updateBton }) {
     }
   };
 
-
   return (
     <>
-      <Button bsPrefix="azh_btn" onClick={(e) => setLgShow(true)}>
+      <Button bsPrefix="azh_btn" onClick={(e) => modalShow(true)}>
         Add Content
       </Button>
       <Modal
         size="lg"
         show={lgShow}
-        onHide={(e) => setLgShow(false)}
+        onHide={(e) => modalShow(false)}
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
-            {updateBton.display
+            {updateBtn.display
               ? `Update ${getComponentName()} Section Content`
               : `${getComponentName()} Section Content`}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            {updateBton.display && (
+            {updateBtn.display && (
               <Form.Control
                 type="text"
                 id="_id"
@@ -196,7 +214,7 @@ export default function EducationModal({ setEducationData, updateBton }) {
               type="submit"
               id="education.sumbit"
             >
-              {updateBton.display ? "Update" : "Submit"}
+              {updateBtn.display ? "Update" : "Submit"}
             </button>
           </Form>
         </Modal.Body>
