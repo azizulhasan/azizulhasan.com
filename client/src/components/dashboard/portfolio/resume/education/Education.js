@@ -35,9 +35,7 @@ export default function Education() {
    * @param {id} id
    */
   const getEducationContent = (id) => {
-    
     getData("http://localhost:4000/api/education/" + id).then((res) => {
-
       console.log(res);
       // setEducation(res);
       setLgShow(true);
@@ -66,7 +64,10 @@ export default function Education() {
           lg={2}
           className="d-flex flex-col justify-content-end align-items-start"
         >
-          <EducationModal updateBton={updateBton} setEducationData={setEducationData} />
+          <EducationModal
+            updateBton={updateBton}
+            setEducationData={setEducationData}
+          />
         </Col>
         <Col
           xs={12}
