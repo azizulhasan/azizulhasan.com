@@ -40,6 +40,7 @@ const experience_details = (req, res) => {
  * @param {Object} res
  */
 const experience_create_post = (req, res) => {
+    console.log(res.body)
   const experience = new Experience({
     ...req.body,
   });

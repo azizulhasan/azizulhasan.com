@@ -28,7 +28,7 @@ import Experience from "./portfolio/resume/experience/Experience";
 
 import Portfolio from "./portfolio/Portfolio";
 import Services from "./portfolio/Services";
-import Contact from "./portfolio/Contact";
+import Contact from "./portfolio/contact/Contact";
 import Testimonials from "./portfolio/Testimonials";
 /**
  * Blog components

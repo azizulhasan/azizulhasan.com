@@ -12,6 +12,8 @@ const aboutRoutes = require("./routes/aboutRoutes");
 const skillsRoutes = require("./routes/skillsRoutes");
 const summeryRoutes = require("./routes/summeryRoutes");
 const educationRoutes = require("./routes/educationRoutes");
+const experienceRoutes = require("./routes/experienceRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 
 // express app
 const app = express();
@@ -88,13 +90,21 @@ app.use("/api/summery", summeryRoutes);
  * Education Routes
  */
 app.use("/api/education", educationRoutes);
+/**
+ * Experience Routes
+ */
+app.use("/api/experience", experienceRoutes);
 
+/**
+ * Experience Routes
+ */
+app.use("/api/contact", contactRoutes);
 
-app.post('/api/test', (req, res)=>{
-  console.log(req.body)
+app.post("/api/test", (req, res) => {
+  console.log(req.body);
 
-  res.json(req.body)
-})
+  res.json(req.body);
+});
 
 // 404 page
 app.use((req, res) => {

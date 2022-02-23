@@ -6,7 +6,6 @@
  */
  const postData = async (url = "", data = {}) => {
     // Default options are marked with *
-    console.log(JSON.stringify(data));
     const response = await fetch(url, {
       headers: {
         "Content-Type": "application/json",

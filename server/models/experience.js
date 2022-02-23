@@ -14,7 +14,7 @@ const experienceSchema = new Schema({
         type: String,
         required: true
     },
-    Company:{
+    company:{
         type:String,
         required: true
     }, 

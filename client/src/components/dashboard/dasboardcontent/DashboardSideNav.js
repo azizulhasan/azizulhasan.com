@@ -96,7 +96,9 @@ export default function DashboardSideNav() {
                     </Link>
                   </nav>
                 </div>
-
+                <Link className="nav-link" to="/dashboard/contact">
+                  Contact
+                </Link>
                 <Link className="nav-link" to="/dashboard/portfolio">
                   Portfolio
                 </Link>
@@ -106,9 +108,7 @@ export default function DashboardSideNav() {
                 <Link className="nav-link" to="/dashboard/testimonials">
                   Testimonials
                 </Link>
-                <Link className="nav-link" to="/dashboard/contact">
-                  Contact
-                </Link>
+                
               </nav>
             </div>
 

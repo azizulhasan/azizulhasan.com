@@ -135,7 +135,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
               />
             )}
             <Form.Group className="mb-4" controlId="skills.details">
-              <Form.Label>Sills Details</Form.Label>
+              <Form.Label>Skill Details</Form.Label>
               <Form.Control
                 as="textarea"
                 row={2}
@@ -192,7 +192,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
                           className="d-flex flex-col  mb-2"
                         >
                           <Form.Group className="mb-3">
-                            <Form.Label>Sill Proficiency (%)</Form.Label>
+                            <Form.Label>Skill Proficiency (%)</Form.Label>
                             <Form.Control
                               type="text"
                               name="skill_proficiency"

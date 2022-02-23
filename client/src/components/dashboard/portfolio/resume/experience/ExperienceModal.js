@@ -80,6 +80,7 @@ export default function ExperienceModal({
     }
     data["details"] = getIframeContent();
 
+    // console.log(data)
     // return
     /**
      * Update data if "_id" exists. else save form data.
@@ -96,7 +97,6 @@ export default function ExperienceModal({
     } else {
       postData("http://localhost:4000/api/experience", data)
         .then((res) => {
-          console.log(res.data);
           setExperienceData(res.data);
           modalShow(false);
         })
@@ -138,7 +138,7 @@ export default function ExperienceModal({
             )}
 
             <Form.Group className="mb-4" controlId="experience.position">
-              <Form.Label>Degree Name</Form.Label>
+              <Form.Label>Position Name</Form.Label>
               <Form.Control
                 type="text"
                 name="position"
@@ -184,7 +184,7 @@ export default function ExperienceModal({
               </Col>
             </Row>
             <Form.Group className="mb-4" controlId="experience.company">
-              <Form.Label>Institution Name</Form.Label>
+              <Form.Label>Company Name</Form.Label>
               <Form.Control
                 type="text"
                 name="company"
