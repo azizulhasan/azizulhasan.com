@@ -1,12 +1,12 @@
-const Education = require("../models/education");
+const Experience = require("../models/experience");
 
 /**
  * Display all.
  * @param {Object} req for getting all.
  * @param {Object} res
  */
-const education_index = (req, res) => {
-  Education.find()
+const experience_index = (req, res) => {
+  Experience.find()
     .sort({ createdAt: -1 })
 
     .then((result) => {
@@ -18,35 +18,35 @@ const education_index = (req, res) => {
 };
 
 /**
- * Display single education details.
+ * Display single experience details.
  * @param {Object} req for getting single.
  * @param {Object} res
  */
-const education_details = (req, res) => {
+const experience_details = (req, res) => {
   const id = req.params.id;
   console.log(id);
-  Education.findById(id)
+  Experience.findById(id)
     .then((result) => {
       res.json(result);
     })
     .catch((err) => {
-      res.json(err);
+        res.json(err);
     });
 };
 
 /**
- * Save the education to databse and save image to "uploads" folder.
- * @param {Object} req education save request.
+ * Save the experience to databse and save image to "uploads" folder.
+ * @param {Object} req experience save request.
  * @param {Object} res
  */
-const education_create_post = (req, res) => {
-  const education = new Education({
+const experience_create_post = (req, res) => {
+  const experience = new Experience({
     ...req.body,
   });
-  education
+  experience
     .save()
     .then((result) => {
-      Education.find()
+      Experience.find()
         .sort({ createdAt: -1 })
 
         .then((result) => {
@@ -62,14 +62,14 @@ const education_create_post = (req, res) => {
 };
 
 /**
- * Uplate the education to databse and save image to "uploads" folder.
- * @param {Object} req education save request.
+ * Uplate the experience to databse and save image to "uploads" folder.
+ * @param {Object} req experience save request.
  * @param {Object} res
  */
-const education_update_post = (req, res) => {
+const experience_update_post = (req, res) => {
   const id = req.params.id;
   console.log(req.params.id);
-  Education.findOneAndUpdate(
+  Experience.findOneAndUpdate(
     {
       _id: id,
     },
@@ -81,7 +81,7 @@ const education_update_post = (req, res) => {
     },
     (err, post) => {
       if (!err) {
-        Education.find()
+        Experience.find()
           .sort({ createdAt: -1 })
 
           .then((result) => {
@@ -101,13 +101,13 @@ const education_update_post = (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const education_delete_post = (req, res) => {
+const experience_delete_post = (req, res) => {
   const id = req.params.id;
 
   console.log(id);
-  Education.deleteOne({ _id: id }, function (err) {
+  Experience.deleteOne({ _id: id }, function (err) {
     if (!err) {
-      Education.find()
+      Experience.find()
         .sort({ createdAt: -1 })
         .then((result) => {
           res.json({ data: result });
@@ -122,9 +122,9 @@ const education_delete_post = (req, res) => {
 };
 
 module.exports = {
-  education_index,
-  education_details,
-  education_create_post,
-  education_update_post,
-  education_delete_post,
+  experience_index,
+  experience_details,
+  experience_create_post,
+  experience_update_post,
+  experience_delete_post,
 };

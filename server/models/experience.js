@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 const Schema    = mongoose.Schema
 
-const educationSchema = new Schema({
-    degree:{
+const experienceSchema = new Schema({
+    position:{
         type:String,
         required:true
     }, 
@@ -14,7 +14,7 @@ const educationSchema = new Schema({
         type: String,
         required: true
     },
-    institution:{
+    Company:{
         type:String,
         required: true
     }, 
@@ -29,6 +29,6 @@ const educationSchema = new Schema({
 }, { timestamps: true })
 
 
-const Education = mongoose.model('Education', educationSchema)
+const Experience = mongoose.model('Experience', experienceSchema)
 
-module.exports = Education
+module.exports = Experience

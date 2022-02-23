@@ -3,38 +3,35 @@ import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 
 import { Editor } from "@tinymce/tinymce-react";
 
-import { getData, postData, getIframeContent } from "./EducationHooks";
+import { getData, postData, getIframeContent } from "./ExperienceHooks";
 import { sliceComponentName } from "../../../../Context/utilities";
-/**
- * Css
- */
 
-export default function EducationModal({
-  setEducationData,
+export default function ExperienceModal({
+  setExperienceData,
   updateBtn,
   modalShow,
   lgShow,
 }) {
-  const [education, setData] = useState({
+  const [experience, setData] = useState({
     _id: "",
-    degree: "",
+    position: "",
     from: "",
     to: "",
-    institution: "",
+    company: "",
     address: "",
     details: "",
   });
   useEffect(() => {
     if (lgShow === true) {
       if (updateBtn.id !== "") {
-        getEducationContent(updateBtn.id);
+        getExperienceContent(updateBtn.id);
       } else {
         setData({
           _id: "",
-          degree: "",
+          position: "",
           from: "",
           to: "",
-          institution: "",
+          company: "",
           address: "",
           details: "",
         });
@@ -43,11 +40,11 @@ export default function EducationModal({
   }, [lgShow]);
 
   /**
-   * get education content by id.
+   * get experience content by id.
    * @param {id} id
    */
-  const getEducationContent = (id) => {
-    getData("http://localhost:4000/api/education/" + id)
+  const getExperienceContent = (id) => {
+    getData("http://localhost:4000/api/experience/" + id)
       .then((res) => {
         setData(res);
       })
@@ -60,10 +57,10 @@ export default function EducationModal({
    * @param {event} e
    */
   const handleChange = (e) => {
-    setData({ ...education, ...{ [e.target.name]: e.target.value } });
+    setData({ ...experience, ...{ [e.target.name]: e.target.value } });
   };
   /**
-   * Handle education content form submission
+   * Handle experience content form submission
    * @param {event} e
    * @returns
    */
@@ -88,19 +85,19 @@ export default function EducationModal({
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/education/" + data._id, data)
+      postData("http://localhost:4000/api/experience/" + data._id, data)
         .then((res) => {
-          setEducationData(res.data);
+          setExperienceData(res.data);
           modalShow(false);
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/education", data)
+      postData("http://localhost:4000/api/experience", data)
         .then((res) => {
           console.log(res.data);
-          setEducationData(res.data);
+          setExperienceData(res.data);
           modalShow(false);
         })
         .catch((err) => {
@@ -133,21 +130,21 @@ export default function EducationModal({
                 type="text"
                 id="_id"
                 onChange={handleChange}
-                value={education._id}
+                value={experience._id}
                 name="_id"
                 placeholder="id"
                 hidden
               />
             )}
 
-            <Form.Group className="mb-4" controlId="education.degree">
+            <Form.Group className="mb-4" controlId="experience.position">
               <Form.Label>Degree Name</Form.Label>
               <Form.Control
                 type="text"
-                name="degree"
+                name="position"
                 onChange={handleChange}
-                value={education.degree}
-                placeholder="degree"
+                value={experience.position}
+                placeholder="position"
               />
             </Form.Group>
             <Row className="mb-4">
@@ -157,13 +154,13 @@ export default function EducationModal({
                 lg={6}
                 className="d-flex flex-col justify-content-start align-items-start mb-2"
               >
-                <Form.Group className="mb-4" controlId="education.from">
+                <Form.Group className="mb-4" controlId="experience.from">
                   <Form.Label>From</Form.Label>
                   <Form.Control
                     type="number"
                     name="from"
                     onChange={handleChange}
-                    value={education.from}
+                    value={experience.from}
                     placeholder="from"
                   />
                 </Form.Group>
@@ -174,42 +171,42 @@ export default function EducationModal({
                 lg={6}
                 className="d-flex flex-col justify-content-start align-items-start mb-2"
               >
-                <Form.Group className="mb-4" controlId="education.to">
+                <Form.Group className="mb-4" controlId="experience.to">
                   <Form.Label>To</Form.Label>
                   <Form.Control
                     type="text"
                     name="to"
                     onChange={handleChange}
-                    value={education.to}
+                    value={experience.to}
                     placeholder="to"
                   />
                 </Form.Group>
               </Col>
             </Row>
-            <Form.Group className="mb-4" controlId="education.institution">
+            <Form.Group className="mb-4" controlId="experience.company">
               <Form.Label>Institution Name</Form.Label>
               <Form.Control
                 type="text"
-                name="institution"
+                name="company"
                 onChange={handleChange}
-                value={education.institution}
-                placeholder="institution"
+                value={experience.company}
+                placeholder="company"
               />
             </Form.Group>
-            <Form.Group className="mb-4" controlId="education.address">
+            <Form.Group className="mb-4" controlId="experience.address">
               <Form.Label>Address Name</Form.Label>
               <Form.Control
                 type="text"
                 name="address"
                 onChange={handleChange}
-                value={education.address}
+                value={experience.address}
                 placeholder="address"
               />
             </Form.Group>
-            <Form.Group className="mb-4" controlId="education.details">
+            <Form.Group className="mb-4" controlId="experience.details">
               <Form.Label>Details</Form.Label>
               <Editor
-                initialValue={education.details}
+                initialValue={experience.details}
                 name="details"
                 init={{
                   height: 200,
@@ -229,7 +226,7 @@ export default function EducationModal({
             <button
               className="azh_btn w-100"
               type="submit"
-              id="education.sumbit"
+              id="experience.sumbit"
             >
               {updateBtn.display ? "Update" : "Submit"}
             </button>

@@ -33,7 +33,7 @@ const about_details = (req, res) => {
       res.json(result);
     })
     .catch((err) => {
-      res.status(404).render("404", { title: "Not Found" });
+      res.json(err);
     });
 };
 /**

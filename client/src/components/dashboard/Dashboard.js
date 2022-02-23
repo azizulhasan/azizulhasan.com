@@ -24,6 +24,8 @@ import Skills from "./portfolio/skills/Skills";
 import Facts from "./portfolio/Facts";
 import Summery from "./portfolio/resume/summery/Summery";
 import Education from "./portfolio/resume/education/Education";
+import Experience from "./portfolio/resume/experience/Experience";
+
 import Portfolio from "./portfolio/Portfolio";
 import Services from "./portfolio/Services";
 import Contact from "./portfolio/Contact";
@@ -88,6 +90,10 @@ export default function Dashboard() {
                   <Route
                     path="/dashboard/resume/education"
                     element={<Education />}
+                  />
+                  <Route
+                    path="/dashboard/resume/experience"
+                    element={<Experience />}
                   />
                   <Route path="/dashboard/portfolio" element={<Portfolio />} />
                   <Route path="/dashboard/services" element={<Services />} />

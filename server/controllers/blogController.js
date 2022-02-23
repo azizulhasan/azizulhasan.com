@@ -32,7 +32,7 @@ const blog_details = (req, res) => {
       res.json({ data: result });
     })
     .catch(err => {
-      res.status(404).render('404', {title:"Not Found"})
+      res.json(err);
     });
 }
 /**
