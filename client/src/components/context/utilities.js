@@ -3,7 +3,6 @@
  * @param {url} script url
  */
 const addScripts = (scripts) => {
-  console.log(scripts);
   [...scripts].forEach((scirpt) => {
     let tag = document.createElement("script");
     tag.async = true;
