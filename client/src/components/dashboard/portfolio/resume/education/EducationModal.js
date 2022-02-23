@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import { getData, postData, getIframeContent } from "./EducationHooks";
 import { Editor } from "@tinymce/tinymce-react";
-import { getComponentName } from "../../../../Context/utilities";
+import { sliceComponentName } from "../../../../Context/utilities";
 /**
  * Css
  */
@@ -47,6 +47,8 @@ export default function EducationModal({
   const getEducationContent = (id) => {
     getData("http://localhost:4000/api/education/" + id).then((res) => {
       setData(res);
+    }).catch(err=>{
+      console.log(err)
     });
   };
   /**
@@ -102,7 +104,6 @@ export default function EducationModal({
         });
     }
   };
-
   return (
     <>
       <Button bsPrefix="azh_btn" onClick={(e) => modalShow(true)}>
@@ -117,8 +118,8 @@ export default function EducationModal({
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
             {updateBtn.display
-              ? `Update ${getComponentName()} Section Content`
-              : `${getComponentName()} Section Content`}
+              ? `Update ${sliceComponentName()} Section Content`
+              : `${sliceComponentName()} Section Content`}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

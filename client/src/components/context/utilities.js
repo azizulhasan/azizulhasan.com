@@ -58,6 +58,13 @@ const getComponentName = () => {
   return componentName ? componentName : getName(window.location.pathname);
 };
 
+const sliceComponentName = () => {
+
+  let component =  getComponentName().replace(/\s/g,'').trim().split('/')
+  
+  return component[component.length-1]
+ }
+
 const getName = (lastUrl) => {
   let urlArr = lastUrl.split("/");
   let componentArr = "";
@@ -76,4 +83,5 @@ module.exports = {
   getData,
   postData,
   getComponentName,
+  sliceComponentName
 };
