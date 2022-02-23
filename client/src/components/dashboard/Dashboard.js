@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 /**
  * Scripts
@@ -35,6 +35,12 @@ import Testimonials from "./portfolio/Testimonials";
 import CreateBlog from "./blogs/blogcontent/CreateBlog";
 import CreateCategory from "./blogs/categorycontent/CreateCategory";
 
+/**
+ * 
+ * Context 
+ */
+ const EnvContext = createContext()
+ 
 export default function Dashboard() {
   const [componentName, setComponentName] = useState(getComponentName());
   useEffect(() => {
@@ -45,8 +51,17 @@ export default function Dashboard() {
   addScripts([
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js",
   ]);
+  const EnvObj = {
+    URL: "http://localhost:4000/api/",
+    deleteData: function(id){
+      alert(id)
+    }
+  }
+
+  
   return (
-    <React.Fragment>
+
+    <EnvContext.Provider value={EnvObj}>
       <Router>
         <DashboardTopNav />
         <div id="layoutSidenav">
@@ -57,7 +72,7 @@ export default function Dashboard() {
                 <h1 className="mt-4">Dashboard</h1>
                 <ol className="breadcrumb mb-4">
                   <li className="breadcrumb-item active">
-                    Dashboard / {componentName}
+                    Dashboard {componentName}
                   </li>
                 </ol>
                 <Routes>
@@ -102,6 +117,13 @@ export default function Dashboard() {
           </div>
         </div>
       </Router>
-    </React.Fragment>
+    </EnvContext.Provider >
   );
 }
+
+
+// function TEST(){
+//   const Env = useContext(EnvContext)
+
+//   return <p>{Env.url}</p>
+// }

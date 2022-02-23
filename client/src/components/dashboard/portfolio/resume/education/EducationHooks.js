@@ -21,6 +21,18 @@ const postData = async (url = "", data = {}) => {
 };
 
 /**
+ * Delete post
+ */
+ const deletePost = async (url = "") => {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+  });
+  const responseData = await response.json(); // parses JSON response into native JavaScript objects
+
+  return responseData;
+};
+/**
  * get data methon
  * @param {url} url api url
  * @returns  data mixed.
@@ -30,6 +42,9 @@ const getData = async (url = "") => {
   const data = await response.json();
   return data; // parses JSON response into native JavaScript objects
 };
+
+
+
 /**
  * Get ifram content
  */
@@ -66,5 +81,6 @@ module.exports = {
   getData,
   postData,
   getIframeContent,
+  deletePost,
   STORY_HEADERS,
 };

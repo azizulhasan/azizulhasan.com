@@ -16,15 +16,27 @@ export default function EducationModal({
   const [education, setData] = useState({
     _id: "",
     degree: "",
-    from: null,
-    to: null,
+    from: "",
+    to: "",
     institution: "",
     address: "",
     details: "",
   });
   useEffect(() => {
     if (lgShow === true) {
-      getEducationContent(updateBtn.id);
+      if(updateBtn.id !== ""){
+        getEducationContent(updateBtn.id);
+      }else{
+        setData({
+          _id: "",
+          degree: "",
+          from: "",
+          to: "",
+          institution: "",
+          address: "",
+          details: "",
+        })
+      }
     }
   }, [lgShow]);
 
@@ -63,7 +75,7 @@ export default function EducationModal({
       }
       data[key] = value;
     }
-    data["education"] = getIframeContent();
+    data["details"] = getIframeContent();
 
     // return
     /**
@@ -72,7 +84,7 @@ export default function EducationModal({
     if (data._id !== undefined) {
       postData("http://localhost:4000/api/education/" + data._id, data)
         .then((res) => {
-          setEducationData(res);
+          setEducationData(res.data);
           modalShow(false);
         })
         .catch((err) => {
@@ -81,8 +93,8 @@ export default function EducationModal({
     } else {
       postData("http://localhost:4000/api/education", data)
         .then((res) => {
-          console.log(res);
-          setEducationData(res);
+          console.log(res.data);
+          setEducationData(res.data);
           modalShow(false);
         })
         .catch((err) => {

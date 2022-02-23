@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Col, Row, Table, Button } from "react-bootstrap";
 import {
   DatatableWrapper,
@@ -11,7 +11,7 @@ import {
 /**
  * Hooks
  */
-import { getData, STORY_HEADERS } from "./EducationHooks";
+import { getData, deletePost,STORY_HEADERS } from "./EducationHooks";
 
 /**
  * Components
@@ -24,20 +24,38 @@ export default function Education() {
   const [educations, setEducation] = useState([]);
   const [updateBtn, setUpdateBtn] = useState({ display: false, id: "" });
   const [lgShow, setLgShow] = useState(false);
+  // const Env = useContext(EnvContext)
 
   const setEducationData = (data) => {
-    setEducation([data]);
-    setUpdateBtn({ display: true, id: data._id });
+    setEducation(data);
   };
-
+/**
+ * 
+ * @param {value} value true or false.
+ * @param {id} id get id if want to edit specific education.
+ */
   const modalShow = (value, id = null) => {
     setLgShow(value);
-    console.log(id)
     if (id !== null) {
       setUpdateBtn({ display: true, id: id });
+    }else{
+      setUpdateBtn({ display: false, id: "" });
     }
   };
+/**
+ * 
+ * @param {id} id get the specific id which want to be deleted.
+ */
+  const deleteEducation = (id) => {
+    alert("Are you sure? It will be permanently deleted.")
+    deletePost("http://localhost:4000/api/education/"+id).then(res=>{
+      setEducation(res.data);
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
 
+  
   useEffect(() => {
     /**
      * Get data from and display to table.
@@ -98,12 +116,22 @@ export default function Education() {
                 })}
                 <td>
                   <Button
-                    bsPrefix="azh_btn"
+                  className="mr-2"
+                    bsPrefix="azh_btn azh_btn_edit"
+                    
                     onClick={(e) =>
                       modalShow(true, educations[index]["_id"])
                     }
                   >
                     Edit
+                  </Button>
+                  <Button
+                    bsPrefix="azh_btn btn-danger azh_btn_education"
+                    onClick={(e) =>
+                      deleteEducation(educations[index]["_id"])
+                    }
+                  >
+                    Delete
                   </Button>
                 </td>
               </tr>

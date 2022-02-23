@@ -3,6 +3,7 @@
  * @param {url} script url
  */
 const addScripts = (scripts) => {
+  console.log(scripts);
   [...scripts].forEach((scirpt) => {
     let tag = document.createElement("script");
     tag.async = true;
@@ -39,20 +40,14 @@ const getData = async (url = "") => {
   return data; // parses JSON response into native JavaScript objects
 };
 
-
 let lastUrl = window.location.pathname;
-let componentName = ''
+let componentName = "";
 
 new MutationObserver(() => {
   const url = window.location.pathname;
   if (url !== lastUrl) {
-    lastUrl = url.split('/');
-    
-     componentName = lastUrl[lastUrl.length - 1];
-     
-    componentName = componentName[0].toUpperCase() + "" + componentName.slice(1);
-   
-    
+    lastUrl = url;
+    componentName = getName(lastUrl);
   }
 }).observe(document, { subtree: true, childList: true });
 
@@ -60,12 +55,21 @@ new MutationObserver(() => {
  * Get component name
  */
 const getComponentName = () => {
-
-  console.log(componentName)
-  return componentName;
+  return componentName ? componentName : getName(window.location.pathname);
 };
 
+const getName = (lastUrl) => {
+  let urlArr = lastUrl.split("/");
+  let componentArr = "";
+  if (urlArr[1] !== "") {
 
+    for (let i = 1; i < urlArr.length; i++) {
+      let url = urlArr[i];
+      componentArr += " / " + url[0].toUpperCase() + "" + url.slice(1);
+    }
+  }
+  return componentArr;
+};
 
 module.exports = {
   addScripts,

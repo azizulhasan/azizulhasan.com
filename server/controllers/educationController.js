@@ -46,10 +46,18 @@ const education_create_post = (req, res) => {
   education
     .save()
     .then((result) => {
-      res.json(result);
+      Education.find()
+        .sort({ createdAt: -1 })
+
+        .then((result) => {
+          res.json({ data: result });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((err) => {
-        res.json(err);
+      res.json(err);
     });
 };
 
@@ -60,25 +68,57 @@ const education_create_post = (req, res) => {
  */
 const education_update_post = (req, res) => {
   const id = req.params.id;
-console.log(req.params.id)
+  console.log(req.params.id);
   Education.findOneAndUpdate(
     {
       _id: id,
     },
     {
-      $set:  req.body
+      $set: req.body,
     },
     {
       new: true,
     },
     (err, post) => {
       if (!err) {
-        res.json(post);
+        Education.find()
+          .sort({ createdAt: -1 })
+
+          .then((result) => {
+            res.json({ data: result });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } else {
         console.log(err);
       }
     }
   );
+};
+/**
+ * Delete post
+ * @param {*} req
+ * @param {*} res
+ */
+const education_delete_post = (req, res) => {
+  const id = req.params.id;
+
+  console.log(id);
+  Education.deleteOne({ _id: id }, function (err) {
+    if (!err) {
+      Education.find()
+        .sort({ createdAt: -1 })
+        .then((result) => {
+          res.json({ data: result });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      res.json({ data: "Something wen wrong" });
+    }
+  });
 };
 
 module.exports = {
@@ -86,4 +126,5 @@ module.exports = {
   education_details,
   education_create_post,
   education_update_post,
+  education_delete_post,
 };
