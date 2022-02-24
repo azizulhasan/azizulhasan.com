@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import { deleteSkill, addSkill, getData, postData } from "./SkillsHooks";
-import {sliceComponentName}  from '../../../Context/utilities'
+import { sliceComponentName } from "../../../Context/utilities";
 
 /**
  * Css
@@ -12,7 +12,8 @@ export default function AboutModal({ setSkillsData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
   const [skills, setData] = useState({
     _id: "",
-    details: "",
+    section_title:"",
+    top_details: "",
     skills: [],
     skill_name: "",
     skill_proficiency: "",
@@ -55,7 +56,6 @@ export default function AboutModal({ setSkillsData, updateBton }) {
       }
     }
 
-
     // console.log(JSON.stringify(data))
     // return;
 
@@ -89,8 +89,8 @@ export default function AboutModal({ setSkillsData, updateBton }) {
    */
   const getSkillsContent = (id) => {
     getData("http://localhost:4000/api/skills/" + id).then((res) => {
-      console.log(res)
-        setData(res);
+      console.log(res);
+      setData(res);
       setLgShow(true);
     });
   };
@@ -134,15 +134,25 @@ export default function AboutModal({ setSkillsData, updateBton }) {
                 hidden
               />
             )}
-            <Form.Group className="mb-4" controlId="skills.details">
-              <Form.Label>Skill Details</Form.Label>
+            <Form.Group className="mb-4" controlId="skills.section_title">
+              <Form.Label>Section Title</Form.Label>
+              <Form.Control
+                type="text"
+                name="section_title"
+                onChange={handleChange}
+                value={skills.section_title}
+                placeholder="About"
+              />
+            </Form.Group>
+            <Form.Group className="mb-4" controlId="skills.top_details">
+              <Form.Label>Skills Top Details</Form.Label>
               <Form.Control
                 as="textarea"
                 row={2}
-                name="details"
+                name="top_details"
                 onChange={handleChange}
-                value={skills.details}
-                placeholder="Type here skills details"
+                value={skills.top_details}
+                placeholder="Type here skills top_details"
               />
             </Form.Group>
             <Row id="skills.skill_row" className="mb-4">
@@ -194,7 +204,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
                           <Form.Group className="mb-3">
                             <Form.Label>Skill Proficiency (%)</Form.Label>
                             <Form.Control
-                              type="text"
+                              type="number"
                               name="skill_proficiency"
                               value={skill[1]}
                               onChange={handleChange}

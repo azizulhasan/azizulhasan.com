@@ -41,7 +41,7 @@ const hero_details = (req, res) => {
  *
  */
 const Storage = multer.diskStorage({
-  destination: "uploads",
+  destination: process.env.IMAGE_UPLOAD,
   filename: (req, file, cb) => {
     cb(null, Date.now() + "_" + file.originalname);
   },
@@ -94,8 +94,7 @@ const hero_update_post = (req, res) => {
 
       Hero.findById(id)
     .then((result) => {
-      console.log(result.backgroundImage)
-      const path = 'uploads/'+result.backgroundImage
+      const path = process.env.IMAGE_UPLOAD+''+result.backgroundImage
       if (fs.existsSync(path)) {
         fs.unlink(path, (err) => {
           if (err) throw err;
@@ -105,7 +104,6 @@ const hero_update_post = (req, res) => {
         console.log(result.backgroundImage + ' does not exist.');
       }
     })
-    
       Hero.findOneAndUpdate(
         {
           _id: id,

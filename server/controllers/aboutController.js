@@ -40,8 +40,9 @@ const about_details = (req, res) => {
  * Store image to "uploads" folder. after modifiying image namge.
  *
  */
+
 const Storage = multer.diskStorage({
-  destination: "uploads",
+  destination: process.env.IMAGE_UPLOAD,
   filename: (req, file, cb) => {
     cb(null, Date.now() + "_" + file.originalname);
   },
@@ -94,7 +95,7 @@ const about_update_post = (req, res) => {
       About.findById(id)
     .then((result) => {
       console.log(result.portfolioImage)
-      const path = 'uploads/'+result.portfolioImage
+      const path = process.env.IMAGE_UPLOAD+''+result.portfolioImage
       if (fs.existsSync(path)) {
         fs.unlink(path, (err) => {
           if (err) throw err;

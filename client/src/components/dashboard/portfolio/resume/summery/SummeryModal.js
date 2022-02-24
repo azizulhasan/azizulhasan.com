@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import {
-  getData,
-  postData,
-  getIframeContent
-} from "./SummeryHooks";
-import {sliceComponentName}  from '../../../../Context/utilities'
+import { getData, postData, getIframeContent } from "./SummeryHooks";
+import { sliceComponentName } from "../../../../Context/utilities";
 
 import { Editor } from "@tinymce/tinymce-react";
 /**
@@ -17,11 +13,12 @@ export default function SummeryModal({ setAboutData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
   const [summery, setData] = useState({
     _id: "",
+    section_title: "",
+    top_details: "",
     details: "",
     name: "",
-    summery: ""
+    summery: "",
   });
-
 
   /**
    * Handle content change value.
@@ -43,16 +40,13 @@ export default function SummeryModal({ setAboutData, updateBton }) {
     let form = new FormData(e.target);
     let data = {};
     for (let [key, value] of form.entries()) {
-      if (
-        key === "" ||
-        value === ""
-      ) {
+      if (key === "" || value === "") {
         alert("Please fill the value of : " + key);
         return;
       }
       data[key] = value;
     }
-    data['summery'] = getIframeContent();
+    data["summery"] = getIframeContent();
 
     // return
     /**
@@ -68,9 +62,9 @@ export default function SummeryModal({ setAboutData, updateBton }) {
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/summery", data)   
+      postData("http://localhost:4000/api/summery", data)
         .then((res) => {
-            console.log(res)
+          console.log(res);
           setAboutData(res);
           setLgShow(false);
         })
@@ -130,15 +124,25 @@ export default function SummeryModal({ setAboutData, updateBton }) {
                 hidden
               />
             )}
-            <Form.Group className="mb-4" controlId="summery.details">
-              <Form.Label>Details</Form.Label>
+            <Form.Group className="mb-4" controlId="summery.section_title">
+              <Form.Label>Resume Section Title</Form.Label>
+              <Form.Control
+                type="text"
+                name="section_title"
+                onChange={handleChange}
+                value={summery.section_title}
+                placeholder="Resume"
+              />
+            </Form.Group>
+            <Form.Group className="mb-4" controlId="summery.top_details">
+              <Form.Label>Top Details</Form.Label>
               <Form.Control
                 as="textarea"
                 row={2}
-                name="details"
+                name="top_details"
                 onChange={handleChange}
-                value={summery.details}
-                placeholder="Details"
+                value={summery.top_details}
+                placeholder="Type here resume top_details"
               />
             </Form.Group>
             <Form.Group className="mb-4" controlId="summery.name">
@@ -151,11 +155,23 @@ export default function SummeryModal({ setAboutData, updateBton }) {
                 placeholder="name"
               />
             </Form.Group>
+            <Form.Group className="mb-4" controlId="summery.details">
+              <Form.Label>Details</Form.Label>
+              <Form.Control
+                as="textarea"
+                row={2}
+                name="details"
+                onChange={handleChange}
+                value={summery.details}
+                placeholder="Details"
+              />
+            </Form.Group>
+
             <Form.Group className="mb-4" controlId="summery.summery">
               <Form.Label>Summery</Form.Label>
               <Editor
-               initialValue={summery.summery}
-               name = "summery"
+                initialValue={summery.summery}
+                name="summery"
                 init={{
                   height: 200,
                   menubar: true,

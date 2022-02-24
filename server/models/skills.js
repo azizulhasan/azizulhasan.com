@@ -2,9 +2,13 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const skillSchema = new Schema({
-    details:{
-        type: String,
-        required: true
+    section_title:{
+        type:String,
+        required: false
+    },
+    top_details:{
+        type:String,
+        required: false
     },
     skills:{
         type: Array,

@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require('dotenv').config()
 
 /**
  * Routes
@@ -21,14 +22,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 // connect to mongodb & listen for requests.
-const dbURI =
-  "mongodb+srv://azizulhasan:azizulhasan@mern.b6fud.mongodb.net/mern?retryWrites=true&w=majority";
-
+const dbURI = process.env.DB_URL
+  
+console.log(process.env.PORT)
 // mongodb+srv://hasan:hasan@cluster0.lvsbw.mongodb.net/Cluster0?retryWrites=true&w=majority
 
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((result) => app.listen(4000))
+  .then((result) => app.listen(process.env.PORT))
   .catch((err) => console.log(err));
 
 // register view engine.

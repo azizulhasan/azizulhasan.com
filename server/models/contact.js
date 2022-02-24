@@ -2,6 +2,14 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const contactSchema = new Schema({
+    section_title:{
+        type:String,
+        required: false
+    },
+    top_details:{
+        type:String,
+        required: false
+    },
     subjects:{
         type: String,
         required: true

@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
-import {
-  getData,
-  postData,
-  previewImage,
-} from "./AboutHooks";
-import {sliceComponentName}  from '../../../Context/utilities'
+import { getData, postData, previewImage } from "./AboutHooks";
+import { sliceComponentName } from "../../../Context/utilities";
 
 import { Editor } from "@tinymce/tinymce-react";
 /**
@@ -17,6 +13,8 @@ export default function AboutModal({ setAboutData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
   const [about, setData] = useState({
     _id: "",
+    section_title: "",
+    top_details: "",
     profession: "",
     details: "",
     portfolioImage: "",
@@ -31,8 +29,8 @@ export default function AboutModal({ setAboutData, updateBton }) {
 
   const handleDetailsChange = (ed) => {
     ed.on("change", function (e) {
-      about.details = ed.getContent()
-      console.log(about)
+      about.details = ed.getContent();
+      console.log(about);
     });
   };
 
@@ -152,6 +150,27 @@ export default function AboutModal({ setAboutData, updateBton }) {
                 hidden
               />
             )}
+            <Form.Group className="mb-4" controlId="about.section_title">
+              <Form.Label>Section Title</Form.Label>
+              <Form.Control
+                type="text"
+                name="section_title"
+                onChange={handleChange}
+                value={about.section_title}
+                placeholder="About"
+              />
+            </Form.Group>
+            <Form.Group className="mb-4" controlId="about.top_details">
+              <Form.Label>Top Details</Form.Label>
+              <Form.Control
+                as="textarea"
+                row={2}
+                name="top_details"
+                onChange={handleChange}
+                value={about.top_details}
+                placeholder="Type here about top_details"
+              />
+            </Form.Group>
             <Form.Group className="mb-4" controlId="about.profession">
               <Form.Label>Profession Title</Form.Label>
               <Form.Control
@@ -165,8 +184,8 @@ export default function AboutModal({ setAboutData, updateBton }) {
             <Form.Group className="mb-4" controlId="about.details">
               <Form.Label>Profession Details</Form.Label>
               <Editor
-               initialValue={about.details}
-               name = "details"
+                initialValue={about.details}
+                name="details"
                 init={{
                   height: 200,
                   menubar: true,

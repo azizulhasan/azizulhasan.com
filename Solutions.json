@@ -14,5 +14,13 @@
     {
         "question":"Detect URL Change in JavaScript Without Refresh",
         "url": "https://phpcoder.tech/detect-url-change-in-javascript-without-refresh/"
+    },
+    {
+        "question": "CSS pseudo elements in React",
+        "url": "https://stackoverflow.com/questions/28269669/css-pseudo-elements-in-react"
+    },
+    {
+        "question": "Adding Custom Environment Variables",
+        "url": "https://create-react-app.dev/docs/adding-custom-environment-variables/"
     }
 ]
