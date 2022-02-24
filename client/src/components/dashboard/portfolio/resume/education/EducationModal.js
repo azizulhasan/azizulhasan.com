@@ -140,6 +140,7 @@ export default function EducationModal({
               />
             )}
 
+            
             <Form.Group className="mb-4" controlId="education.degree">
               <Form.Label>Degree Name</Form.Label>
               <Form.Control

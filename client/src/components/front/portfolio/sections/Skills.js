@@ -13,7 +13,6 @@ export default function Skills() {
      */
     getData(process.env.REACT_APP_API_URL + "/api/skills").then((res) => {
       setSkills(res.data[0]);
-      setTimeout(() => console.log(res.data[0]), 3);
     });
   }, []);
 
@@ -29,21 +28,6 @@ export default function Skills() {
       let perCol = Math.floor(len / 2);
       return len % 2 === 0 ? [perCol, perCol] : [perCol + 1, perCol + 1];
     }
-  };
-
-  /**
-   * Skills opening div
-   * @returns
-   */
-  const openingDiv = () => {
-    return `<div className="col-lg-6">`;
-  };
-  /**
-   * Skills closing div
-   * @returns
-   */
-  const closingDiv = () => {
-    return `</div>`;
   };
 
   return (
@@ -74,12 +58,12 @@ export default function Skills() {
                         return (
                           <>
                             {/* Render first column if 'columnIndex == 0 && index < columnLen' */}
-                            {columnIndex == 0 && index < columnLen ? (
-                              <ProgressBar skill={skill} index={index} />
-                            ) : columnIndex == 1 && index >= columnLen ? (
+                            {columnIndex === 0 && index < columnLen ? (
+                              <ProgressBar key={index} skill={skill} index={index} />
+                            ) : columnIndex === 1 && index >= columnLen ? (
                               <>
                                 {/* Render 2nd column if 'columnIndex == 1 && index >= columnLen' */}
-                                <ProgressBar skill={skill} index={index} />
+                                <ProgressBar key={index} skill={skill} index={index} />
                               </>
                             ) : (
                               ""
@@ -92,7 +76,7 @@ export default function Skills() {
               }
             )
           ) : (
-            <SingleSkill skills={skills} />
+            <SingleSkill key='0' skills={skills} />
           )}
         </div>
       </div>
@@ -110,7 +94,7 @@ function SingleSkill({ skills }) {
       {skills.skills &&
         skills.skills.length > 0 &&
         skills.skills.map((skill, index) => {
-          return <ProgressBar skill={skill} index={index} />;
+          return <ProgressBar key={index} skill={skill} index={index} />;
         })}
     </div>
   );

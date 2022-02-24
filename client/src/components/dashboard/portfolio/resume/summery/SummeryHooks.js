@@ -43,8 +43,8 @@ const getIframeContent = ()=> {
   // Create table headers consisting of 4 columns.
   const STORY_HEADERS = [
     {
-      prop: "details",
-      title: "Details",
+      prop: "summery_title",
+      title: "Summery Title",
     },
     {
       prop: "name",

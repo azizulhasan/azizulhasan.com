@@ -10,9 +10,17 @@ const summerySchema = new Schema({
         type:String,
         required: false
     },
-    details:{
-        type: String,
-        required: true
+    summery_title:{
+        type:String,
+        required: false
+    },
+    education_title:{
+        type:String,
+        required: false
+    },
+    experience_title:{
+        type:String,
+        required: false
     },
     name:{
         type: String,

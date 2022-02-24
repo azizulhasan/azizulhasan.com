@@ -15,7 +15,9 @@ export default function SummeryModal({ setAboutData, updateBton }) {
     _id: "",
     section_title: "",
     top_details: "",
-    details: "",
+    summery_title: "",
+    education_title: "",
+    experience_title: "",
     name: "",
     summery: "",
   });
@@ -125,7 +127,7 @@ export default function SummeryModal({ setAboutData, updateBton }) {
               />
             )}
             <Form.Group className="mb-4" controlId="summery.section_title">
-              <Form.Label>Resume Section Title</Form.Label>
+              <Form.Label>Section Title</Form.Label>
               <Form.Control
                 type="text"
                 name="section_title"
@@ -135,7 +137,7 @@ export default function SummeryModal({ setAboutData, updateBton }) {
               />
             </Form.Group>
             <Form.Group className="mb-4" controlId="summery.top_details">
-              <Form.Label>Top Details</Form.Label>
+              <Form.Label>Section Details</Form.Label>
               <Form.Control
                 as="textarea"
                 row={2}
@@ -143,6 +145,37 @@ export default function SummeryModal({ setAboutData, updateBton }) {
                 onChange={handleChange}
                 value={summery.top_details}
                 placeholder="Type here resume top_details"
+              />
+            </Form.Group>
+            <br />
+            <Form.Group className="mb-4" controlId="summery.summery_title">
+              <Form.Label>Summery Title</Form.Label>
+              <Form.Control
+                type="text"
+                name="summery_title"
+                onChange={handleChange}
+                value={summery.summery_title}
+                placeholder="Type here summery_title"
+              />
+            </Form.Group>
+            <Form.Group className="mb-4" controlId="summery.education_title">
+              <Form.Label>Education Title</Form.Label>
+              <Form.Control
+                type="text"
+                name="education_title"
+                onChange={handleChange}
+                value={summery.education_title}
+                placeholder="education_title"
+              />
+            </Form.Group>
+            <Form.Group className="mb-4" controlId="summery.experience_title">
+              <Form.Label>Experience Title</Form.Label>
+              <Form.Control
+                type="text"
+                name="experience_title"
+                onChange={handleChange}
+                value={summery.experience_title}
+                placeholder="experience_title"
               />
             </Form.Group>
             <Form.Group className="mb-4" controlId="summery.name">
@@ -155,18 +188,6 @@ export default function SummeryModal({ setAboutData, updateBton }) {
                 placeholder="name"
               />
             </Form.Group>
-            <Form.Group className="mb-4" controlId="summery.details">
-              <Form.Label>Details</Form.Label>
-              <Form.Control
-                as="textarea"
-                row={2}
-                name="details"
-                onChange={handleChange}
-                value={summery.details}
-                placeholder="Details"
-              />
-            </Form.Group>
-
             <Form.Group className="mb-4" controlId="summery.summery">
               <Form.Label>Summery</Form.Label>
               <Editor

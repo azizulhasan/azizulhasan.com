@@ -14,6 +14,7 @@ export default function ExperienceModal({
 }) {
   const [experience, setData] = useState({
     _id: "",
+
     position: "",
     from: "",
     to: "",
@@ -136,7 +137,6 @@ export default function ExperienceModal({
                 hidden
               />
             )}
-
             <Form.Group className="mb-4" controlId="experience.position">
               <Form.Label>Position Name</Form.Label>
               <Form.Control
