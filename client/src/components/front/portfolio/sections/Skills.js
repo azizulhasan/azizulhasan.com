@@ -17,112 +17,125 @@ export default function Skills() {
     });
   }, []);
 
-  const devideSkillsInToRow = (len) => {
-    /**
-      @todo: if skill length is 1 what to do
-    **/
-    let perCol = Math.floor(len / 2);
-    // let secondCol = Math.floor(Math.random() * (len - perCol + 1)) + perCol;
-    console.log(perCol + 1);
-    return len % 2 === 0 ? perCol : perCol + 1;
+  /**
+   *
+   * @param {skills} len skills length
+   * @returns
+   */
+  const devideSkillsInTowColumn = (len) => {
+    if (len === 1) {
+      return [len];
+    } else {
+      let perCol = Math.floor(len / 2);
+      return len % 2 === 0 ? [perCol, perCol] : [perCol + 1, perCol + 1];
+    }
   };
 
-  const openingDiv = () =>{
-    return (
-      <div className="col-lg-6"></div>
-    )
-  }
+  /**
+   * Skills opening div
+   * @returns
+   */
+  const openingDiv = () => {
+    return `<div className="col-lg-6">`;
+  };
+  /**
+   * Skills closing div
+   * @returns
+   */
+  const closingDiv = () => {
+    return `</div>`;
+  };
 
   return (
     <section id="skills" className="skills section-bg">
       <div className="container" data-aos="fade-up">
         <div className="section-title">
-          <h2>{skills.section_title ? skills.section_title : "About"}</h2>
+          <h2>{skills.section_title ? skills.section_title : "Skills"}</h2>
           <p>{skills.top_details ? skills.top_details : ""}</p>
         </div>
 
         <div className="row skills-content">
-          {/* <div className="col-lg-6"> */}
-            {/* {skills.skills && devideSkillsInToRow(5)} */}
-            {skills.skills &&
-              skills.skills.length > 0 &&
-              skills.skills.map((skill, index) => {
+          {/**
+           * 1. If skills length is 1 then column length will be "col-lg-12" otherwise
+           * coumn lenght will be "col-lg-6".
+           *
+           * 2. `devideSkillsInTowColumn()` length is more then 2 column will be 2
+           *
+           */}
+          {skills.skills &&
+          devideSkillsInTowColumn(skills.skills.length).length > 1 ? (
+            devideSkillsInTowColumn(skills.skills.length).map(
+              (columnLen, columnIndex) => {
                 return (
-                  <>
-                    {/* {index == 0 ||
-                      (devideSkillsInToRow(skills.skills.length) === index &&
-                      <></>)} */}
-
-                    <div className="progress" key={index}>
-                      <span className="skill">
-                        {skill[0]} <i className="val">{skill[1]}%</i>
-                      </span>
-                      <div className="progress-bar-wrap">
-                        <div
-                          className="progress-bar"
-                          role="progressbar"
-                          aria-valuenow={skill[1]}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
-                      </div>
-                    </div>
-                    {/* {index == 0 ||
-                      (devideSkillsInToRow(skills.skills.length) === index &&
-                      <></>)} */}
-                  </>
+                  <div className="col-lg-6" key={columnIndex}>
+                    {skills.skills &&
+                      skills.skills.length > 0 &&
+                      skills.skills.map((skill, index) => {
+                        return (
+                          <>
+                            {/* Render first column if 'columnIndex == 0 && index < columnLen' */}
+                            {columnIndex == 0 && index < columnLen ? (
+                              <ProgressBar skill={skill} index={index} />
+                            ) : columnIndex == 1 && index >= columnLen ? (
+                              <>
+                                {/* Render 2nd column if 'columnIndex == 1 && index >= columnLen' */}
+                                <ProgressBar skill={skill} index={index} />
+                              </>
+                            ) : (
+                              ""
+                            )}
+                          </>
+                        );
+                      })}
+                  </div>
                 );
-              })}
-          {/* </div> */}
-
-          {/* <div className="col-lg-6">
-            <div className="progress">
-              <span className="skill">
-                PHP <i className="val">80%</i>
-              </span>
-              <div className="progress-bar-wrap">
-                <div
-                  className="progress-bar"
-                  role="progressbar"
-                  aria-valuenow="80"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-
-            <div className="progress">
-              <span className="skill">
-                WordPress/CMS <i className="val">90%</i>
-              </span>
-              <div className="progress-bar-wrap">
-                <div
-                  className="progress-bar"
-                  role="progressbar"
-                  aria-valuenow="90"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-
-            <div className="progress">
-              <span className="skill">
-                Photoshop <i className="val">55%</i>
-              </span>
-              <div className="progress-bar-wrap">
-                <div
-                  className="progress-bar"
-                  role="progressbar"
-                  aria-valuenow="55"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-          </div> */}
+              }
+            )
+          ) : (
+            <SingleSkill skills={skills} />
+          )}
         </div>
       </div>
     </section>
+  );
+}
+/**
+ * Render if skills lenght is 1
+ * @param {skills} skills
+ * @returns
+ */
+function SingleSkill({ skills }) {
+  return (
+    <div className="col-lg-12">
+      {skills.skills &&
+        skills.skills.length > 0 &&
+        skills.skills.map((skill, index) => {
+          return <ProgressBar skill={skill} index={index} />;
+        })}
+    </div>
+  );
+}
+
+/**
+ * Progressbar
+ * @param {skill}  
+ * @returns 
+ */
+function ProgressBar({ skill, index }) {
+  return (
+    <div className="progress" key={index}>
+      <span className="skill">
+        {skill[0]} <i className="val">{skill[1]}%</i>
+      </span>
+      <div className="progress-bar-wrap">
+        <div
+          className="progress-bar"
+          role="progressbar"
+          aria-valuenow={skill[1]}
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+    </div>
   );
 }
