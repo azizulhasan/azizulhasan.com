@@ -24,6 +24,7 @@ export default function Contact() {
   const [totalContact, setTotalContact] = useState([]) 
 
   const setContactData = (data) => {
+    console.log(data.contacts)
     setTotalContact(data.contacts)
     setUpdateBtn({ display: true, id: data._id });
   };

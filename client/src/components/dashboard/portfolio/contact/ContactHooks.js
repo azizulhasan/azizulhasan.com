@@ -52,12 +52,12 @@
     // Create table headers consisting of 4 columns.
     const STORY_HEADERS = [
       {
-        prop: "0",
-        title: "Contact Name",
+        prop: "contact_type",
+        title: "Contact Type",
       },
       {
-        prop: "1",
-        title: "Contact Proficiency",
+        prop: "contact_type_value",
+        title: "Contact Value",
       },
       
     ];

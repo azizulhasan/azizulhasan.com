@@ -22,16 +22,45 @@ export default function ContactModal({ setContactData, updateBton }) {
     _id: "",
     section_title: "",
     subjects: "",
-    contacts: [],
+    contacts: [{ contact_type: "", contact_type_value: "" }],
     contact_type: "",
     contact_type_value: "",
   });
+  /**
+   *
+   * @param {contact type} value
+   * @returns
+   */
+  const getContactType = (value) => {
+    contact["contact_type"] = value;
+    return contact;
+  };
+  /**
+   *
+   * @param {contact type value} value
+   * @returns
+   */
+  const getContactTypeValue = (value) => {
+    contact["contact_type_value"] = value;
+
+    return contact;
+  };
   /**
    * Handle content change value.
    * @param {event} e
    */
   const handleChange = (e) => {
     setData({ ...contact, ...{ [e.target.name]: e.target.value } });
+  };
+
+  /**
+   * Handle contact change value.
+   * @param {event} e
+   */
+     const handleContactChange = (e) => {
+
+      setData({ ...contact, ...contact.contacts[{ [e.target.name]: e.target.value }] });
+      console.log(contact)
   };
 
   /**
@@ -45,7 +74,8 @@ export default function ContactModal({ setContactData, updateBton }) {
      * Get full form data and modify them for saving to database.
      */
     let form = new FormData(e.target);
-    let contactMap = {};
+    let contactMap = {contact_type: "",
+    contact_type_value: ""};
     let data = {};
     data["contacts"] = [];
     for (let [key, value] of form.entries()) {
@@ -55,16 +85,16 @@ export default function ContactModal({ setContactData, updateBton }) {
       }
 
       if (key === "contact_type") {
-        contactMap["contact"] = [value];
+        contactMap[key] = value;
       } else if (key === "contact_type_value") {
-        contactMap["contact"].push(value);
-        data["contacts"].push(contactMap["contact"]);
+        contactMap[key] = value;
+        data["contacts"].push(contactMap);
       } else {
         data[key] = value;
       }
     }
 
-    // console.log(JSON.stringify(data))
+    // console.log(JSON.stringify(data));
     // return;
 
     /**
@@ -226,7 +256,7 @@ export default function ContactModal({ setContactData, updateBton }) {
                     placement={placement}
                     overlay={
                       <Tooltip id={`tooltip-${placement}`}>
-                        Contact type like Location/Phone/Email
+                        Contact type like Address/Phone/Email
                       </Tooltip>
                     }
                   >
@@ -253,8 +283,8 @@ export default function ContactModal({ setContactData, updateBton }) {
                             <Form.Control
                               type="text"
                               name="contact_type"
-                              value={contact[0]}
-                              onChange={handleChange}
+                              value={contact.contact_type}
+                              onChange={handleContactChange}
                               placeholder="Contact Type"
                             />
                           </Form.Group>
@@ -270,8 +300,10 @@ export default function ContactModal({ setContactData, updateBton }) {
                             <Form.Control
                               type="text"
                               name="contact_type_value"
-                              value={contact[1]}
-                              onChange={handleChange}
+                              value={contact
+                                  .contact_type_value
+                              }
+                              onChange={handleContactChange}
                               placeholder="value"
                             />
                           </Form.Group>
@@ -300,7 +332,7 @@ export default function ContactModal({ setContactData, updateBton }) {
                           type="text"
                           name="contact_type"
                           value={contact.contact_type}
-                          onChange={handleChange}
+                          onChange={handleContactChange}
                           placeholder="contact type"
                         />
                       </Form.Group>
@@ -317,7 +349,7 @@ export default function ContactModal({ setContactData, updateBton }) {
                           type="text"
                           name="contact_type_value"
                           value={contact.contact_type_value}
-                          onChange={handleChange}
+                          onChange={handleContactChange}
                           placeholder="value"
                         />
                       </Form.Group>
