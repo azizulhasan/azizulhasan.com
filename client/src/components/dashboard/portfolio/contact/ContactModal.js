@@ -20,8 +20,7 @@ export default function ContactModal({ setContactData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
   const [contact, setData] = useState({
     _id: "",
-    section_title:"",
-    top_details:"",
+    section_title: "",
     subjects: "",
     contacts: [],
     contact_type: "",
@@ -150,20 +149,10 @@ export default function ContactModal({ setContactData, updateBton }) {
                 name="section_title"
                 onChange={handleChange}
                 value={contact.section_title}
-                placeholder="About"
+                placeholder="Contact"
               />
             </Form.Group>
-            <Form.Group className="mb-4" controlId="contact.top_details">
-              <Form.Label>Top Details</Form.Label>
-              <Form.Control
-                as="textarea"
-                row={2}
-                name="top_details"
-                onChange={handleChange}
-                value={contact.top_details}
-                placeholder="Type here contat top_details"
-              />
-            </Form.Group>
+
             <Row id="contact.contact_row" className="mb-4">
               <Col
                 xs={8}

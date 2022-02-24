@@ -24,9 +24,6 @@ app.use(express.json());
 // connect to mongodb & listen for requests.
 const dbURI = process.env.DB_URL
   
-console.log(process.env.PORT)
-// mongodb+srv://hasan:hasan@cluster0.lvsbw.mongodb.net/Cluster0?retryWrites=true&w=majority
-
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => app.listen(process.env.PORT))

@@ -6,10 +6,6 @@ const contactSchema = new Schema({
         type:String,
         required: false
     },
-    top_details:{
-        type:String,
-        required: false
-    },
     subjects:{
         type: String,
         required: true
