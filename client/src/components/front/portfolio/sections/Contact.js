@@ -52,17 +52,59 @@ export default function Contact() {
    */
   const handleChange = (e) => {
     setContactForm({ ...contactForm, ...{ [e.target.name]: e.target.value } });
+    // console.log(contactForm);
+  };
+  /**
+   *
+   * @param {contact_type} value
+   * @returns
+   */
+  const setUpContactTypeData = (value) => {
+    let contactData = {};
+    contactData.className = value.toLowerCase();
+    contactData.title = value.charAt(0).toUpperCase() + "" + value.slice(1);
+    contactData.icon =
+      value === "Address"
+        ? "geo-alt"
+        : value === "Email"
+        ? "envelope"
+        : value.toLowerCase();
+
+    return contactData;
+  };
+  /**
+   * Handle contact  form submission
+   * @param {event} e
+   * @returns
+   */
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(contactForm);
+    return;
+    /**
+     * Get full form data and modify them for saving to database.
+     */
+    let form = new FormData(e.target);
+    let contactMap = {};
+    let data = {};
+    data["contacts"] = [];
+    for (let [key, value] of form.entries()) {
+      if (key === "" || value === "") {
+        alert("Please fill the value of : " + key);
+        return;
+      }
+
+      if (key === "contact_type") {
+        contactMap["contact"] = [value];
+      } else if (key === "contact_type_value") {
+        contactMap["contact"].push(value);
+        data["contacts"].push(contactMap["contact"]);
+      } else {
+        data[key] = value;
+      }
+    }
   };
 
-  const setUpContactTypeData
-   = (value) => {
-    let contactData = {}
-    contactData.className = value.toLowerCase()
-    contactData.title = value.charAt(0).toUpperCase()+""+value.slice(1)
-    contactData.icon = value === 'Address'? 'geo-alt' : value === 'Email' ? "envelope" : value.toLowerCase()
-
-    return contactData
-  }
   return (
     <section id="contact" className="contact">
       <div className="container" data-aos="fade-up">
@@ -76,39 +118,24 @@ export default function Contact() {
               {contact.contacts &&
                 contact.contacts.map((contact, i) => {
                   return (
-                    <div className={setUpContactTypeData
-                    (contact[0]).className}>
-                      <i className={"bi bi-"+setUpContactTypeData(contact[0]).icon}></i>
+                    <div className={setUpContactTypeData(contact[0]).className}>
+                      <i
+                        className={
+                          "bi bi-" + setUpContactTypeData(contact[0]).icon
+                        }
+                      ></i>
                       <h4>{setUpContactTypeData(contact[0]).title}:</h4>
                       <p>{contact[1]}</p>
                     </div>
                   );
                 })}
-              {/* <div className="address">
-                <i className="bi bi-geo-alt"></i>
-                <h4>Location:</h4>
-                <p>A108 Adam Street, New York, NY 535022</p>
-              </div>
-
-              <div className="email">
-                <i className="bi bi-envelope"></i>
-                <h4>Email:</h4>
-                <p>info@example.com</p>
-              </div>
-
-              <div className="phone">
-                <i className="bi bi-phone"></i>
-                <h4>Call:</h4>
-                <p>+1 5589 55488 55s</p>
-              </div> */}
             </div>
           </div>
 
           <div className="col-lg-8 mt-5 mt-lg-0">
             <form
-              action="forms/contact.php"
+              action={process.env.REACT_APP_API_URL + "/api/contact_form"}
               method="post"
-              role="form"
               className="php-email-form"
             >
               <div className="row">
@@ -118,6 +145,8 @@ export default function Contact() {
                     name="name"
                     className="form-control"
                     id="name"
+                    onChange={handleChange}
+                    value={contactForm.name}
                     placeholder="Your Name"
                     required
                   />
@@ -127,6 +156,8 @@ export default function Contact() {
                     type="email"
                     className="form-control"
                     name="email"
+                    onChange={handleChange}
+                    value={contactForm.email}
                     id="email"
                     placeholder="Your Email"
                     required
@@ -134,7 +165,12 @@ export default function Contact() {
                 </div>
               </div>
               <div className="form-group mt-3">
-                <Form.Select name="subject" aria-label="Default select example">
+                <Form.Select
+                  name="subject"
+                  onChange={handleChange}
+                  value={contactForm.subject}
+                  aria-label="Default select example"
+                >
                   <option disabled>Open this select menu</option>
                   {contact.subjects &&
                     Object.keys(setFormSubjects(contact.subjects)).map(
@@ -153,6 +189,8 @@ export default function Contact() {
                 <textarea
                   className="form-control"
                   name="message"
+                  onChange={handleChange}
+                  value={contactForm.message}
                   rows="5"
                   placeholder="Message"
                   required

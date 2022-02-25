@@ -50,6 +50,11 @@
   });
 
   function php_email_form_submit(thisForm, action, formData) {
+
+    for(let [key , value]  of formData.entries()){
+      console.log( key , value)
+    }
+    return;
     fetch(action, {
       method: 'POST',
       body: formData,
