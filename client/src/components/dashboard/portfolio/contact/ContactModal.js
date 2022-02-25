@@ -22,7 +22,7 @@ export default function ContactModal({ setContactData, updateBton }) {
     _id: "",
     section_title: "",
     subjects: "",
-    contacts: [{ contact_type: "", contact_type_value: "" }],
+    contacts: [],
     contact_type: "",
     contact_type_value: "",
   });
@@ -52,17 +52,6 @@ export default function ContactModal({ setContactData, updateBton }) {
   const handleChange = (e) => {
     setData({ ...contact, ...{ [e.target.name]: e.target.value } });
   };
-
-  /**
-   * Handle contact change value.
-   * @param {event} e
-   */
-     const handleContactChange = (e) => {
-
-      setData({ ...contact, ...contact.contacts[{ [e.target.name]: e.target.value }] });
-      console.log(contact)
-  };
-
   /**
    * Handle contact content form submission
    * @param {event} e
@@ -74,8 +63,7 @@ export default function ContactModal({ setContactData, updateBton }) {
      * Get full form data and modify them for saving to database.
      */
     let form = new FormData(e.target);
-    let contactMap = {contact_type: "",
-    contact_type_value: ""};
+    let contactMap = {};
     let data = {};
     data["contacts"] = [];
     for (let [key, value] of form.entries()) {
@@ -85,17 +73,14 @@ export default function ContactModal({ setContactData, updateBton }) {
       }
 
       if (key === "contact_type") {
-        contactMap[key] = value;
+        contactMap["contact"] = [value];
       } else if (key === "contact_type_value") {
-        contactMap[key] = value;
-        data["contacts"].push(contactMap);
+        contactMap['contact'].push(value);
+        data["contacts"].push(contactMap['contact']);
       } else {
         data[key] = value;
       }
     }
-
-    // console.log(JSON.stringify(data));
-    // return;
 
     /**
      * Update data if "_id" exists. else save form data.
@@ -277,14 +262,14 @@ export default function ContactModal({ setContactData, updateBton }) {
                         >
                           <Form.Group
                             className="mb-3"
-                            controlId="hero.contact_type"
+                            controlId="contact.contact_type"
                           >
                             <Form.Label>Contact Type</Form.Label>
                             <Form.Control
                               type="text"
                               name="contact_type"
-                              value={contact.contact_type}
-                              onChange={handleContactChange}
+                              value={contact[0]}
+                              onChange={handleChange}
                               placeholder="Contact Type"
                             />
                           </Form.Group>
@@ -295,15 +280,15 @@ export default function ContactModal({ setContactData, updateBton }) {
                           lg={5}
                           className="d-flex flex-col  mb-2"
                         >
-                          <Form.Group className="mb-3">
+                          <Form.Group className="mb-3" controlId="contact.contact_type_value">
                             <Form.Label>Contact Type Value</Form.Label>
                             <Form.Control
                               type="text"
                               name="contact_type_value"
-                              value={contact
-                                  .contact_type_value
+                              value={contact[1]
+                                  
                               }
-                              onChange={handleContactChange}
+                              onChange={handleChange}
                               placeholder="value"
                             />
                           </Form.Group>
@@ -332,7 +317,7 @@ export default function ContactModal({ setContactData, updateBton }) {
                           type="text"
                           name="contact_type"
                           value={contact.contact_type}
-                          onChange={handleContactChange}
+                          onChange={handleChange}
                           placeholder="contact type"
                         />
                       </Form.Group>
@@ -349,7 +334,7 @@ export default function ContactModal({ setContactData, updateBton }) {
                           type="text"
                           name="contact_type_value"
                           value={contact.contact_type_value}
-                          onChange={handleContactChange}
+                          onChange={handleChange}
                           placeholder="value"
                         />
                       </Form.Group>

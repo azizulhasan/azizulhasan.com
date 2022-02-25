@@ -43,20 +43,29 @@
     };
   
     /**
-     * Delete contact
+     * Delete contact row. If contact row length is 1 then before deleting first row clone if 
+     * and append it to parrent row.
      */
     const deleteContact = (e) => {
-      let row = e.target.parentElement.parentElement;
-      e.target.parentElement.parentElement.parentElement.removeChild(row);
+      let row = e.target.parentElement.parentElement; // get clicked row
+      if(e.target.parentElement.parentElement.parentElement.childNodes.length == 1){
+        let rowClone = e.target.parentElement.parentElement.parentElement.firstChild.cloneNode(true);
+        e.target.parentElement.parentElement.parentElement.appendChild(rowClone);
+        e.target.parentElement.parentElement.parentElement.removeChild(row);
+        document.getElementById('contact.contact_type').value = ""
+        document.getElementById('contact.contact_type_value').value = ""
+      }else{
+        e.target.parentElement.parentElement.parentElement.removeChild(row);
+      }
     };
     // Create table headers consisting of 4 columns.
     const STORY_HEADERS = [
       {
-        prop: "contact_type",
+        prop: "0",
         title: "Contact Type",
       },
       {
-        prop: "contact_type_value",
+        prop: "1",
         title: "Contact Value",
       },
       

@@ -20,31 +20,31 @@ export default function Contact() {
      */
     getData(process.env.REACT_APP_API_URL + "/api/contact").then((res) => {
       setContact(res.data[0]);
-      console.log(res.data);
+      console.log(res.data[0]);
     });
   }, []);
 
   /**
    * Create a subjects object from given string which is seperated by "|"
-   * @param {subjects} subjects 
+   * @param {subjects} subjects
    * @returns subjectsObj
    */
   const setFormSubjects = (subjects) => {
-    let subjectsObj = []
-    if(subjects.indexOf('|') > 0){
-      let stringArr = subjects.trim().split("|")
-      
-      for(let i  = 0; i< stringArr.length; i++){
-        let key = stringArr[i].trim().replace(/\s/g, "_")
-        subjectsObj[key] = stringArr[i]
+    let subjectsObj = [];
+    if (subjects.indexOf("|") > 0) {
+      let stringArr = subjects.trim().split("|");
+
+      for (let i = 0; i < stringArr.length; i++) {
+        let key = stringArr[i].trim().replace(/\s/g, "_");
+        subjectsObj[key] = stringArr[i];
       }
-    }else{
-      let key = subjects.trim().replace(/\s/g, "_")
-      subjectsObj[key] = subjects
+    } else {
+      let key = subjects.trim().replace(/\s/g, "_");
+      subjectsObj[key] = subjects;
     }
 
     return subjectsObj;
-  }
+  };
 
   /**
    * Handle content change value.
@@ -53,6 +53,16 @@ export default function Contact() {
   const handleChange = (e) => {
     setContactForm({ ...contactForm, ...{ [e.target.name]: e.target.value } });
   };
+
+  const setUpContactTypeData
+   = (value) => {
+    let contactData = {}
+    contactData.className = value.toLowerCase()
+    contactData.title = value.charAt(0).toUpperCase()+""+value.slice(1)
+    contactData.icon = value === 'Address'? 'geo-alt' : value === 'Email' ? "envelope" : value.toLowerCase()
+
+    return contactData
+  }
   return (
     <section id="contact" className="contact">
       <div className="container" data-aos="fade-up">
@@ -63,7 +73,18 @@ export default function Contact() {
         <div className="row mt-1">
           <div className="col-lg-4">
             <div className="info">
-              <div className="address">
+              {contact.contacts &&
+                contact.contacts.map((contact, i) => {
+                  return (
+                    <div className={setUpContactTypeData
+                    (contact[0]).className}>
+                      <i className={"bi bi-"+setUpContactTypeData(contact[0]).icon}></i>
+                      <h4>{setUpContactTypeData(contact[0]).title}:</h4>
+                      <p>{contact[1]}</p>
+                    </div>
+                  );
+                })}
+              {/* <div className="address">
                 <i className="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
                 <p>A108 Adam Street, New York, NY 535022</p>
@@ -79,7 +100,7 @@ export default function Contact() {
                 <i className="bi bi-phone"></i>
                 <h4>Call:</h4>
                 <p>+1 5589 55488 55s</p>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -113,29 +134,21 @@ export default function Contact() {
                 </div>
               </div>
               <div className="form-group mt-3">
-                {/* <input
-                  type="text"
-                  className="form-control"
-                  name="subject"
-                  id="subject"
-                  placeholder="Subject"
-                  required
-                /> */}
-                <Form.Select
-                  name="subject"
-                  aria-label="Default select example"
-                >
+                <Form.Select name="subject" aria-label="Default select example">
                   <option disabled>Open this select menu</option>
-                  {contact.subjects && Object.keys(setFormSubjects(contact.subjects)).map((subject_key) => {
-                    return (
-                      <option key={subject_key} value={subject_key}>
-                        {setFormSubjects(contact.subjects)[subject_key]}
-                      </option>
-                    );
-                  })}
+                  {contact.subjects &&
+                    Object.keys(setFormSubjects(contact.subjects)).map(
+                      (subject_key) => {
+                        return (
+                          <option key={subject_key} value={subject_key}>
+                            {setFormSubjects(contact.subjects)[subject_key]}
+                          </option>
+                        );
+                      }
+                    )}
                 </Form.Select>
               </div>
-              
+
               <div className="form-group mt-3">
                 <textarea
                   className="form-control"
