@@ -13,6 +13,7 @@ import { addScripts, getComponentName } from "../Context/utilities";
 import DashboardContent from "./dasboardcontent/DashboardContent";
 import DashboardTopNav from "./dasboardcontent/DashboardTopNav";
 import DashboardSideNav from "./dasboardcontent/DashboardSideNav";
+import Mail from "./mail/Mail";
 // import DataTable from "./dasboardcontent/DataTable";
 
 /**
@@ -36,6 +37,7 @@ import Testimonials from "./portfolio/Testimonials";
  */
 import CreateBlog from "./blogs/blogcontent/CreateBlog";
 import CreateCategory from "./blogs/categorycontent/CreateCategory";
+
 
 /**
  * 
@@ -79,6 +81,7 @@ export default function Dashboard() {
                 </ol>
                 <Routes>
                   <Route path="/dashboard" element={<DashboardContent />} />
+                  <Route path="/dashboard/mail" element={<Mail />} />
                   <Route path="/dashboard/hero" element={<Hero />} />
                   <Route path="/dashboard/about" element={<About />} />
                   <Route path="/dashboard/facts" element={<Facts />} />

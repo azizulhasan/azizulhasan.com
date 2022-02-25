@@ -51,25 +51,27 @@
 
   function php_email_form_submit(thisForm, action, formData) {
 
+    let data={}
     for(let [key , value]  of formData.entries()){
-      console.log( key , value)
+      data[key] = value
     }
-    return;
+    
+    // return;
     fetch(action, {
       method: 'POST',
-      body: formData,
-      headers: {'X-Requested-With': 'XMLHttpRequest'}
+      body: JSON.stringify(data),
+      headers: {'Content-Type': 'application/json'}
     })
     .then(response => {
       if( response.ok ) {
-        return response.text()
+        return response.json()
       } else {
         throw new Error(`${response.status} ${response.statusText} ${response.url}`); 
       }
     })
     .then(data => {
       thisForm.querySelector('.loading').classList.remove('d-block');
-      if (data.trim() == 'OK') {
+      if (data.data.length) {
         thisForm.querySelector('.sent-message').classList.add('d-block');
         thisForm.reset(); 
       } else {

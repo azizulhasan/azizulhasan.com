@@ -2,16 +2,45 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 /**
- * 
- * Load css
+ *
+ * utilities
  */
-import "./assets/css/login.css"
+import { postWithoutImage } from "../../Context/utilities";
+import "./assets/css/login.css";
 export default function Login() {
   const navigate = useNavigate();
   const loginToDashboard = (id) => {
     navigate("/dashboard");
     window.location.reload(false);
-  }; //eg.history.push('/login');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    /**
+     * Get full form data and modify them for saving to database.
+     */
+
+    let form = new FormData(e.target);
+    let data = {};
+    for (let [key, value] of form.entries()) {
+      if (key === "" || value === "") {
+        alert("Please fill the value of : " + key);
+        return;
+      }
+
+      data[key] = value;
+    }
+    console.log(data)
+    
+    postWithoutImage(process.env.REACT_APP_API_URL + "/api/login", data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="container">
       {/* <!-- Outer Row --> */}
@@ -27,10 +56,11 @@ export default function Login() {
                     <div className="text-center">
                       <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
                     </div>
-                    <form className="user">
+                    <form onSubmit={handleSubmit} className="user">
                       <div className="form-group">
                         <input
                           type="email"
+                          name="email"
                           className="form-control form-control-user"
                           id="exampleInputEmail"
                           aria-describedby="emailHelp"
@@ -40,6 +70,7 @@ export default function Login() {
                       <div className="form-group">
                         <input
                           type="password"
+                          name="password"
                           className="form-control form-control-user"
                           id="exampleInputPassword"
                           placeholder="Password"
@@ -62,7 +93,7 @@ export default function Login() {
                       </div>
 
                       <button
-                        onClick={() => loginToDashboard("loginForm")}
+                        type="submit"
                         className="btn btn-primary btn-user w-100"
                       >
                         Login

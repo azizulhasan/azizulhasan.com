@@ -15,6 +15,8 @@ const summeryRoutes = require("./routes/summeryRoutes");
 const educationRoutes = require("./routes/educationRoutes");
 const experienceRoutes = require("./routes/experienceRoutes");
 const contactRoutes = require("./routes/contactRoutes");
+const contactFormRoutes = require("./routes/contactFormRoutes");
+const loginRoutes = require("./routes/loginRoutes");
 
 // express app
 const app = express();
@@ -38,7 +40,7 @@ app.use(express.static("public"));
  * This middleware is used for recognizing request object as string or array.
  * and "express.json()" function recognize request object as json format.
  */
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 /**
  * This middleware is used to console errors more elegent way.
  */
@@ -97,6 +99,14 @@ app.use("/api/experience", experienceRoutes);
  * Experience Routes
  */
 app.use("/api/contact", contactRoutes);
+/**
+ * Contact form Routes
+ */
+ app.use("/api/contact_form", contactFormRoutes);
+ /**
+ * Login Routes
+ */
+  app.use("/api/login", loginRoutes);
 
 app.post("/api/test", (req, res) => {
   console.log(req.body);

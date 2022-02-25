@@ -29,6 +29,27 @@ const postData = async (url = "", data = {}) => {
 };
 
 /**
+ * Post data method.
+ * @param {url} url api url
+ * @param {method} method request type
+ * @returns
+ */
+ const postWithoutImage = async (url = "", data = {}) => {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+  const responseData = await response.json(); // parses JSON response into native JavaScript objects
+
+  return responseData;
+};
+
+/**
  * get data methon
  * @param {url} url api url
  * @returns  data mixed.
@@ -82,5 +103,6 @@ module.exports = {
   getData,
   postData,
   getComponentName,
-  sliceComponentName
+  sliceComponentName,
+  postWithoutImage
 };

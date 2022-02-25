@@ -11,9 +11,9 @@ export default function DashboardSideNav() {
         <div className="sb-sidenav-menu">
           <div className="nav">
             <div className="sb-sidenav-menu-heading">Core</div>
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/"  target="_blank" >
               <div className="sb-nav-link-icon">
-                <i className="fas fa-tachometer-alt"></i>
+                <i className="fas fa-user-alt"></i>
               </div>
               Front
             </Link>
@@ -22,6 +22,12 @@ export default function DashboardSideNav() {
                 <i className="fas fa-tachometer-alt"></i>
               </div>
               Dashboard
+            </Link>
+            <Link className="nav-link" to="/dashboard/mail">
+              <div className="sb-nav-link-icon">
+                <i className="fas fa-envelope"></i>
+              </div>
+              Mail
             </Link>
             <div className="sb-sidenav-menu-heading">Interface</div>
             <a
@@ -120,9 +126,9 @@ export default function DashboardSideNav() {
               aria-expanded="false"
               aria-controls="blogLaout"
             >
-              {/* Portfolio Menu */}
+              {/* blog Menu */}
               <div className="sb-nav-link-icon">
-                <i className="fas fa-columns"></i>
+              <i className="fas fa-blog"></i>
               </div>
               Blogs
               <div className="sb-sidenav-collapse-arrow">
@@ -144,6 +150,14 @@ export default function DashboardSideNav() {
                 </Link>
               </nav>
             </div>
+            {/* Settings menu */}
+            <Link className="nav-link" to="/">
+              <div className="sb-nav-link-icon">
+              <i className="fas fa-wrench"></i>
+              {/* <i class="fa-solid fa-bars-progress"></i> */}
+              </div>
+              Settings
+            </Link>
           </div>
         </div>
         <div className="sb-sidenav-footer">
