@@ -22,5 +22,14 @@
     {
         "question": "Adding Custom Environment Variables",
         "url": "https://create-react-app.dev/docs/adding-custom-environment-variables/"
+    },
+    {
+        "question": "Get location of current user",
+        "url": "https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_geolocation"
+    },
+    {
+        "question": "How to convert getCurrentPosition results to city name for free using ReverseGeocoding API?",
+        "url": "https://www.bigdatacloud.com/blog/convert-getcurrentposition-free-reversegeocoding-api"
     }
+    
 ]

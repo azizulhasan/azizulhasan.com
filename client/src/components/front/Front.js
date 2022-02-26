@@ -6,7 +6,6 @@ import Login from "./portfolio/Login";
 import { Navbar, Container, Nav, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BlogDetails from "./blogs/BlogDetails";
-
 function Front() {
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {

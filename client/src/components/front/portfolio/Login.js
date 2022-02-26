@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 /**
  *
  * utilities
  */
-import { postWithoutImage } from "../../Context/utilities";
+import {
+  postWithoutImage,
+  setCookie,
+  getCookie,
+  eraseCookie,
+  addScripts,
+  getLocation
+} from "../../Context/utilities";
 import "./assets/css/login.css";
+
 export default function Login() {
   const navigate = useNavigate();
-  const loginToDashboard = (id) => {
-    navigate("/dashboard");
-    window.location.reload(false);
-  };
+  // const loginToDashboard = (id) => {
+  //   navigate("/dashboard");
+  //   window.location.reload(false);
+  // };
 
+  // addScripts(["https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly&channel=2"])
+  // addScripts(["https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg"])
+
+  useEffect(()=>{
+
+  })
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -31,11 +45,68 @@ export default function Login() {
 
       data[key] = value;
     }
-    console.log(data)
-    
-    postWithoutImage(process.env.REACT_APP_API_URL + "/api/login", data)
+
+    console.log(data);
+
+    // return;
+
+    postWithoutImage(process.env.REACT_APP_API_URL + "/api/login", {
+      email: data.email,
+      password: data.password,
+    })
       .then((res) => {
-        console.log(res);
+        if (res.data === true) {
+          /**
+           * if remember me is clicked. set set localStorage.
+           * which by default store data with no expiration untill crean by
+           * javscript or clearing the Browser cache / Locally Stored Data.
+           */
+          if (data.remember_me !== undefined) {
+            window.localStorage.setItem("email", data.email);
+            window.localStorage.setItem("password", data.password);
+
+            /**
+             * Just for a while.
+             */
+            window.sessionStorage.setItem("email", data.email);
+            window.sessionStorage.setItem("password", data.password);
+          } else {
+            /**
+             * 1. Stores data only for a session, meaning that the data is stored until the browser (or tab) is closed.
+             * 2. Data is never transferred to the server.
+             * 3. Storage limit is larger than a cookie (at most 5MB).
+             */
+            window.sessionStorage.setItem("email", data.email);
+            window.sessionStorage.setItem("password", data.password);
+          }
+
+          // navigate("/dashboard");
+          // window.location.reload(false);
+        } else {
+          alert("Email or password is wrong.");
+        }
+
+        var obj = window.navigator;
+        getLocation(obj)
+        // let keys = Object.methods(obj)
+        //   console.log(keys)
+        let myNav = ['vendorSub', 'productSub', 'vendor', 'doNotTrack', 'appCodeName', 'appName', 'appVersion', 'platform', 'product', 'userAgent', 'language'];
+        // for (var key in obj) {
+        //   if (typeof obj[key] == "string") {
+        //     console.log(key + " = " + obj[key]);
+        //     myNav.push(key);
+        //   }
+        // }
+
+//         Latitude: 23.7730479
+// Longitude: 90.3639587
+// Longitude: undefined
+        // console.log(myNav);
+        // do
+        //   Object.getOwnPropertyNames(obj).forEach(function (name) {
+        //     console.log(name);
+        //   });
+        // while ((obj = Object.getPrototypeOf(obj)));
       })
       .catch((err) => {
         console.log(err);
@@ -61,6 +132,7 @@ export default function Login() {
                         <input
                           type="email"
                           name="email"
+                          value="azizulhasan.cr@gmail.com"
                           className="form-control form-control-user"
                           id="exampleInputEmail"
                           aria-describedby="emailHelp"
@@ -71,6 +143,7 @@ export default function Login() {
                         <input
                           type="password"
                           name="password"
+                          value="azizulhasan.cr@gmail.com"
                           className="form-control form-control-user"
                           id="exampleInputPassword"
                           placeholder="Password"
@@ -80,6 +153,7 @@ export default function Login() {
                         <div className="custom-control custom-checkbox small">
                           <input
                             type="checkbox"
+                            name="remember_me"
                             className="custom-control-input"
                             id="customCheck"
                           />

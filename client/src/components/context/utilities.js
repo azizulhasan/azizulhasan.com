@@ -98,11 +98,110 @@ const getName = (lastUrl) => {
   return componentArr;
 };
 
+/**
+ * 
+ * @param {coockie_name} name 
+ * @param {coockie_value} value 
+ * @param {exprires} days 
+ */
+function setCookie(name,value,days) {
+  var expires = "";
+  if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days*24*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+/**
+ * 
+ * @param {coockie_name} name 
+ * @returns 
+ */
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+/**
+ * 
+ * @param {coockie_name} name 
+ */
+function eraseCookie(name) {   
+  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+
+var errorCallback = function(error){
+  var errorMessage = 'Unknown error';
+  switch(error.code) {
+    case 1:
+      errorMessage = 'Permission denied';
+      break;
+    case 2:
+      errorMessage = 'Position unavailable';
+      break;
+    case 3:
+      errorMessage = 'Timeout';
+      break;
+  }
+  console.log(errorMessage);
+};
+
+var options = {
+  enableHighAccuracy: true,
+  timeout: 1000,
+  maximumAge: 0
+};
+
+function getLocation(navigator) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(displayLocation,errorCallback,options);
+  } else { 
+    console.log("Geolocation is not supported by this browser.")
+    // x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+  function displayLocation(position){
+
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    var request = new XMLHttpRequest();
+    console.log(position)
+    var method = 'GET';
+    var url = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+latitude+'&longitude='+longitude+'&localityLanguage=en';
+    var async = true;
+
+    request.open(method, url, async);
+    request.onreadystatechange = function(){
+      if(request.readyState == 4 && request.status == 200){
+        var data = JSON.parse(request.responseText);
+        var address = data.results;
+        console.log(JSON.parse(request.responseText));
+      }
+    };
+    request.send();
+  };
+
+
+
+
 module.exports = {
   addScripts,
   getData,
   postData,
   getComponentName,
   sliceComponentName,
-  postWithoutImage
+  postWithoutImage,
+  setCookie,
+  getCookie,
+  eraseCookie,
+  getLocation
 };

@@ -49,25 +49,22 @@ const get_credentials = (email) => {
  * @param {Object} res
  */
 const login_to_dashboard = (req, res) => {
-  //   console.log(req.body)
+  console.log(req.body);
   // return;
   const logins = new Login({
     ...req.body,
   });
-  
-  //   logins.save().then((result) => {
-  //     console.log(result)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
   Login.find({ email: req.body.email })
     .then((result) => {
-      if (
-        req.body.email === result[0].email &&
-        req.body.password === result[0].password
-      ) {
-        res.json({ data: true });
+      if (result.length) {
+        if (
+          req.body.email === result[0].email &&
+          req.body.password === result[0].password
+        ) {
+          res.json({ data: true });
+        }
+      }else{
+        res.json({ data: false });
       }
     })
     .catch((err) => {
