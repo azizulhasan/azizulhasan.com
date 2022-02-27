@@ -11,7 +11,7 @@ import {
   getCookie,
   eraseCookie,
   addScripts,
-  getLocation
+  getLocation,returnLocation,getUserBrowserData
 } from "../../Context/utilities";
 import "./assets/css/login.css";
 
@@ -86,27 +86,22 @@ export default function Login() {
           alert("Email or password is wrong.");
         }
 
-        var obj = window.navigator;
-        getLocation(obj)
-        // let keys = Object.methods(obj)
-        //   console.log(keys)
-        let myNav = ['vendorSub', 'productSub', 'vendor', 'doNotTrack', 'appCodeName', 'appName', 'appVersion', 'platform', 'product', 'userAgent', 'language'];
-        // for (var key in obj) {
-        //   if (typeof obj[key] == "string") {
-        //     console.log(key + " = " + obj[key]);
-        //     myNav.push(key);
-        //   }
-        // }
+        let userAddress = {}
 
-//         Latitude: 23.7730479
-// Longitude: 90.3639587
-// Longitude: undefined
-        // console.log(myNav);
-        // do
-        //   Object.getOwnPropertyNames(obj).forEach(function (name) {
-        //     console.log(name);
-        //   });
-        // while ((obj = Object.getPrototypeOf(obj)));
+        getLocation(window.navigator);
+        setTimeout(()=>{
+          let userData =  returnLocation()
+          console.log(userData)
+          userAddress['continent'] = userData.continent
+          userAddress['countryName'] = userData.countryName
+          userAddress['locality'] = userData.locality
+          userAddress['principalSubdivision'] = userData.principalSubdivision
+          userAddress['city'] =userData.localityInfo.administrative[1].isoName
+
+          console.log(userAddress)
+        }, 1000)
+
+
       })
       .catch((err) => {
         console.log(err);

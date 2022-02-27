@@ -34,7 +34,7 @@ const postData = async (url = "", data = {}) => {
  * @param {method} method request type
  * @returns
  */
- const postWithoutImage = async (url = "", data = {}) => {
+const postWithoutImage = async (url = "", data = {}) => {
   // Default options are marked with *
   const response = await fetch(url, {
     headers: {
@@ -79,17 +79,15 @@ const getComponentName = () => {
 };
 
 const sliceComponentName = () => {
+  let component = getComponentName().replace(/\s/g, "").trim().split("/");
 
-  let component =  getComponentName().replace(/\s/g,'').trim().split('/')
-  
-  return component[component.length-1]
- }
+  return component[component.length - 1];
+};
 
 const getName = (lastUrl) => {
   let urlArr = lastUrl.split("/");
   let componentArr = "";
   if (urlArr[1] !== "") {
-
     for (let i = 1; i < urlArr.length; i++) {
       let url = urlArr[i];
       componentArr += " / " + url[0].toUpperCase() + "" + url.slice(1);
@@ -99,99 +97,135 @@ const getName = (lastUrl) => {
 };
 
 /**
- * 
- * @param {coockie_name} name 
- * @param {coockie_value} value 
- * @param {exprires} days 
+ *
+ * @param {coockie_name} name
+ * @param {coockie_value} value
+ * @param {exprires} days
  */
-function setCookie(name,value,days) {
+function setCookie(name, value, days) {
   var expires = "";
   if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + (days*24*60*60*1000));
-      expires = "; expires=" + date.toUTCString();
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
   }
-  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
 /**
- * 
- * @param {coockie_name} name 
- * @returns 
+ *
+ * @param {coockie_name} name
+ * @returns
  */
 function getCookie(name) {
   var nameEQ = name + "=";
-  var ca = document.cookie.split(';');
-  for(var i=0;i < ca.length;i++) {
-      var c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  var ca = document.cookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) === " ") c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
   }
   return null;
 }
 /**
- * 
- * @param {coockie_name} name 
+ *
+ * @param {coockie_name} name
  */
-function eraseCookie(name) {   
-  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+function eraseCookie(name) {
+  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 }
 
-
-var errorCallback = function(error){
-  var errorMessage = 'Unknown error';
-  switch(error.code) {
+var errorCallback = function (error) {
+  var errorMessage = "Unknown error";
+  switch (error.code) {
     case 1:
-      errorMessage = 'Permission denied';
+      errorMessage = "Permission denied";
       break;
     case 2:
-      errorMessage = 'Position unavailable';
+      errorMessage = "Position unavailable";
       break;
     case 3:
-      errorMessage = 'Timeout';
+      errorMessage = "Timeout";
       break;
+    default:
+      errorMessage = "Timeout";
   }
   console.log(errorMessage);
 };
 
 var options = {
   enableHighAccuracy: true,
-  timeout: 1000,
-  maximumAge: 0
+  timeout: 3000,
+  maximumAge: 0,
 };
 
+/**
+ * get location data of user.
+ * @param {window.navigator} navigator
+ */
 function getLocation(navigator) {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(displayLocation,errorCallback,options);
-  } else { 
-    console.log("Geolocation is not supported by this browser.")
-    // x.innerHTML = "Geolocation is not supported by this browser.";
+    navigator.geolocation.getCurrentPosition(
+      getLocationData,
+      errorCallback,
+      options
+    );
+  } else {
+    throw new Error("Geolocation is not supported by this browser.");
   }
 }
 
-  function displayLocation(position){
+/**
+ * Current location data
+ * @param {position} position
+ */
+ let geoData = ""
+function getLocationData(position) {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  var request = new XMLHttpRequest();
 
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    var request = new XMLHttpRequest();
-    console.log(position)
-    var method = 'GET';
-    var url = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+latitude+'&longitude='+longitude+'&localityLanguage=en';
-    var async = true;
-
-    request.open(method, url, async);
-    request.onreadystatechange = function(){
-      if(request.readyState == 4 && request.status == 200){
-        var data = JSON.parse(request.responseText);
-        var address = data.results;
-        console.log(JSON.parse(request.responseText));
-      }
-    };
-    request.send();
+  var method = "GET";
+  var url =
+    "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" +
+    latitude +
+    "&longitude=" +
+    longitude +
+    "&localityLanguage=en";
+  var async = true;
+  
+  request.open(method, url, async);
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+       geoData  = JSON.parse(request.responseText);
+    }
   };
 
+  request.send();
+}
+/**
+ * Get user browser data.
+ * @param {navigator} navigator 
+ * @returns 
+ */
+const getUserBrowserData= (navigator) => {
 
+  let functions = {}
+  let browserData = {}
+  for (var key in navigator) {
+    if (typeof navigator[key] === "string" || typeof navigator[key] === "boolean") {
+      browserData[key] = navigator[key]
+    }else{
+      functions[key] = navigator[key]
+    }
+  }
 
+  return browserData
+}
+
+const returnLocation= () => {
+  return geoData;
+}
 
 module.exports = {
   addScripts,
@@ -203,5 +237,7 @@ module.exports = {
   setCookie,
   getCookie,
   eraseCookie,
-  getLocation
+  getLocation,
+  returnLocation,
+  getUserBrowserData
 };
