@@ -257,12 +257,12 @@ const getSessionStorage = (keys = []) => {
     for (let i = 0; i < keys.length; i++) {
       sessionData[keys[i]] = window.sessionStorage.getItem(keys[i]);
     }
-  }else{
+  } else {
     let session = window.sessionStorage;
-    for (let key in  session) {
+    for (let key in session) {
       let keyData = window.sessionStorage.getItem(key);
-      if(keyData){
-        sessionData[key] =keyData;
+      if (keyData) {
+        sessionData[key] = keyData;
       }
     }
   }
@@ -293,12 +293,12 @@ const getLocalStorage = (keys) => {
     for (let i = 0; i < keys.length; i++) {
       localData[keys[i]] = window.localStorage.getItem(keys[i]);
     }
-  }else{
+  } else {
     let storage = window.localStorage;
-    for (let key in  storage) {
+    for (let key in storage) {
       let keyData = window.localStorage.getItem(key);
-      if(keyData){
-        localData[key] =keyData;
+      if (keyData) {
+        localData[key] = keyData;
       }
     }
   }
@@ -306,10 +306,35 @@ const getLocalStorage = (keys) => {
   return localData;
 };
 
+const authenTicateUser = () => {
+  const Auth = {
+    session: getSessionStorage(),
+    storage: getLocalStorage(),
+  };
+  if (
+    (Auth.session.email === undefined && Auth.storage.email === undefined) ||
+    (Auth.session.password === undefined && Auth.storage.password === undefined)
+  ) {
+    window.location.href = process.env.REACT_APP_URL + "/login";
+  }
+};
 
-
-
-
+const getUserName = () => {
+  return window.sessionStorage.getItem("email")
+    ? window.sessionStorage.getItem("email").split("@")[0]
+    : window.localStorage.getItem("email")
+    ? window.localStorage.getItem("email").split("@")[0]
+    : "";
+};
+const logout = () => {
+  window.localStorage.removeItem("email");
+  window.localStorage.removeItem("password");
+  window.sessionStorage.removeItem("email");
+  window.sessionStorage.removeItem("password");
+  
+  window.location.href = process.env.REACT_APP_URL + "/login";
+  // window.location.reload(true)
+}
 module.exports = {
   addScripts,
   getData,
@@ -327,4 +352,7 @@ module.exports = {
   setSessionStorage,
   getSessionStorage,
   getLocalStorage,
+  authenTicateUser,
+  getUserName,
+  logout
 };

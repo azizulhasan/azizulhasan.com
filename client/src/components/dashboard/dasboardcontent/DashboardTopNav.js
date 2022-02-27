@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { logout } from "../../Context/utilities";
 
 export default function DashboardTopNav() {
   return (
     <nav className="sb-topnav navbar navbar-expand topnav_bg">
       {/* <!-- Navbar Brand--> */}
       <Link className="navbar-brand ps-3 text-dark" to="/dashboard">
-        HAJAR ZELLAL
+        {process.env.REACT_APP_WEBSITE_NAME}
       </Link>
       {/* <!-- Sidebar Toggle--> */}
       <button
@@ -62,7 +63,7 @@ export default function DashboardTopNav() {
               <hr className="dropdown-divider" />
             </li>
             <li>
-              <a className="dropdown-item" href="#!">
+              <a className="dropdown-item" onClick={(e)=> logout()} href="#!">
                 Logout
               </a>
             </li>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { getUserName } from "../../Context/utilities";
 
 export default function DashboardSideNav() {
   return (
@@ -162,7 +163,7 @@ export default function DashboardSideNav() {
         </div>
         <div className="sb-sidenav-footer">
           <div className="small">Logged in as:</div>
-          HAJAR ZELLAL
+          {getUserName()}
         </div>
       </nav>
     </div>

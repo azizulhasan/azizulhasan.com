@@ -1,11 +1,11 @@
-import React, { useEffect, useState, createContext, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 /**
  * Scripts
  */
 import "./assets/css/styles.css";
 import "./assets/js/scripts.js";
-import { addScripts, getComponentName } from "../Context/utilities";
+import { addScripts, getComponentName, authenTicateUser } from "../Context/utilities";
 
 /**
  * Dashboard Components
@@ -39,33 +39,23 @@ import CreateBlog from "./blogs/blogcontent/CreateBlog";
 import CreateCategory from "./blogs/categorycontent/CreateCategory";
 
 
-/**
- * 
- * Context 
- */
- const EnvContext = createContext()
+ 
+
  
 export default function Dashboard() {
+  authenTicateUser()
   const [componentName, setComponentName] = useState(getComponentName());
   useEffect(() => {
     new MutationObserver(() => {
       setComponentName(getComponentName());
     }).observe(document, { subtree: true, childList: true });
   }, [componentName]);
+
+
   addScripts([
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js",
   ]);
-  const EnvObj = {
-    URL: "http://localhost:4000/api/",
-    deleteData: function(id){
-      alert(id)
-    }
-  }
-
-  
   return (
-
-    <EnvContext.Provider value={EnvObj}>
       <Router>
         <DashboardTopNav />
         <div id="layoutSidenav">
@@ -126,13 +116,7 @@ export default function Dashboard() {
           </div>
         </div>
       </Router>
-    </EnvContext.Provider >
   );
 }
 
 
-// function TEST(){
-//   const Env = useContext(EnvContext)
-
-//   return <p>{Env.url}</p>
-// }
