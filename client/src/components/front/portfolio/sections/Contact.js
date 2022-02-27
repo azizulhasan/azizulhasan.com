@@ -18,7 +18,7 @@ export default function Contact() {
     /**
      * set user address data 
      */
-    //  setUserAddress(window.navigator)
+     setUserAddress(window.navigator)
     /**
      * Get data from and display to table.
      */
