@@ -17,6 +17,10 @@ const contactFormSchema = new Schema({
     message:{
         type: String,
         required: true
+    },
+    address: {
+        type: Object,
+        required: false
     }
 }, {timestamp: true})
 

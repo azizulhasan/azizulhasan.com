@@ -44,7 +44,6 @@ export default function Home() {
       "assets/front/vendor/swiper/swiper-bundle.min.js",
       "assets/front/vendor/typed.js/typed.min.js",
       "assets/front/vendor/waypoints/noframework.waypoints.js",
-      "assets/front/vendor/php-email-form/validate.js",
       "assets/front/js/main.js",
     ]);
   });

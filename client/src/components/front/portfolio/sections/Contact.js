@@ -4,8 +4,8 @@ import { Form } from "react-bootstrap";
  *
  * Utilities
  */
-import { getData } from "../../../Context/utilities";
-
+import { getData , setUserAddress} from "../../../Context/utilities";
+import submitContactForm from "../../../Context/validate";
 export default function Contact() {
   const [contact, setContact] = useState({});
   const [contactForm, setContactForm] = useState({
@@ -15,6 +15,10 @@ export default function Contact() {
     message: "",
   });
   useEffect(() => {
+    /**
+     * set user address data 
+     */
+    //  setUserAddress(window.navigator)
     /**
      * Get data from and display to table.
      */
@@ -52,7 +56,6 @@ export default function Contact() {
    */
   const handleChange = (e) => {
     setContactForm({ ...contactForm, ...{ [e.target.name]: e.target.value } });
-    // console.log(contactForm);
   };
   /**
    *
@@ -72,38 +75,8 @@ export default function Contact() {
 
     return contactData;
   };
-  /**
-   * Handle contact  form submission
-   * @param {event} e
-   * @returns
-   */
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(contactForm);
-    return;
-    /**
-     * Get full form data and modify them for saving to database.
-     */
-    let form = new FormData(e.target);
-    let contactMap = {};
-    let data = {};
-    data["contacts"] = [];
-    for (let [key, value] of form.entries()) {
-      if (key === "" || value === "") {
-        alert("Please fill the value of : " + key);
-        return;
-      }
 
-      if (key === "contact_type") {
-        contactMap["contact"] = [value];
-      } else if (key === "contact_type_value") {
-        contactMap["contact"].push(value);
-        data["contacts"].push(contactMap["contact"]);
-      } else {
-        data[key] = value;
-      }
-    }
-  };
+
 
   return (
     <section id="contact" className="contact">
@@ -134,8 +107,7 @@ export default function Contact() {
 
           <div className="col-lg-8 mt-5 mt-lg-0">
             <form
-              action={process.env.REACT_APP_API_URL + "/api/contact_form"}
-              method="post"
+              onSubmit={submitContactForm}
               className="php-email-form"
             >
               <div className="row">

@@ -163,7 +163,7 @@ var options = {
  * get location data of user.
  * @param {window.navigator} navigator
  */
-function getLocation(navigator) {
+function setUserAddress(navigator) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       getLocationData,
@@ -179,7 +179,7 @@ function getLocation(navigator) {
  * Current location data
  * @param {position} position
  */
- let geoData = ""
+let userAddress = {};
 function getLocationData(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
@@ -193,39 +193,122 @@ function getLocationData(position) {
     longitude +
     "&localityLanguage=en";
   var async = true;
-  
+
   request.open(method, url, async);
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
-       geoData  = JSON.parse(request.responseText);
+      let userData = JSON.parse(request.responseText);
+      userAddress["continent"] = userData.continent;
+      userAddress["countryName"] = userData.countryName;
+      userAddress["locality"] = userData.locality;
+      userAddress["principalSubdivision"] = userData.principalSubdivision;
+      userAddress["city"] = userData.localityInfo.administrative[1].isoName;
     }
   };
 
   request.send();
 }
 /**
- * Get user browser data.
- * @param {navigator} navigator 
- * @returns 
+ * Get user browser data. window.navigator object's data. loop throw the object and get all string
+ * and boolean data
+ * @param {navigator} navigator
+ * @returns
  */
-const getUserBrowserData= (navigator) => {
-
-  let functions = {}
-  let browserData = {}
+const getUserBrowserData = (navigator) => {
+  let browserData = {};
   for (var key in navigator) {
-    if (typeof navigator[key] === "string" || typeof navigator[key] === "boolean") {
-      browserData[key] = navigator[key]
-    }else{
-      functions[key] = navigator[key]
+    if (
+      typeof navigator[key] === "string" ||
+      typeof navigator[key] === "boolean"
+    ) {
+      browserData[key] = navigator[key];
     }
   }
 
-  return browserData
-}
+  return browserData;
+};
+/**
+ * city, country, division, locality etc.
+ * @returns user location data
+ */
+const getUserAddress = () => {
+  return userAddress;
+};
+/**
+ * set sessionStorage
+ * @param {object} data data object with key and value
+ */
+const setSessionStorage = (data) => {
+  if (typeof data === "object") {
+    Object.keys(data).map((key) => {
+      if (data[key]) {
+        window.sessionStorage.setItem(key, data[key]);
+      }
+    });
+  }
+};
+/**
+ *
+ * @param {array} keys session storage keys is array.
+ */
+const getSessionStorage = (keys = []) => {
+  let sessionData = {};
+  if (typeof keys === "array" && keys.length) {
+    for (let i = 0; i < keys.length; i++) {
+      sessionData[keys[i]] = window.sessionStorage.getItem(keys[i]);
+    }
+  }else{
+    let session = window.sessionStorage;
+    for (let key in  session) {
+      let keyData = window.sessionStorage.getItem(key);
+      if(keyData){
+        sessionData[key] =keyData;
+      }
+    }
+  }
 
-const returnLocation= () => {
-  return geoData;
-}
+  return sessionData;
+};
+/**
+ * set localStorage
+ * @param {object} data data object with key and value
+ */
+const setLocalStorage = (data) => {
+  if (typeof data === "object") {
+    Object.keys(data).map((key) => {
+      if (data[key]) {
+        window.localStorage.setItem(key, data[key]);
+      }
+    });
+  }
+};
+
+/**
+ *
+ * @param {array} keys local storage keys is array.
+ */
+const getLocalStorage = (keys) => {
+  let localData = {};
+  if (typeof keys === "array" && keys.length) {
+    for (let i = 0; i < keys.length; i++) {
+      localData[keys[i]] = window.localStorage.getItem(keys[i]);
+    }
+  }else{
+    let storage = window.localStorage;
+    for (let key in  storage) {
+      let keyData = window.localStorage.getItem(key);
+      if(keyData){
+        localData[key] =keyData;
+      }
+    }
+  }
+
+  return localData;
+};
+
+
+
+
 
 module.exports = {
   addScripts,
@@ -237,7 +320,11 @@ module.exports = {
   setCookie,
   getCookie,
   eraseCookie,
-  getLocation,
-  returnLocation,
-  getUserBrowserData
+  setUserAddress,
+  getUserAddress,
+  getUserBrowserData,
+  setLocalStorage,
+  setSessionStorage,
+  getSessionStorage,
+  getLocalStorage,
 };

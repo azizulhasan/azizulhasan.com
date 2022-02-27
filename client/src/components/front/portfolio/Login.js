@@ -7,27 +7,15 @@ import { useNavigate } from "react-router-dom";
  */
 import {
   postWithoutImage,
-  setCookie,
-  getCookie,
-  eraseCookie,
-  addScripts,
-  getLocation,returnLocation,getUserBrowserData
+  setLocalStorage,
+  setSessionStorage,
 } from "../../Context/utilities";
 import "./assets/css/login.css";
 
 export default function Login() {
   const navigate = useNavigate();
-  // const loginToDashboard = (id) => {
-  //   navigate("/dashboard");
-  //   window.location.reload(false);
-  // };
 
-  // addScripts(["https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly&channel=2"])
-  // addScripts(["https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg"])
-
-  useEffect(()=>{
-
-  })
+  useEffect(() => {});
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -56,52 +44,16 @@ export default function Login() {
     })
       .then((res) => {
         if (res.data === true) {
-          /**
-           * if remember me is clicked. set set localStorage.
-           * which by default store data with no expiration untill crean by
-           * javscript or clearing the Browser cache / Locally Stored Data.
-           */
           if (data.remember_me !== undefined) {
-            window.localStorage.setItem("email", data.email);
-            window.localStorage.setItem("password", data.password);
-
-            /**
-             * Just for a while.
-             */
-            window.sessionStorage.setItem("email", data.email);
-            window.sessionStorage.setItem("password", data.password);
+            setLocalStorage(data)
           } else {
-            /**
-             * 1. Stores data only for a session, meaning that the data is stored until the browser (or tab) is closed.
-             * 2. Data is never transferred to the server.
-             * 3. Storage limit is larger than a cookie (at most 5MB).
-             */
-            window.sessionStorage.setItem("email", data.email);
-            window.sessionStorage.setItem("password", data.password);
+            setSessionStorage(data)
           }
-
-          // navigate("/dashboard");
-          // window.location.reload(false);
+          navigate("/dashboard");
+          window.location.reload(false);
         } else {
           alert("Email or password is wrong.");
         }
-
-        let userAddress = {}
-
-        getLocation(window.navigator);
-        setTimeout(()=>{
-          let userData =  returnLocation()
-          console.log(userData)
-          userAddress['continent'] = userData.continent
-          userAddress['countryName'] = userData.countryName
-          userAddress['locality'] = userData.locality
-          userAddress['principalSubdivision'] = userData.principalSubdivision
-          userAddress['city'] =userData.localityInfo.administrative[1].isoName
-
-          console.log(userAddress)
-        }, 1000)
-
-
       })
       .catch((err) => {
         console.log(err);
