@@ -56,7 +56,7 @@ export default function MailModal({
    * @param {id} id
    */
   const getMailContent = (id) => {
-    getData("http://localhost:4000/api/contact_form/" + id)
+    getData(process.env.REACT_APP_API_URL + "/api/contact_form/" + id)
       .then((res) => {
         setData(res);
       })
@@ -98,7 +98,7 @@ export default function MailModal({
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/mail/" + data._id, data)
+      postData(process.env.REACT_APP_API_URL + "/api/mail/" + data._id, data)
         .then((res) => {
           setMailData(res.data);
           modalShow(false);
@@ -107,7 +107,7 @@ export default function MailModal({
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/mail", data)
+      postData(process.env.REACT_APP_API_URL + "/api/mail", data)
         .then((res) => {
           setMailData(res.data);
           modalShow(false);

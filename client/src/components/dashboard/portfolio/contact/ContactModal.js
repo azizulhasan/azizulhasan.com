@@ -86,7 +86,7 @@ export default function ContactModal({ setContactData, updateBton }) {
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/contact/" + data._id, data)
+      postData(process.env.REACT_APP_API_URL + "/api/contact/" + data._id, data)
         .then((res) => {
           setContactData(res);
           setLgShow(false);
@@ -95,7 +95,7 @@ export default function ContactModal({ setContactData, updateBton }) {
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/contact", data)
+      postData(process.env.REACT_APP_API_URL + "/api/contact", data)
         .then((res) => {
           setContactData(res);
           setLgShow(false);
@@ -111,7 +111,7 @@ export default function ContactModal({ setContactData, updateBton }) {
    * @param {id} id
    */
   const getContactContent = (id) => {
-    getData("http://localhost:4000/api/contact/" + id).then((res) => {
+    getData(process.env.REACT_APP_API_URL + "/api/contact/" + id).then((res) => {
       console.log(res);
       setData(res);
       setLgShow(true);

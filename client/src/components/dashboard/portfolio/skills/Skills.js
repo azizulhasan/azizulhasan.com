@@ -31,7 +31,7 @@ export default function Skills() {
       /**
        * Get data from and display to table.
        */
-      getData("http://localhost:4000/api/skills").then(res=>{
+      getData(process.env.REACT_APP_API_URL + "/api/skills").then(res=>{
         setTotalSkills(res.data[0].skills)
         
         if (res.data.length > 0) {

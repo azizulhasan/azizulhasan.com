@@ -47,7 +47,7 @@ export default function EducationModal({
    * @param {id} id
    */
   const getEducationContent = (id) => {
-    getData("http://localhost:4000/api/education/" + id)
+    getData(process.env.REACT_APP_API_URL + "/api/education/" + id)
       .then((res) => {
         setData(res);
       })
@@ -88,7 +88,7 @@ export default function EducationModal({
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/education/" + data._id, data)
+      postData(process.env.REACT_APP_API_URL + "/api/education/" + data._id, data)
         .then((res) => {
           setEducationData(res.data);
           modalShow(false);
@@ -97,7 +97,7 @@ export default function EducationModal({
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/education", data)
+      postData(process.env.REACT_APP_API_URL + "/api/education", data)
         .then((res) => {
           console.log(res.data);
           setEducationData(res.data);

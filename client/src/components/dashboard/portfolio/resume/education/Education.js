@@ -42,7 +42,7 @@ export default function Education() {
    */
   const deleteEducation = (id) => {
     alert("Are you sure? It will be permanently deleted.");
-    deletePost("http://localhost:4000/api/education/" + id)
+    deletePost(process.env.REACT_APP_API_URL + "/api/education/" + id)
       .then((res) => {
         setEducation(res.data);
       })
@@ -55,7 +55,7 @@ export default function Education() {
     /**
      * Get data from and display to table.
      */
-    getData("http://localhost:4000/api/education").then((res) => {
+    getData(process.env.REACT_APP_API_URL + "/api/education").then((res) => {
       setEducation(res.data);
     });
   }, []);

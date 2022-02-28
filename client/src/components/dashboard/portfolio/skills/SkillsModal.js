@@ -63,7 +63,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/skills/" + data._id, data)
+      postData(process.env.REACT_APP_API_URL + "/api/skills/" + data._id, data)
         .then((res) => {
           setSkillsData(res);
           setLgShow(false);
@@ -72,7 +72,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/skills", data)
+      postData(process.env.REACT_APP_API_URL + "/api/skills", data)
         .then((res) => {
           setSkillsData(res);
           setLgShow(false);
@@ -88,7 +88,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
    * @param {id} id
    */
   const getSkillsContent = (id) => {
-    getData("http://localhost:4000/api/skills/" + id).then((res) => {
+    getData(process.env.REACT_APP_API_URL + "/api/skills/" + id).then((res) => {
       console.log(res);
       setData(res);
       setLgShow(true);

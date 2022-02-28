@@ -42,7 +42,7 @@ export default function Experience() {
    */
   const deleteExperience = (id) => {
     alert("Are you sure? It will be permanently deleted.");
-    deletePost("http://localhost:4000/api/experience/" + id)
+    deletePost(process.env.REACT_APP_API_URL + "/api/experience/" + id)
       .then((res) => {
         setExperience(res.data);
       })
@@ -55,7 +55,7 @@ export default function Experience() {
     /**
      * Get data from and display to table.
      */
-    getData("http://localhost:4000/api/experience").then((res) => {
+    getData(process.env.REACT_APP_API_URL + "/api/experience").then((res) => {
       setExperience(res.data);
     });
   }, []);

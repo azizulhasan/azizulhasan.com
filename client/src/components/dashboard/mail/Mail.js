@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Table, Button } from "react-bootstrap";
+import { ToastContainer } from "react-toastify";
+import toast from '../../Context/Notify'
+import  DashboardAlert  from "../../hooks/Alert";
 
 /**
  * Hooks
  */
-import { getData , STORY_HEADERS,deletePost} from "./MailHooks";
+import { getData, STORY_HEADERS, deletePost } from "./MailHooks";
 
 /**
  * Components
@@ -35,35 +38,53 @@ export default function Mail() {
       setUpdateBtn({ display: false, id: "" });
     }
   };
+
   /**
    *
    * @param {id} id get the specific id which want to be deleted.
    */
   const deleteMail = (id) => {
     alert("Are you sure? It will be permanently deleted.");
-    deletePost("http://localhost:4000/api/contact_form/" + id)
+    deletePost(process.env.REACT_APP_API_URL + "/api/contact_form/" + id)
       .then((res) => {
         setMails(res.data);
+        toast("1 Mail Deleted");
+        
       })
       .catch((err) => {
         console.log(err);
       });
   };
   useEffect(() => {
-      /**
-       * Get data from and display to table.
-       */
-      getData("http://localhost:4000/api/contact_form").then(res=>{
-        setMails(res.data);
-        console.log(res.data)
-        if (res.data.length > 0) {
-          setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
-        }
-      })
+    /**
+     * Get data from and display to table.
+     */
+    getData(process.env.REACT_APP_API_URL + "/api/contact_form").then((res) => {
+      setMails(res.data);
+      console.log(res.data);
+      if (res.data.length > 0) {
+        setTimeout(
+          () => setUpdateBtn({ display: true, id: res.data[0]._id }),
+          100
+        );
+      }
+    });
   }, []);
 
   return (
     <React.Fragment>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      
       <Row className="mb-4 p-2">
         <Col
           xs={12}
@@ -91,11 +112,7 @@ export default function Mail() {
             mails.map((experience, index) => (
               <tr key={index}>
                 {Object.keys(experience).map((key) => {
-                  if (
-                    key === "name" ||
-                    key === "email" ||
-                    key === "subject"
-                  ) {
+                  if (key === "name" || key === "email" || key === "subject") {
                     return (
                       <td
                         key={key}

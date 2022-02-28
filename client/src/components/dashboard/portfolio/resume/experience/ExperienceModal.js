@@ -45,7 +45,7 @@ export default function ExperienceModal({
    * @param {id} id
    */
   const getExperienceContent = (id) => {
-    getData("http://localhost:4000/api/experience/" + id)
+    getData(process.env.REACT_APP_API_URL + "/api/experience/" + id)
       .then((res) => {
         setData(res);
       })
@@ -87,7 +87,7 @@ export default function ExperienceModal({
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/experience/" + data._id, data)
+      postData(process.env.REACT_APP_API_URL + "/api/experience/" + data._id, data)
         .then((res) => {
           setExperienceData(res.data);
           modalShow(false);
@@ -96,7 +96,7 @@ export default function ExperienceModal({
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/experience", data)
+      postData(process.env.REACT_APP_API_URL + "/api/experience", data)
         .then((res) => {
           setExperienceData(res.data);
           modalShow(false);

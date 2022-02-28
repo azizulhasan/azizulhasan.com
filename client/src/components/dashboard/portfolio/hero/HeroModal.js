@@ -91,7 +91,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/hero/" + data._id, formData)
+      postData(process.env.REACT_APP_API_URL + "/api/hero/" + data._id, formData)
         .then((res) => {
           setHeroData(res);
           setLgShow(false);
@@ -100,7 +100,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/hero", formData)
+      postData(process.env.REACT_APP_API_URL + "/api/hero", formData)
         .then((res) => {
           setHeroData(res);
           setLgShow(false);
@@ -116,7 +116,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
    * @param {id} id
    */
   const getHeroContent = (id) => {
-    getData("http://localhost:4000/api/hero/" + id).then((res) => {
+    getData(process.env.REACT_APP_API_URL + "/api/hero/" + id).then((res) => {
       console.log(res)
       setData(res);
       setLgShow(true);

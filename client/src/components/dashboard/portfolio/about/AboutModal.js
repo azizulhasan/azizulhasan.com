@@ -80,7 +80,7 @@ export default function AboutModal({ setAboutData, updateBton }) {
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData("http://localhost:4000/api/about/" + data._id, formData)
+      postData(process.env.REACT_APP_API_URL + "/api/about/" + data._id, formData)
         .then((res) => {
           setAboutData(res);
           setLgShow(false);
@@ -89,7 +89,7 @@ export default function AboutModal({ setAboutData, updateBton }) {
           console.log(err);
         });
     } else {
-      postData("http://localhost:4000/api/about", formData)
+      postData(process.env.REACT_APP_API_URL + "/api/about", formData)
         .then((res) => {
           setAboutData(res);
           setLgShow(false);
@@ -105,7 +105,7 @@ export default function AboutModal({ setAboutData, updateBton }) {
    * @param {id} id
    */
   const getAboutContent = (id) => {
-    getData("http://localhost:4000/api/about/" + id).then((res) => {
+    getData(process.env.REACT_APP_API_URL + "/api/about/" + id).then((res) => {
       setData(res);
       setLgShow(true);
     });

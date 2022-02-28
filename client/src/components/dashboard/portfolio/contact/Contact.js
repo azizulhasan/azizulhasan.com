@@ -32,7 +32,7 @@ export default function Contact() {
       /**
        * Get data from and display to table.
        */
-      getData("http://localhost:4000/api/contact").then(res=>{
+      getData(process.env.REACT_APP_API_URL + "/api/contact").then(res=>{
         setTotalContact(res.data[0].contacts)
         
         if (res.data.length > 0) {

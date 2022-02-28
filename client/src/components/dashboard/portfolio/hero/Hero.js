@@ -32,7 +32,7 @@ export default function Hero() {
       /**
        * Get data from and display to table.
        */
-      getData("http://localhost:4000/api/hero").then(res=>{
+      getData(process.env.REACT_APP_API_URL + "/api/hero").then(res=>{
         setHero(res.data);
         if (res.data.length > 0) {
           setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)
