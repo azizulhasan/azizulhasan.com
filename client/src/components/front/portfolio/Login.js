@@ -49,7 +49,7 @@ export default function Login() {
           } else {
             setSessionStorage(data)
           }
-          navigate("/dashboard");
+          navigate("/dashboard/mail");
           window.location.reload(false);
         } else {
           alert("Email or password is wrong.");

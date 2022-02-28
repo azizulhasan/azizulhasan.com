@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 /**
  * Scripts
@@ -42,12 +44,10 @@ import Testimonials from "./portfolio/Testimonials";
  */
 import CreateBlog from "./blogs/blogcontent/CreateBlog";
 import CreateCategory from "./blogs/categorycontent/CreateCategory";
-import WelComeModal from "../hooks/WelComeModal";
 
 export default function Dashboard() {
   authenTicateUser();
   const [componentName, setComponentName] = useState(getComponentName());
-  const [isWelcomeModalShow, setIsWelcomeModalShow] = useState(true)
   useEffect(() => {
     new MutationObserver(() => {
       setComponentName(getComponentName());
@@ -58,18 +58,21 @@ export default function Dashboard() {
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js",
   ]);
 
-  /**
-   * is welcome modal show?
-   * @param {boolean} value 
-   */
-  const welcomeModalShow =  (value) => {
-    setIsWelcomeModalShow(value)
-  }
+  
   return (
     <Router>
-      <WelComeModal
-        welcomeModalShow={welcomeModalShow}
-        isWelcomeModalShow={isWelcomeModalShow}
+
+
+<ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
       <DashboardTopNav />
       <div id="layoutSidenav">

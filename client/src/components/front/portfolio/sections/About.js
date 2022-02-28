@@ -16,8 +16,8 @@ export default function About() {
     });
   }, []);
   return (
-    <section id="about" className="about">
-      <div className="container" data-aos="fade-up">
+    <section id="about" className="about" >
+      <div className="container"   data-aos="fade-up">
         <div className="section-title">
           <h2>{about.section_title ? about.section_title: "About"}</h2>
           <p>
@@ -25,7 +25,7 @@ export default function About() {
           </p>
         </div>
 
-        <div className="row">
+        <div className="row" >
           <div className="col-lg-4">
             <img
               src={

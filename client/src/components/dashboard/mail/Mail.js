@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Table, Button } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
-import toast from '../../Context/Notify'
-import  DashboardAlert  from "../../hooks/Alert";
+import toast from "../../Context/Notify";
+import WelComeModal from "../../hooks/WelComeModal";
 
 /**
  * Hooks
@@ -19,6 +18,7 @@ export default function Mail() {
   const [mails, setMails] = useState([]);
   const [updateBtn, setUpdateBtn] = useState({ display: false, id: "" });
   const [lgShow, setLgShow] = useState(false);
+  const [isWelcomeModalShow, setIsWelcomeModalShow] = useState(false);
 
   const setMailData = (data) => {
     setMails([data]);
@@ -49,7 +49,6 @@ export default function Mail() {
       .then((res) => {
         setMails(res.data);
         toast("1 Mail Deleted");
-        
       })
       .catch((err) => {
         console.log(err);
@@ -69,22 +68,27 @@ export default function Mail() {
         );
       }
     });
+    /**
+     * Onload disply welcome message.
+     */
+    window.addEventListener("load", function () {
+      setIsWelcomeModalShow(true);
+    });
   }, []);
-
+  /**
+   * is welcome modal show?
+   * @param {boolean} value
+   */
+  const welcomeModalShow = (value) => {
+    setIsWelcomeModalShow(value);
+  };
   return (
     <React.Fragment>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
+      <WelComeModal
+        welcomeModalShow={welcomeModalShow}
+        isWelcomeModalShow={isWelcomeModalShow}
       />
-      
+
       <Row className="mb-4 p-2">
         <Col
           xs={12}
@@ -127,7 +131,7 @@ export default function Mail() {
                     bsPrefix="azh_btn azh_btn_edit"
                     onClick={(e) => modalShow(true, mails[index]["_id"])}
                   >
-                    Edit
+                    Open
                   </Button>
                   <Button
                     bsPrefix="azh_btn btn-danger azh_btn_experience"

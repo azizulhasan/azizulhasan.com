@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 
 // import "./assets/vendor/aos/aos.css"
-import "./assets/vendor/bootstrap/css/bootstrap.min.css";
+// import "./assets/vendor/bootstrap/css/bootstrap.min.css";
 import "./assets/vendor/bootstrap-icons/bootstrap-icons.css";
 import "./assets/vendor/boxicons/css/boxicons.min.css";
-import "./assets/vendor/glightbox/css/glightbox.min.css";
+// import "./assets/vendor/glightbox/css/glightbox.min.css";
 import "./assets/vendor/swiper/swiper-bundle.min.css";
 import "./assets/css/style.css";
 
@@ -29,7 +29,8 @@ import Footer from "../partials/Footer";
 import ScrollToTop from "../partials/ScrollToTop";
 
 // import 'https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'
-export default function Home() {
+
+export default function Home(){
   useEffect(() => {
     /**
      * Load all script of portfolio. and this url is based on "public/front/assets" folder
@@ -39,8 +40,8 @@ export default function Home() {
       "assets/front/vendor/purecounter/purecounter.js",
       "assets/front/vendor/aos/aos.js",
       "assets/front/vendor/bootstrap/js/bootstrap.bundle.min.js",
-      "assets/front/vendor/glightbox/js/glightbox.min.js",
-      "assets/front/vendor/isotope-layout/isotope.pkgd.min.js",
+      // "assets/front/vendor/glightbox/js/glightbox.min.js",
+      // "assets/front/vendor/isotope-layout/isotope.pkgd.min.js",
       "assets/front/vendor/swiper/swiper-bundle.min.js",
       "assets/front/vendor/typed.js/typed.min.js",
       "assets/front/vendor/waypoints/noframework.waypoints.js",
@@ -62,7 +63,7 @@ export default function Home() {
         <About />
         {/** End About Section */}
         {/** Facts Section */}
-        <Facts />
+        {/* <Facts /> */}
         {/** End Facts Section */}
         {/** Skills Section */}
         <Skills />
@@ -71,13 +72,13 @@ export default function Home() {
         <Resume />
         {/** End Resume Section */}
         {/**   Portfolio Section */}
-        <Portfolio />
+        {/* <Portfolio /> */}
         {/** End Portfolio Section */}
         {/** Services Section */}
-        <Services />
+        {/* <Services /> */}
         {/** End Services Section */}
         {/** Testimonials Section */}
-        <Testimonials />
+        {/* <Testimonials /> */}
         {/** End Testimonials Section */}
         {/** Contact Section */}
         <Contact />

@@ -29,16 +29,16 @@ export default class LeftMenu extends Component {
                   <i className="bx bx-file-blank"></i> <span>Resume</span>
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#portfolio" className="nav-link scrollto">
                   <i className="bx bx-book-content"></i> <span>Portfolio</span>
                 </a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a href="#services" className="nav-link">
                   <i className="bx bx-server"></i> <span>Services</span>
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a href="#contact" className="nav-link">
                   <i className="bx bx-envelope"></i> <span>Contact</span>

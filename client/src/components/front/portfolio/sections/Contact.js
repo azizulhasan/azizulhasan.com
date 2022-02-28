@@ -24,7 +24,6 @@ export default function Contact() {
      */
     getData(process.env.REACT_APP_API_URL + "/api/contact").then((res) => {
       setContact(res.data[0]);
-      console.log(res.data[0]);
     });
   }, []);
 
@@ -85,13 +84,13 @@ export default function Contact() {
           <h2>{contact.section_title ? contact.section_title : "Contact"}</h2>
         </div>
 
-        <div className="row mt-1">
+        <div className="row mt-1" style={{zIndex: 99999}}>
           <div className="col-lg-4">
             <div className="info">
               {contact.contacts &&
                 contact.contacts.map((contact, i) => {
                   return (
-                    <div className={setUpContactTypeData(contact[0]).className}>
+                    <div  key={i} className={setUpContactTypeData(contact[0]).className}>
                       <i
                         className={
                           "bi bi-" + setUpContactTypeData(contact[0]).icon

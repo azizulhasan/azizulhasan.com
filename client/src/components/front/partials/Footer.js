@@ -1,48 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+/**
+ *
+ * Utilities
+ */
+import { getData } from "../../Context/utilities";
 export default function Footer() {
+  const [hero, setHero] = useState({});
+  useEffect(() => {
+    /**
+     * Get data from and display to table.
+     */
+    getData(process.env.REACT_APP_API_URL + "/api/hero").then((res) => {
+      setHero(res.data[0]);
+    });
+  }, []);
   return (
     <>
       <footer id="footer">
         <div className="container">
-          <h3>Hajar Zellal</h3>
-          <p>
-            Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni
-            eligendi fuga maxime saepe commodi placeat.
-          </p>
+          <h3>{process.env.REACT_APP_WEBSITE_NAME}</h3>
+          
           <div className="social-links">
-            <a href="#" className="twitter">
-              <i className="bx bxl-twitter"></i>
-            </a>
-            <a href="#" className="facebook">
-              <i className="bx bxl-facebook"></i>
-            </a>
-            <a href="#" className="instagram">
-              <i className="bx bxl-instagram"></i>
-            </a>
-            <a href="#" className="google-plus">
-              <i className="bx bxl-skype"></i>
-            </a>
-            <a href="#" className="linkedin">
-              <i className="bx bxl-linkedin"></i>
-            </a>
+            {hero.icons &&
+              JSON.parse(hero.icons).map((icon) => {
+                return (
+                  <a
+                    key={icon[0]}
+                    href={icon[1]}
+                    target="_blank"
+                    className={icon[1]}
+                  >
+                    <i className={"bx bxl-" + icon[0]}></i>
+                  </a>
+                );
+              })}
           </div>
           <div className="copyright">
             &copy; Copyright{" "}
             <strong>
-              <span><a rel="noopener" href="http://azizulhasan.com/" target="_blank">
-          Hajar Zellal
+              <span><a rel="noopener" href={hero.icons && JSON.parse(hero.icons)[0][1]} target="_blank">
+              {process.env.REACT_APP_WEBSITE_NAME}
         </a></span>
             </strong>
             . All Rights Reserved
           </div>
           <div className="credits">
-            {/* 
-    <!-- All the links in the footer should remain intact. -->
-    <!-- You can delete the links only if you purchased the pro version. -->
-    <!-- Licensing information: [license-url] -->
-    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/ -->
-    */}
+
             Developed by <a rel="noopener" href="http://azizulhasan.com/" target="_blank">
           Azizul Hasan
         </a>

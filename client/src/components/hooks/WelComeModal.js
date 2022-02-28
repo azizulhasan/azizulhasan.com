@@ -1,32 +1,76 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-
 export default function WelComeModal({ welcomeModalShow, isWelcomeModalShow }) {
+  /**
+   * Style
+   */
+  const welcome = {
+    background: {
+      width: "100%",
+      height: "50vh",
+      backgroundImage: `url(${
+        process.env.REACT_APP_URL + "/assets/dashboard/assets/img/al_adha.png"
+      })`,
+      backgroundPosition: "65% 30%",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      zIndex: -9,
+    },
+    closeBtn: {
+      marginLeft: "93%",
+      marginRight: "0",
+      marginTop: "10px",
+    },
+    message: {
+      textAlign: "center",
+      zIndex: 9999999,
+      color: "white",
+      paddingTop: "15%",
+    },
+  };
   return (
     <Modal
-      size="lg"
+      size="md"
+      animation={true}
       show={isWelcomeModalShow}
       onHide={(e) => welcomeModalShow(false)}
       centered
       aria-labelledby="example-modal-sizes-title-lg"
+      contentClassName="test"
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
-        </Modal.Title>
-      </Modal.Header>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: [
+            "#welcome:after {",
+            ' content: "";',
+            `background: rgba(0, 0, 0, .5);`,
+            "position: absolute;",
+            "bottom: 0;",
+            "top: 0px;",
+            "left: 0;",
+            "right: 0;",
+            "z-index: -9",
+            "}",
+          ].join("\n"),
+        }}
+      ></style>
+
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
+        <div id="welcome" style={welcome.background}>
+          <button
+            type="button"
+            class="btn-close"
+            onClick={(e) => welcomeModalShow(false)}
+            style={welcome.closeBtn}
+            aria-label="Close"
+          ></button>
+
+          <h1 style={welcome.message}>
+            Welcomer {process.env.REACT_APP_WEBSITE_NAME} to your personal
+            portfolio.
+          </h1>
+        </div>
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={(e) => welcomeModalShow(false)}>Close</Button>
-      </Modal.Footer>
     </Modal>
   );
 }

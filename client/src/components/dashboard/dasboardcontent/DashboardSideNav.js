@@ -12,18 +12,18 @@ export default function DashboardSideNav() {
         <div className="sb-sidenav-menu">
           <div className="nav">
             <div className="sb-sidenav-menu-heading">Core</div>
-            <Link className="nav-link" to="/"  target="_blank" >
+            <Link className="nav-link" to="/" target="_blank">
               <div className="sb-nav-link-icon">
                 <i className="fas fa-user-alt"></i>
               </div>
               Front
             </Link>
-            <Link className="nav-link" to="/dashboard">
+            {/* <Link className="nav-link" to="/dashboard">
               <div className="sb-nav-link-icon">
                 <i className="fas fa-tachometer-alt"></i>
               </div>
               Dashboard
-            </Link>
+            </Link> */}
             <Link className="nav-link" to="/dashboard/mail">
               <div className="sb-nav-link-icon">
                 <i className="fas fa-envelope"></i>
@@ -98,7 +98,10 @@ export default function DashboardSideNav() {
                     <Link className="nav-link" to="/dashboard/resume/education">
                       Education
                     </Link>
-                    <Link className="nav-link" to="/dashboard/resume/experience">
+                    <Link
+                      className="nav-link"
+                      to="/dashboard/resume/experience"
+                    >
                       Experience
                     </Link>
                   </nav>
@@ -115,10 +118,10 @@ export default function DashboardSideNav() {
                 <Link className="nav-link" to="/dashboard/testimonials">
                   Testimonials
                 </Link>
-                
               </nav>
             </div>
-
+            {/* BLOG MENU */}
+            {/* 
             <a
               className="nav-link collapsed"
               href="#"
@@ -127,7 +130,6 @@ export default function DashboardSideNav() {
               aria-expanded="false"
               aria-controls="blogLaout"
             >
-              {/* blog Menu */}
               <div className="sb-nav-link-icon">
               <i className="fas fa-blog"></i>
               </div>
@@ -150,12 +152,12 @@ export default function DashboardSideNav() {
                   Category
                 </Link>
               </nav>
-            </div>
+            </div> */}
             {/* Settings menu */}
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/dashboard/settings">
               <div className="sb-nav-link-icon">
-              <i className="fas fa-wrench"></i>
-              {/* <i class="fa-solid fa-bars-progress"></i> */}
+                <i className="fas fa-wrench"></i>
+                {/* <i class="fa-solid fa-bars-progress"></i> */}
               </div>
               Settings
             </Link>

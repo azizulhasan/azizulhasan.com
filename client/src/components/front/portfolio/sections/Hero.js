@@ -8,7 +8,6 @@ import { getData } from "../../../Context/utilities";
 
 export default function Hero() {
   const [hero, setHero] = useState({});
-  const uploadFolder = "assets/dashboard/assets/img/";
 
   const styles = {
     hero: {

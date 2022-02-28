@@ -51,7 +51,7 @@ export default function Skills() {
             devideSkillsInTowColumn(skills.skills.length).map(
               (columnLen, columnIndex) => {
                 return (
-                  <div className="col-lg-6" key={columnIndex}>
+                  <div className="col-lg-6" data-id={Math.random()+ 1+columnIndex} key={Math.random()+ 1+columnIndex}>
                     {skills.skills &&
                       skills.skills.length > 0 &&
                       skills.skills.map((skill, index) => {

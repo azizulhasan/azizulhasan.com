@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Blogs from "./blogs/Blogs";
-import Home from "./portfolio/Home";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./portfolio/Login";
+import Home from "./portfolio/Home";
 import { Navbar, Container, Nav, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BlogDetails from "./blogs/BlogDetails";
+import NotFound from "./notfound/NotFound";
 function Front() {
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
@@ -13,7 +14,7 @@ function Front() {
      * Display or hide portfolio menus.
      */
     const displayMunu = () => {
-      let menus = document.getElementsByClassName("scrollto2");
+      let menus = document.getElementsByClassName("mobileMenu");
       if (window.innerWidth > 991) {
         [...menus].forEach((menu) => {
           menu.style.display = "none";
@@ -39,10 +40,10 @@ function Front() {
   });
   return (
     <Router>
-      {/* <Navbar style={{zIndex: '99999'}} sticky="top" bg="light" expand="lg">
+      <Navbar style={{zIndex: '99999'}} className="mobileMenu" sticky="top" bg="light" expand="lg">
         <Container>
           <Link className="navbar-brand" to="/">
-            Hajar Zellal
+            {process.env.REACT_APP_WEBSITE_NAME}
           </Link>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -51,43 +52,37 @@ function Front() {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <a href="#hero" className="nav-link scrollto2 active">
+              <a href="#hero" className="nav-link active">
                 <span>Home</span>
               </a>
 
-              <a href="#about" className="nav-link scrollto2">
+              <a href="#about" className="nav-link ">
                 <span>About</span>
               </a>
-
-              <a href="#resume" className="nav-link scrollto2">
+              <a href="#skills" className="nav-link">
+                <span>Skills</span>
+              </a>
+              <a href="#resume" className="nav-link">
                 <span>Resume</span>
               </a>
-              <a href="#portfolio" className="nav-link scrollto2">
-                <span>Portfolio</span>
-              </a>
-              <a href="#services" className="nav-link scrollto2">
-                <span>Services</span>
-              </a>
-              <a href="#contact" className="nav-link scrollto2">
+              <a href="#contact" className="nav-link">
                 <span>Contact</span>
               </a>
-              <Link className="nav-link" to="/blogs">
-                Blogs
-              </Link>
               <Link className="nav-link" to="/login">
                 Login
               </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar> */}
+      </Navbar>
       <Container>
         <Row>
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/blogs" element={<Blogs />}></Route>
-            <Route path="/blogs/:blogTitle" element={<BlogDetails />}></Route>
+            {/* <Route path="/blogs" element={<Blogs />}></Route>
+            <Route path="/blogs/:blogTitle" element={<BlogDetails />}></Route> */}
             <Route path="/login" element={<Login />}></Route>
+            <Route path='*' element={<NotFound/>} />
           </Routes>
         </Row>
       </Container>
