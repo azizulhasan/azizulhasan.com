@@ -6,7 +6,7 @@ export default class LeftMenu extends Component {
       <React.Fragment>
         {/* Mobile nav toggle button  */}
         {/* <button type="button" className="mobile-nav-toggle d-xl-none"><i className="bi bi-list mobile-nav-toggle"></i></button>  */}
-        <i className="bi bi-list mobile-nav-toggle d-none"></i>
+        {/* <i className="bi bi-list mobile-nav-toggle d-none"></i> */}
         {/* Header */}
         <header
           id="header"
@@ -15,7 +15,7 @@ export default class LeftMenu extends Component {
           <nav id="navbar" className="navbar navmenu">
             <ul>
               <li>
-                <a href="#hero" className={" nav-link scrollto active"}>
+                <a href="#hero" className={"nav-link scrollto active"}>
                   <i className="bx bx-home"></i> <span>Home</span>
                 </a>
               </li>

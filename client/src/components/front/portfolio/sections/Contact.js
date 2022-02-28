@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
  *
  * Utilities
  */
-import { getData , setUserAddress} from "../../../Context/utilities";
+import { getData , setUserAddress, hideMenuOnScroll} from "../../../Context/utilities";
 import submitContactForm from "../../../Context/validate";
 export default function Contact() {
   const [contact, setContact] = useState({});
@@ -19,6 +19,11 @@ export default function Contact() {
      * set user address data 
      */
      setUserAddress(window.navigator)
+     /**
+      * Hide menu on scroll for submitting contact form 
+      * if window.pageYOffset > 1900
+      */
+      hideMenuOnScroll()
     /**
      * Get data from and display to table.
      */

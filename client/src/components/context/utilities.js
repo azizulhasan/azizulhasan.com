@@ -331,10 +331,25 @@ const logout = () => {
   window.localStorage.removeItem("password");
   window.sessionStorage.removeItem("email");
   window.sessionStorage.removeItem("password");
-  
+
   window.location.href = process.env.REACT_APP_URL + "/login";
   // window.location.reload(true)
-}
+};
+
+const hideMenuOnScroll = () => {
+  if (window.innerWidth > 991) {
+    window.onscroll = function () {
+      if (window.pageYOffset >= 1900) {
+        document.getElementById("header").style.display = "none";
+        document.getElementById("header").className = "";
+      } else {
+        document.getElementById("header").style.display = "block";
+        document.getElementById("header").className =
+          "d-flex flex-column justify-content-center";
+      }
+    };
+  }
+};
 module.exports = {
   addScripts,
   getData,
@@ -354,5 +369,6 @@ module.exports = {
   getLocalStorage,
   authenTicateUser,
   getUserName,
-  logout
+  logout,
+  hideMenuOnScroll
 };
