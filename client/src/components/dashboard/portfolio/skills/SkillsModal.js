@@ -84,12 +84,11 @@ export default function AboutModal({ setSkillsData, updateBton }) {
   };
 
   /**
-   * get hero content by id.
+   * get skill.content by id.
    * @param {id} id
    */
   const getSkillsContent = (id) => {
     getData(process.env.REACT_APP_API_URL + "/api/skills/" + id).then((res) => {
-      console.log(res);
       setData(res);
       setLgShow(true);
     });
@@ -183,7 +182,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
                         >
                           <Form.Group
                             className="mb-3"
-                            controlId="hero.skill_name"
+                            controlId="skill.skill_name"
                           >
                             <Form.Label>Skill Name</Form.Label>
                             <Form.Control
@@ -201,7 +200,8 @@ export default function AboutModal({ setSkillsData, updateBton }) {
                           lg={5}
                           className="d-flex flex-col  mb-2"
                         >
-                          <Form.Group className="mb-3">
+                          <Form.Group className="mb-3" controlId="skill.skill_proficiency"
+>
                             <Form.Label>Skill Proficiency (%)</Form.Label>
                             <Form.Control
                               type="number"
@@ -246,6 +246,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
                       sm={6}
                       lg={7}
                       className="d-flex flex-col  mb-2"
+                      controlId="skill.skill_proficiency"
                     >
                       <Form.Group className="mb-3">
                         <Form.Label>Skill Proficiency (%) </Form.Label>

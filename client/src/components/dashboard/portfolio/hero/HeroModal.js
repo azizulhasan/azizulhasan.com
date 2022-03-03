@@ -240,7 +240,7 @@ export default function HeroModal({ setHeroData, updateBton }) {
                           lg={5}
                           className="d-flex flex-col  mb-2"
                         >
-                          <Form.Group className="mb-3">
+                          <Form.Group className="mb-3" controlId="hero.social_icon_url">
                             <Form.Label>Social URL</Form.Label>
                             <Form.Control
                               type="text"

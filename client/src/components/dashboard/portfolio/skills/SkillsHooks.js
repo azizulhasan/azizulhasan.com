@@ -42,13 +42,33 @@ const getData = async (url = "") => {
     icon_col.appendChild(icon_row);
   };
 
-  /**
-   * Delete skill
-   */
-  const deleteSkill = (e) => {
-    let row = e.target.parentElement.parentElement;
-    e.target.parentElement.parentElement.parentElement.removeChild(row);
-  };
+    /**
+     * Add another contact
+     */
+     const addContact = () => {
+      const icon_col = document.getElementById("contact_col");
+      const icon_row = document
+        .getElementById("contact_col")
+        .firstChild.cloneNode(true);
+      icon_col.appendChild(icon_row);
+    };
+  
+    /**
+     * Delete skill row. If skill row length is 1 then before deleting first row clone if 
+     * and append it to parrent row.
+     */
+    const deleteSkill = (e) => {
+      let row = e.target.parentElement.parentElement; // get clicked row
+      if(e.target.parentElement.parentElement.parentElement.childNodes.length == 1){
+        let rowClone = e.target.parentElement.parentElement.parentElement.firstChild.cloneNode(true);
+        e.target.parentElement.parentElement.parentElement.appendChild(rowClone);
+        e.target.parentElement.parentElement.parentElement.removeChild(row);
+        document.getElementById('skill.skill_name').value = ""
+        document.getElementById('skill.skill_proficiency').value = ""
+      }else{
+        e.target.parentElement.parentElement.parentElement.removeChild(row);
+      }
+    };
   // Create table headers consisting of 4 columns.
   const STORY_HEADERS = [
     {

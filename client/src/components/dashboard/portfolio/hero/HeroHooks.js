@@ -35,27 +35,38 @@ const previewImage = (e) => {
   imgUrl.src = url;
 };
 
+/**
+ * Add another social icon with url
+ */
+const addSocialIcon = () => {
+  const icon_col = document.getElementById("social_icon_col");
+  const icon_row = document
+    .getElementById("social_icon_col")
+    .firstChild.cloneNode(true);
+  icon_col.appendChild(icon_row);
+};
 
-  /**
-   * Add another social icon with url
-   */
-   const addSocialIcon = () => {
-    const icon_col = document.getElementById("social_icon_col");
-    const icon_row = document
-      .getElementById("social_icon_col")
-      .firstChild.cloneNode(true);
-    icon_col.appendChild(icon_row);
-  };
-
-  /**
-   * Delete social icon
-   */
-  const deleteSocialIcon = (e) => {
-    let row = e.target.parentElement.parentElement;
+/**
+ * Delete hero row. If hero row length is 1 then before deleting first row clone if
+ * and append it to parrent row.
+ */
+const deleteSocialIcon = (e) => {
+  let row = e.target.parentElement.parentElement; // get clicked row
+  if (
+    e.target.parentElement.parentElement.parentElement.childNodes.length == 1
+  ) {
+    let rowClone =
+      e.target.parentElement.parentElement.parentElement.firstChild.cloneNode(
+        true
+      );
+    e.target.parentElement.parentElement.parentElement.appendChild(rowClone);
     e.target.parentElement.parentElement.parentElement.removeChild(row);
-  };
-
-
+    document.getElementById("hero.social_icon").value = "";
+    document.getElementById("hero.social_icon_url").value = "";
+  } else {
+    e.target.parentElement.parentElement.parentElement.removeChild(row);
+  }
+};
 
 const socialIcons = [
   "facebook",

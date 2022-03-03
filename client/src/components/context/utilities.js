@@ -270,17 +270,37 @@ const getSessionStorage = (keys = []) => {
   return sessionData;
 };
 /**
- * set localStorage
+ * Set localStorage
  * @param {object} data data object with key and value
  */
 const setLocalStorage = (data) => {
-  if (typeof data === "object") {
-    Object.keys(data).map((key) => {
-      if (data[key]) {
-        window.localStorage.setItem(key, data[key]);
+  if (
+    data === "undefined" ||
+    data === null ||
+    data === "" ||
+    Array.isArray(data) ||
+    typeof data === "string" ||
+    (typeof data === "object" && Object.keys(data).length === 0)
+  )
+    return;
+  Object.keys(data).map((key) => {
+    if (data[key]) {
+      window.localStorage.setItem(key, data[key]);
+    }
+  });
+
+  let storageData = {};
+  let storage = window.localStorage;
+  for (let key in storage) {
+    if (data.hasOwnProperty(key)) {
+      let keyData = window.localStorage.getItem(key);
+      if (keyData) {
+        storageData[key] = keyData;
       }
-    });
+    }
   }
+
+  return storageData;
 };
 
 /**
@@ -305,6 +325,8 @@ const getLocalStorage = (keys) => {
 
   return localData;
 };
+
+
 
 const authenTicateUser = () => {
   const Auth = {
@@ -370,5 +392,5 @@ module.exports = {
   authenTicateUser,
   getUserName,
   logout,
-  hideMenuOnScroll
+  hideMenuOnScroll,
 };
