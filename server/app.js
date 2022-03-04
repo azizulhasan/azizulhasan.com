@@ -122,7 +122,6 @@ app.use('/uploads', express.static(__dirname + '/uploads'));
 
 
 
-
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')))
