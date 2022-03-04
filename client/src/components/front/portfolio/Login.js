@@ -79,7 +79,7 @@ export default function Login() {
                         <input
                           type="email"
                           name="email"
-                          value="azizulhasan.cr@gmail.com"
+                          defaultValue="azizulhasan.cr@gmail.com"
                           className="form-control form-control-user"
                           id="exampleInputEmail"
                           aria-describedby="emailHelp"
@@ -90,7 +90,7 @@ export default function Login() {
                         <input
                           type="password"
                           name="password"
-                          value="azizulhasan.cr@gmail.com"
+                          defaultValue="azizulhasan.cr@gmail.com"
                           className="form-control form-control-user"
                           id="exampleInputPassword"
                           placeholder="Password"

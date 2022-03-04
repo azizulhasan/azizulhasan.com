@@ -1,6 +1,7 @@
 const About = require("../models/about");
 const multer = require("multer");
 const fs = require('fs')
+const {getImagePath} = require('../utilities/utilities')
 
 
 /**
@@ -42,7 +43,7 @@ const about_details = (req, res) => {
  */
 
 const Storage = multer.diskStorage({
-  destination: process.env.IMAGE_UPLOAD,
+  destination: process.env.UPLOAD_FOLDER,
   filename: (req, file, cb) => {
     cb(null, Date.now() + "_" + file.originalname);
   },
@@ -65,7 +66,7 @@ const about_create_post = (req, res) => {
       const about = new About({
         ...req.body,
         ...{
-          portfolioImage: req.file.filename,
+          portfolioImage:  process.env.UPLOAD_FOLDER_URL+"/"+ req.file.filename,
         },
       });
       about.save()
@@ -94,8 +95,8 @@ const about_update_post = (req, res) => {
 
       About.findById(id)
     .then((result) => {
-      console.log(result.portfolioImage)
-      const path = process.env.IMAGE_UPLOAD+''+result.portfolioImage
+      
+      let path = getImagePath(result.portfolioImage);
       if (fs.existsSync(path)) {
         fs.unlink(path, (err) => {
           if (err) throw err;
@@ -114,7 +115,7 @@ const about_update_post = (req, res) => {
           $set: {
             ...req.body,
             ...{
-              portfolioImage: req.file.filename,
+              portfolioImage:  process.env.UPLOAD_FOLDER_URL+"/"+ req.file.filename,
             },
           },
         },

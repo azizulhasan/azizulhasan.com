@@ -28,9 +28,7 @@ export default function About() {
         <div className="row" >
           <div className="col-lg-4">
             <img
-              src={
-                process.env.REACT_APP_IMAGE_FOLDER + "" + about.portfolioImage
-              }
+              src={about.portfolioImage}
               className="img-fluid"
               alt={about.profession}
             />

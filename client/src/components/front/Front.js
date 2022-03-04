@@ -33,14 +33,20 @@ function Front() {
       if (window.innerWidth > 991) {
         displayMunu();
       } else if (window.innerWidth < 991 && window.innerWidth > 989) {
-        window.location.reload(false);
+        window.location.reload(true);
         displayMunu();
       }
     });
   });
   return (
     <Router>
-      <Navbar style={{zIndex: '99999'}} className="mobileMenu" sticky="top" bg="light" expand="lg">
+      <Navbar
+        style={{ zIndex: "99999" }}
+        className="mobileMenu"
+        sticky="top"
+        bg="light"
+        expand="lg"
+      >
         <Container>
           <Link className="navbar-brand" to="/">
             {process.env.REACT_APP_WEBSITE_NAME}
@@ -82,7 +88,9 @@ function Front() {
             {/* <Route path="/blogs" element={<Blogs />}></Route>
             <Route path="/blogs/:blogTitle" element={<BlogDetails />}></Route> */}
             <Route path="/login" element={<Login />}></Route>
-            <Route path='*' element={<NotFound/>} />
+            {setTimeout(() => {
+              <Route path="*" element={<NotFound />} />;
+            }, 1000)}
           </Routes>
         </Row>
       </Container>

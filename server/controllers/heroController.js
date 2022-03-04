@@ -1,6 +1,7 @@
 const Hero = require("../models/hero");
 const multer = require("multer");
 const fs = require('fs')
+const {getImagePath} = require('../utilities/utilities')
 
 
 /**
@@ -41,7 +42,7 @@ const hero_details = (req, res) => {
  *
  */
 const Storage = multer.diskStorage({
-  destination: process.env.IMAGE_UPLOAD,
+  destination: process.env.UPLOAD_FOLDER,
   filename: (req, file, cb) => {
     cb(null, Date.now() + "_" + file.originalname);
   },
@@ -64,7 +65,7 @@ const hero_create_post = (req, res) => {
       const hero = new Hero({
         ...req.body,
         ...{
-          backgroundImage: req.file.filename,
+          backgroundImage: process.env.UPLOAD_FOLDER_URL+"/"+ req.file.filename,
         },
       });
       hero
@@ -94,7 +95,7 @@ const hero_update_post = (req, res) => {
 
       Hero.findById(id)
     .then((result) => {
-      const path = process.env.IMAGE_UPLOAD+''+result.backgroundImage
+      let path = getImagePath(result.backgroundImage);
       if (fs.existsSync(path)) {
         fs.unlink(path, (err) => {
           if (err) throw err;
@@ -112,7 +113,7 @@ const hero_update_post = (req, res) => {
           $set: {
             ...req.body,
             ...{
-              backgroundImage: req.file.filename,
+              backgroundImage: process.env.UPLOAD_FOLDER_URL+"/"+ req.file.filename,
             },
           },
         },

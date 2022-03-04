@@ -13,9 +13,7 @@ export default function Hero() {
     hero: {
       width: "100%",
       height: "100vh",
-      backgroundImage: `url(${
-        process.env.REACT_APP_IMAGE_FOLDER + "" + hero.backgroundImage
-      })`,
+      backgroundImage: `url(${hero.backgroundImage})`,
       backgroundPosition: "top right",
       backgroundRepeat: " no-repeat",
       backgroundSize: "cover",

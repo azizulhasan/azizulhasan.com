@@ -20,12 +20,12 @@ export default function MailModal({
     subject: "",
     message: "",
     address: {
-      continent : "",
+      continent: "",
       countryName: "",
       locality: "",
       principalSubdivision: "",
-      city: ""
-    }
+      city: "",
+    },
   });
 
   useEffect(() => {
@@ -40,12 +40,12 @@ export default function MailModal({
           subject: "",
           message: "",
           address: {
-            continent : "",
+            continent: "",
             countryName: "",
             locality: "",
             principalSubdivision: "",
-            city: ""
-          }
+            city: "",
+          },
         });
       }
     }
@@ -58,6 +58,7 @@ export default function MailModal({
   const getMailContent = (id) => {
     getData(process.env.REACT_APP_API_URL + "/api/contact_form/" + id)
       .then((res) => {
+        console.log(res);
         setData(res);
       })
       .catch((err) => {
@@ -125,7 +126,6 @@ export default function MailModal({
         onHide={(e) => modalShow(false)}
         aria-labelledby="example-modal-sizes-title-lg"
       >
-
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
             {updateBtn.display
@@ -134,14 +134,25 @@ export default function MailModal({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-              <h4>Sender : {mail.name}{" "}{mail.address !== undefined ?+ " From : "+ mail.address.locality +", "+ mail.address.city + ", "+ mail.address.countryName : ""}</h4> 
-              <h4>Email : {mail.email}</h4>
-              <h4>Subject : {mail.subject}</h4> 
-              <div>
-              <h4>Message : </h4>
-              <p>{mail.message}</p>
-              </div>
-
+          <h4>Sender : {mail.name} </h4>
+          {mail.address !== undefined ? (
+            <h4>
+              From :
+              {mail.address.locality +
+                ", " +
+                mail.address.city +
+                ", " +
+                mail.address.countryName}
+            </h4>
+          ) : (
+            ""
+          )}
+          <h4>Email : {mail.email}</h4>
+          <h4>Subject : {mail.subject}</h4>
+          <div>
+            <h4>Message : </h4>
+            <p>{mail.message}</p>
+          </div>
         </Modal.Body>
       </Modal>
     </>
