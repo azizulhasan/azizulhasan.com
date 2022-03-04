@@ -57,7 +57,7 @@ const getIframeContent = ()=> {
   ];
 
 
-  module.exports = {
+  export{
     getData,
     postData,
     getIframeContent,

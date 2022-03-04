@@ -100,7 +100,7 @@ const STORY_HEADERS = [
     title: "backgroundImageOpacity",
   },
 ];
-module.exports = {
+export{
   getData,
   postData,
   previewImage,

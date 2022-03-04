@@ -70,7 +70,7 @@
       },
       
     ];
-    module.exports = {
+    export{
       STORY_HEADERS,
       deleteContact,
       getData,

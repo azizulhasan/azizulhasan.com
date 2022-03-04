@@ -76,7 +76,7 @@
     },
   ];
   
-  module.exports = {
+  export{
     getData,
     postData,
     getIframeContent,

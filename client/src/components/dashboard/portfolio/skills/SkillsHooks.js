@@ -81,7 +81,7 @@ const getData = async (url = "") => {
     },
     
   ];
-  module.exports = {
+  export{
     STORY_HEADERS,
     deleteSkill,
     getData,

@@ -85,7 +85,7 @@ const STORY_HEADERS = [
   },
 ];
 
-module.exports = {
+export{
   getData,
   postData,
   getIframeContent,

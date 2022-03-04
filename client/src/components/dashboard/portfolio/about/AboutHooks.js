@@ -52,7 +52,7 @@
       title: "Details",
     },
   ];
-  module.exports = {
+  export{
     getData,
     postData,
     previewImage,

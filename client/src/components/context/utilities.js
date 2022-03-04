@@ -372,7 +372,7 @@ const hideMenuOnScroll = () => {
     };
   }
 };
-module.exports = {
+export  {
   addScripts,
   getData,
   postData,
