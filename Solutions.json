@@ -35,5 +35,9 @@
     {
         "question": "404 page",
         "url": "https://github.com/Siddhant-K-code/404-Error-Page---Astronaut/blob/master/src/.html"
+    },
+    {
+        "question": "How to ",
+        "url": "https://www.pluralsight.com/guides/importing-utility-functions-in-reactjs"
     }
 ]
