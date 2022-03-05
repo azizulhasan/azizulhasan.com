@@ -25,11 +25,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 // connect to mongodb & listen for requests.
-const dbURI = process.env.DB_URL
-  
+const DB_URL = process.env.DB_URL
+const PORT = process.env.PORT || 5000
 mongoose
-  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((result) => app.listen(process.env.PORT))
+  .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((result) => app.listen(PORT))
   .catch((err) => console.log(err));
 
 // register view engine.
@@ -123,18 +123,14 @@ app.use('/server/uploads', express.static(__dirname + '/uploads'));
 
 
 // Serve frontend
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')))
+app.use(express.static(path.join(__dirname, '../client/build')))
 
-  app.get('*', (req, res) =>
-    res.sendFile(
-      path.resolve(__dirname, '../', 'client', 'build', 'index.html')
-    )
+app.get('*', (req, res) =>
+  res.sendFile(
+    path.resolve(__dirname, '../client/build', 'index.html')
   )
-} else {
-  
-  app.get('/', (req, res) => res.send('Please set to production'))
-}
+)
+
 
 // 404 page
 app.use((req, res) => {
