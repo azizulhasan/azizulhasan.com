@@ -1,17 +1,15 @@
-import { get } from "mongoose";
-
 /**
  * Load all scripts.
  * @param {url} script url
  */
-export function addScripts(scripts) {
+export const addScripts = (scripts) => {
   [...scripts].forEach((scirpt) => {
     let tag = document.createElement("script");
     tag.async = true;
     tag.src = scirpt;
     document.body.appendChild(tag);
   });
-}
+};
 
 /**
  * Post data method.
@@ -19,21 +17,17 @@ export function addScripts(scripts) {
  * @param {method} method request type
  * @returns
  */
-export function postData(url = "", data = {}) {
+export const postData = async (url = "", data = {}) => {
   // Default options are marked with *
 
-  const post = async (url, data) => {
-    const response = await fetch(url, {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      body: data, // body data type must match "Content-Type" header
-    });
-    const responseData = await response.json(); // parses JSON response into native JavaScript objects
+  const response = await fetch(url, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    body: data, // body data type must match "Content-Type" header
+  });
+  const responseData = await response.json(); // parses JSON response into native JavaScript objects
 
-    return responseData;
-  };
-
-  return post(url, data);
-}
+  return responseData;
+};
 
 /**
  * Post data method.
@@ -41,38 +35,32 @@ export function postData(url = "", data = {}) {
  * @param {method} method request type
  * @returns
  */
-export function postWithoutImage(url = "", data = {}) {
-  const postFormWithImage = async (url, data) => {
-    // Default options are marked with *
-    const response = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      body: JSON.stringify(data), // body data type must match "Content-Type" header
-    });
-    const responseData = await response.json(); // parses JSON response into native JavaScript objects
+export const postWithoutImage = async (url = "", data = {}) => {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+  const responseData = await response.json(); // parses JSON response into native JavaScript objects
 
-    return responseData;
-  };
-
-  return postFormWithImage(url, data);
-}
+  return responseData;
+};
 
 /**
  * get data methon
  * @param {url} url api url
  * @returns  data mixed.
  */
-export function getData(url = "") {
-  const get = async (url) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data; // parses JSON response into native JavaScript objects
-  };
-  return get(url);
-}
+export const getData = async (url = "") => {
+  console.log(url)
+  const response = await fetch(url);
+  const data = await response.json();
+  return data; // parses JSON response into native JavaScript objects
+};
 
 let lastUrl = window.location.pathname;
 let componentName = "";
@@ -88,17 +76,17 @@ new MutationObserver(() => {
 /**
  * Get component name
  */
-export function getComponentName() {
+export const getComponentName = () => {
   return componentName ? componentName : getName(window.location.pathname);
-}
+};
 
-export function sliceComponentName() {
+export const sliceComponentName = () => {
   let component = getComponentName().replace(/\s/g, "").trim().split("/");
 
   return component[component.length - 1];
-}
+};
 
-export function getName(lastUrl) {
+export const getName = (lastUrl) => {
   let urlArr = lastUrl.split("/");
   let componentArr = "";
   if (urlArr[1] !== "") {
@@ -108,7 +96,7 @@ export function getName(lastUrl) {
     }
   }
   return componentArr;
-}
+};
 
 /**
  *
@@ -177,7 +165,7 @@ var options = {
  * get location data of user.
  * @param {window.navigator} navigator
  */
-export function setUserAddress(navigator) {
+export const setUserAddress = (navigator) => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       getLocationData,
@@ -187,7 +175,7 @@ export function setUserAddress(navigator) {
   } else {
     throw new Error("Geolocation is not supported by this browser.");
   }
-}
+};
 
 /**
  * Current location data
@@ -228,7 +216,7 @@ function getLocationData(position) {
  * @param {navigator} navigator
  * @returns
  */
-export function getUserBrowserData(navigator) {
+export const getUserBrowserData = (navigator) => {
   let browserData = {};
   for (var key in navigator) {
     if (
@@ -240,19 +228,19 @@ export function getUserBrowserData(navigator) {
   }
 
   return browserData;
-}
+};
 /**
  * city, country, division, locality etc.
  * @returns user location data
  */
-export function getUserAddress() {
+export const getUserAddress = () => {
   return userAddress;
-}
+};
 /**
  * set sessionStorage
  * @param {object} data data object with key and value
  */
-export function setSessionStorage(data) {
+export const setSessionStorage = (data) => {
   if (typeof data === "object") {
     Object.keys(data).map((key) => {
       if (data[key]) {
@@ -260,12 +248,12 @@ export function setSessionStorage(data) {
       }
     });
   }
-}
+};
 /**
  *
  * @param {array} keys session storage keys is array.
  */
-export function getSessionStorage(keys = []) {
+export const getSessionStorage = (keys = []) => {
   let sessionData = {};
   if (typeof keys === "array" && keys.length) {
     for (let i = 0; i < keys.length; i++) {
@@ -282,12 +270,12 @@ export function getSessionStorage(keys = []) {
   }
 
   return sessionData;
-}
+};
 /**
  * Set localStorage
  * @param {object} data data object with key and value
  */
-export function setLocalStorage(data) {
+export const setLocalStorage = (data) => {
   if (
     data === "undefined" ||
     data === null ||
@@ -315,13 +303,13 @@ export function setLocalStorage(data) {
   }
 
   return storageData;
-}
+};
 
 /**
  *
  * @param {array} keys local storage keys is array.
  */
-export function getLocalStorage(keys = []) {
+export const getLocalStorage = (keys = []) => {
   let localData = {};
   if (typeof keys === "array" && keys.length) {
     for (let i = 0; i < keys.length; i++) {
@@ -338,9 +326,9 @@ export function getLocalStorage(keys = []) {
   }
 
   return localData;
-}
+};
 
-export function authenTicateUser() {
+export const authenTicateUser = () => {
   const Auth = {
     session: getSessionStorage(),
     storage: getLocalStorage(),
@@ -351,16 +339,16 @@ export function authenTicateUser() {
   ) {
     window.location.href = process.env.REACT_APP_URL + "/login";
   }
-}
+};
 
-export function getUserName() {
+export const getUserName = () => {
   return window.sessionStorage.getItem("email")
     ? window.sessionStorage.getItem("email").split("@")[0]
     : window.localStorage.getItem("email")
     ? window.localStorage.getItem("email").split("@")[0]
     : "";
-}
-export function logout() {
+};
+export const logout = () => {
   window.localStorage.removeItem("email");
   window.localStorage.removeItem("password");
   window.sessionStorage.removeItem("email");
@@ -368,9 +356,9 @@ export function logout() {
 
   window.location.href = process.env.REACT_APP_URL + "/login";
   // window.location.reload(true)
-}
+};
 
-export function hideMenuOnScroll() {
+export const hideMenuOnScroll = () => {
   if (window.innerWidth > 991) {
     window.onscroll = function () {
       if (window.pageYOffset >= 1900) {
@@ -383,7 +371,7 @@ export function hideMenuOnScroll() {
       }
     };
   }
-}
+};
 
 // export  {
 //   addScripts,
