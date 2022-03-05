@@ -9,7 +9,7 @@ import {
   postWithoutImage,
   setLocalStorage,
   setSessionStorage,
-} from "../../Context/utilities";
+} from "../../context/utilities";
 import "./assets/css/login.css";
 
 export default function Login() {

@@ -11,7 +11,7 @@ import "./assets/css/style.css";
 /**
  * Utilities
  */
-import { addScripts } from "../../Context/utilities";
+import { addScripts } from "../../context/utilities";
 /**
  * Sections
  */

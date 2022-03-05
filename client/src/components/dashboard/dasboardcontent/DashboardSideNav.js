@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getUserName } from "../../Context/utilities";
+import { getUserName } from "../../context/utilities";
 
 export default function DashboardSideNav() {
   return (

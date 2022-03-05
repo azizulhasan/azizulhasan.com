@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { logout } from "../../Context/utilities";
+import { logout } from "../../context/utilities";
 
 export default function DashboardTopNav() {
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Table, Button } from "react-bootstrap";
-import toast from "../../Context/Notify";
+import toast from "../../context/Notify";
 import WelComeModal from "../../hooks/WelComeModal";
 
 /**

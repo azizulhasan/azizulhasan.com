@@ -5,7 +5,7 @@ import Experience from "./Experience";
  *
  * Utilities
  */
-import { getData } from "../../../../Context/utilities";
+import { getData } from "../../../../context/utilities";
 export default function Resume() {
   const [summery, setSummery] = useState({});
   useEffect(() => {

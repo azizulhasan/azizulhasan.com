@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import { getData, postData, previewImage } from "./AboutHooks";
-import { sliceComponentName } from "../../../Context/utilities";
+import { sliceComponentName } from "../../../context/utilities";
 
 import { Editor } from "@tinymce/tinymce-react";
 /**

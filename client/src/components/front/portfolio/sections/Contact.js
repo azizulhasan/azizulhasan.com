@@ -4,8 +4,8 @@ import { Form } from "react-bootstrap";
  *
  * Utilities
  */
-import { getData , setUserAddress, hideMenuOnScroll} from "../../../Context/utilities";
-import submitContactForm from "../../../Context/validate";
+import { getData , setUserAddress, hideMenuOnScroll} from "../../../context/utilities";
+import submitContactForm from "../../../context/validate";
 export default function Contact() {
   const [contact, setContact] = useState({});
   const [contactForm, setContactForm] = useState({

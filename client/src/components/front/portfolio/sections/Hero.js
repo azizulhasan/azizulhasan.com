@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
  *
  * Utilities
  */
-import { getData } from "../../../Context/utilities";
+import { getData } from "../../../context/utilities";
 
 export default function Hero() {
   const [hero, setHero] = useState({});

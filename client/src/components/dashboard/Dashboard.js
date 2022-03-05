@@ -12,7 +12,7 @@ import {
   addScripts,
   getComponentName,
   authenTicateUser,
-} from "../Context/utilities";
+} from "../context/utilities";
 
 /**
  * Dashboard Components
