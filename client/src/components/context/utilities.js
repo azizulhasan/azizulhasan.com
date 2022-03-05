@@ -2,7 +2,7 @@
  * Load all scripts.
  * @param {url} script url
  */
-const addScripts = (scripts) => {
+ export const  addScripts = (scripts) => {
   [...scripts].forEach((scirpt) => {
     let tag = document.createElement("script");
     tag.async = true;
@@ -17,7 +17,7 @@ const addScripts = (scripts) => {
  * @param {method} method request type
  * @returns
  */
-const postData = async (url = "", data = {}) => {
+ export const  postData = async (url = "", data = {}) => {
   // Default options are marked with *
   const response = await fetch(url, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -34,7 +34,7 @@ const postData = async (url = "", data = {}) => {
  * @param {method} method request type
  * @returns
  */
-const postWithoutImage = async (url = "", data = {}) => {
+ export const  postWithoutImage = async (url = "", data = {}) => {
   // Default options are marked with *
   const response = await fetch(url, {
     headers: {
@@ -54,7 +54,7 @@ const postWithoutImage = async (url = "", data = {}) => {
  * @param {url} url api url
  * @returns  data mixed.
  */
-const getData = async (url = "") => {
+ export const  getData = async (url = "") => {
   const response = await fetch(url);
   const data = await response.json();
   return data; // parses JSON response into native JavaScript objects
@@ -74,17 +74,17 @@ new MutationObserver(() => {
 /**
  * Get component name
  */
-const getComponentName = () => {
+ export const  getComponentName = () => {
   return componentName ? componentName : getName(window.location.pathname);
 };
 
-const sliceComponentName = () => {
+export const  sliceComponentName = () => {
   let component = getComponentName().replace(/\s/g, "").trim().split("/");
 
   return component[component.length - 1];
 };
 
-const getName = (lastUrl) => {
+export const  getName = (lastUrl) => {
   let urlArr = lastUrl.split("/");
   let componentArr = "";
   if (urlArr[1] !== "") {
@@ -163,7 +163,7 @@ var options = {
  * get location data of user.
  * @param {window.navigator} navigator
  */
-function setUserAddress(navigator) {
+ export const  setUserAddress = (navigator)=>  {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       getLocationData,
@@ -214,7 +214,7 @@ function getLocationData(position) {
  * @param {navigator} navigator
  * @returns
  */
-const getUserBrowserData = (navigator) => {
+ export const  getUserBrowserData = (navigator) => {
   let browserData = {};
   for (var key in navigator) {
     if (
@@ -231,14 +231,14 @@ const getUserBrowserData = (navigator) => {
  * city, country, division, locality etc.
  * @returns user location data
  */
-const getUserAddress = () => {
+export const getUserAddress = () => {
   return userAddress;
 };
 /**
  * set sessionStorage
  * @param {object} data data object with key and value
  */
-const setSessionStorage = (data) => {
+ export const  setSessionStorage = (data) => {
   if (typeof data === "object") {
     Object.keys(data).map((key) => {
       if (data[key]) {
@@ -251,7 +251,7 @@ const setSessionStorage = (data) => {
  *
  * @param {array} keys session storage keys is array.
  */
-const getSessionStorage = (keys = []) => {
+ export const  getSessionStorage = (keys = []) => {
   let sessionData = {};
   if (typeof keys === "array" && keys.length) {
     for (let i = 0; i < keys.length; i++) {
@@ -273,7 +273,7 @@ const getSessionStorage = (keys = []) => {
  * Set localStorage
  * @param {object} data data object with key and value
  */
-const setLocalStorage = (data) => {
+ export const  setLocalStorage = (data) => {
   if (
     data === "undefined" ||
     data === null ||
@@ -307,7 +307,7 @@ const setLocalStorage = (data) => {
  *
  * @param {array} keys local storage keys is array.
  */
-const getLocalStorage = (keys) => {
+ export const  getLocalStorage = (keys=[]) => {
   let localData = {};
   if (typeof keys === "array" && keys.length) {
     for (let i = 0; i < keys.length; i++) {
@@ -328,7 +328,7 @@ const getLocalStorage = (keys) => {
 
 
 
-const authenTicateUser = () => {
+export const  authenTicateUser = () => {
   const Auth = {
     session: getSessionStorage(),
     storage: getLocalStorage(),
@@ -341,14 +341,14 @@ const authenTicateUser = () => {
   }
 };
 
-const getUserName = () => {
+export const  getUserName = () => {
   return window.sessionStorage.getItem("email")
     ? window.sessionStorage.getItem("email").split("@")[0]
     : window.localStorage.getItem("email")
     ? window.localStorage.getItem("email").split("@")[0]
     : "";
 };
-const logout = () => {
+export const  logout = () => {
   window.localStorage.removeItem("email");
   window.localStorage.removeItem("password");
   window.sessionStorage.removeItem("email");
@@ -358,7 +358,7 @@ const logout = () => {
   // window.location.reload(true)
 };
 
-const hideMenuOnScroll = () => {
+export const hideMenuOnScroll = () => {
   if (window.innerWidth > 991) {
     window.onscroll = function () {
       if (window.pageYOffset >= 1900) {
@@ -372,25 +372,26 @@ const hideMenuOnScroll = () => {
     };
   }
 };
-export  {
-  addScripts,
-  getData,
-  postData,
-  getComponentName,
-  sliceComponentName,
-  postWithoutImage,
-  setCookie,
-  getCookie,
-  eraseCookie,
-  setUserAddress,
-  getUserAddress,
-  getUserBrowserData,
-  setLocalStorage,
-  setSessionStorage,
-  getSessionStorage,
-  getLocalStorage,
-  authenTicateUser,
-  getUserName,
-  logout,
-  hideMenuOnScroll,
-};
+
+// export  {
+//   addScripts,
+//   getData,
+//   postData,
+//   getComponentName,
+//   sliceComponentName,
+//   postWithoutImage,
+//   setCookie,
+//   getCookie,
+//   eraseCookie,
+//   setUserAddress,
+//   getUserAddress,
+//   getUserBrowserData,
+//   setLocalStorage,
+//   setSessionStorage,
+//   getSessionStorage,
+//   getLocalStorage,
+//   authenTicateUser,
+//   getUserName,
+//   logout,
+//   hideMenuOnScroll,
+// };

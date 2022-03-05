@@ -107,7 +107,7 @@ app.use("/api/contact", contactRoutes);
  /**
  * Login Routes
  */
-  app.use("/api/login", loginRoutes);
+app.use("/api/login", loginRoutes);
 
 app.post("/api/test", (req, res) => {
   console.log(req.body);
@@ -118,7 +118,7 @@ app.post("/api/test", (req, res) => {
 /**
  * Read file from url
  */
-app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use('/server/uploads', express.static(__dirname + '/uploads'));
 
 
 
