@@ -2,8 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require('dotenv').config()
-const path = require('path')
+require("dotenv").config();
+const path = require("path");
 
 /**
  * Routes
@@ -25,8 +25,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 // connect to mongodb & listen for requests.
-const DB_URL = process.env.DB_URL
-const PORT = process.env.PORT || 5000
+const DB_URL = process.env.DB_URL;
+const PORT = process.env.PORT || 9892;
 mongoose
   .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => app.listen(PORT))
@@ -50,7 +50,6 @@ app.use(morgan("dev"));
 //   res.locals.path = req.path;
 //   next();
 // });
-
 /**
  * Routes start
  */
@@ -103,8 +102,8 @@ app.use("/api/contact", contactRoutes);
 /**
  * Contact form Routes
  */
- app.use("/api/contact_form", contactFormRoutes);
- /**
+app.use("/api/contact_form", contactFormRoutes);
+/**
  * Login Routes
  */
 app.use("/api/login", loginRoutes);
@@ -118,19 +117,16 @@ app.post("/api/test", (req, res) => {
 /**
  * Read file from url
  */
-app.use('/server/uploads', express.static(__dirname + '/uploads'));
-
-
+app.use("/server/uploads", express.static(__dirname + "/uploads"));
 
 // Serve frontend
-app.use(express.static(path.join(__dirname, '../client/build')))
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
 
-app.get('*', (req, res) =>
-  res.sendFile(
-    path.resolve(__dirname, '../client/build', 'index.html')
-  )
-)
-
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"))
+  );
+}
 
 // 404 page
 app.use((req, res) => {
