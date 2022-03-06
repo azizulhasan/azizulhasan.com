@@ -24,7 +24,6 @@ const settings_index = (req, res) => {
  */
 const settings_details = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   Settings.findById(id)
     .then((result) => {
       res.json(result);
@@ -47,7 +46,6 @@ const settings_create_post = (req, res) => {
   settings
     .save()
     .then((result) => {
-        console.log(result)
       res.json(result);
     })
     .catch((err) => {
@@ -84,9 +82,41 @@ const settings_update_post = (req, res) => {
   );
 };
 
+
+
+/**
+ * login to dashboard.
+ * @param {Object} req login save request.
+ * @param {Object} res
+ */
+ const login_to_dashboard = (req, res) => {
+  
+  Settings.find().sort({ _id: -1 })
+    .then((result) => {
+      if (result.length) {
+        if (
+          req.body.email === result[0].email &&
+          req.body.password === result[0].password
+        ) {
+          res.json({ data: true });
+        }else{
+          res.json({ data: false });
+        }
+      }else{
+        res.json({ data: false });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+
+
 module.exports = {
   settings_index,
   settings_details,
   settings_create_post,
   settings_update_post,
+  login_to_dashboard
 };

@@ -24,7 +24,6 @@ const education_index = (req, res) => {
  */
 const education_details = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   Education.findById(id)
     .then((result) => {
       res.json(result);
@@ -68,7 +67,6 @@ const education_create_post = (req, res) => {
  */
 const education_update_post = (req, res) => {
   const id = req.params.id;
-  console.log(req.params.id);
   Education.findOneAndUpdate(
     {
       _id: id,

@@ -105,7 +105,6 @@ const contact_form_update_post = (req, res) => {
 const contact_form_delete_post = (req, res) => {
   const id = req.params.id;
 
-  console.log(id);
   ContactForm.deleteOne({ _id: id }, function (err) {
     if (!err) {
       ContactForm.find()

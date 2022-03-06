@@ -28,7 +28,6 @@ const about_index = (req, res) => {
  */
 const about_details = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   About.findById(id)
     .then((result) => {
       res.json(result);

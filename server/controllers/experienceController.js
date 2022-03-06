@@ -24,7 +24,6 @@ const experience_index = (req, res) => {
  */
 const experience_details = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   Experience.findById(id)
     .then((result) => {
       res.json(result);
@@ -40,7 +39,7 @@ const experience_details = (req, res) => {
  * @param {Object} res
  */
 const experience_create_post = (req, res) => {
-    console.log(res.body)
+ 
   const experience = new Experience({
     ...req.body,
   });
@@ -69,7 +68,6 @@ const experience_create_post = (req, res) => {
  */
 const experience_update_post = (req, res) => {
   const id = req.params.id;
-  console.log(req.params.id);
   Experience.findOneAndUpdate(
     {
       _id: id,
@@ -105,7 +103,6 @@ const experience_update_post = (req, res) => {
 const experience_delete_post = (req, res) => {
   const id = req.params.id;
 
-  console.log(id);
   Experience.deleteOne({ _id: id }, function (err) {
     if (!err) {
       Experience.find()

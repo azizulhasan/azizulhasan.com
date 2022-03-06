@@ -34,11 +34,11 @@ export default function Login() {
       data[key] = value;
     }
 
-    console.log(data);
+    // console.log(data);
 
     // return;
 
-    postWithoutImage(process.env.REACT_APP_API_URL + "/api/login", {
+    postWithoutImage(process.env.REACT_APP_API_URL + "/api/settings/login", {
       email: data.email,
       password: data.password,
     })
@@ -79,7 +79,7 @@ export default function Login() {
                         <input
                           type="email"
                           name="email"
-                          defaultValue="azizulhasan.cr@gmail.com"
+                          defaultValue=""
                           className="form-control form-control-user"
                           id="exampleInputEmail"
                           aria-describedby="emailHelp"
@@ -90,7 +90,7 @@ export default function Login() {
                         <input
                           type="password"
                           name="password"
-                          defaultValue="azizulhasan.cr@gmail.com"
+                          defaultValue=""
                           className="form-control form-control-user"
                           id="exampleInputPassword"
                           placeholder="Password"

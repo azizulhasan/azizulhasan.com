@@ -28,7 +28,6 @@ const hero_index = (req, res) => {
  */
 const hero_details = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   Hero.findById(id)
     .then((result) => {
       res.json(result);

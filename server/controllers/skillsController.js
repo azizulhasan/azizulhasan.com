@@ -24,7 +24,6 @@ const skill_index = (req, res) => {
  */
 const skill_details = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   Skills.findById(id)
     .then((result) => {
       res.json(result);
@@ -40,7 +39,7 @@ const skill_details = (req, res) => {
  */
 const skill_create_post = (req, res) => {
 
-  console.log(req.body)
+ 
   // return;
   const skills = new Skills({
     ...req.body,

@@ -5,9 +5,8 @@ const _ = require('lodash')
 
 const server = http.createServer((req, res)=>{
     const num = _.random(1, 20)
-    // console.log(num)
     const greet = _.once(()=>{
-        console.log('Hello World')
+        console.og('Hello World')
     })
     greet()
 

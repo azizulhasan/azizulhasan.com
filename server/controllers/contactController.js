@@ -24,7 +24,6 @@ const contact_index = (req, res) => {
  */
 const contact_details = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   Contact.findById(id)
     .then((result) => {
       res.json(result);
@@ -40,7 +39,6 @@ const contact_details = (req, res) => {
  */
 const contact_create_post = (req, res) => {
 
-  console.log(req.body)
   // return;
   const contacts = new Contact({
     ...req.body,

@@ -1,6 +1,6 @@
 const getImagePath = (fileUrl) => {
 
-    console.log(fileUrl)
+    
     let image = fileUrl.split("/");
     let imageName = image[image.length - 1];
     return process.env.UPLOAD_FOLDER + "/" + imageName;
