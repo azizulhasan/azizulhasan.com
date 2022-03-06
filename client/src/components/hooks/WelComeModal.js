@@ -59,7 +59,7 @@ export default function WelComeModal({ welcomeModalShow, isWelcomeModalShow }) {
         <div id="welcome" style={welcome.background}>
           <button
             type="button"
-            class="btn-close"
+            className="btn-close"
             onClick={(e) => welcomeModalShow(false)}
             style={welcome.closeBtn}
             aria-label="Close"

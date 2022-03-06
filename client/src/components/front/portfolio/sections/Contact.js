@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
  *
  * Utilities
  */
-import { getData , setUserAddress, hideMenuOnScroll} from "../../../context/utilities";
+import { getData , setUserAddress, hideMenuOnScroll, getFormattedDate} from "../../../context/utilities";
 import submitContactForm from "../../../context/validate";
 export default function Contact() {
   const [contact, setContact] = useState({});
@@ -13,6 +13,7 @@ export default function Contact() {
     email: "",
     subject: "",
     message: "",
+    date: getFormattedDate()
   });
   useEffect(() => {
     /**

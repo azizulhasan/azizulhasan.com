@@ -37,7 +37,15 @@
         "url": "https://github.com/Siddhant-K-code/404-Error-Page---Astronaut/blob/master/src/.html"
     },
     {
-        "question": "How to ",
+        "question": "How to import utilities functions in react.",
         "url": "https://www.pluralsight.com/guides/importing-utility-functions-in-reactjs"
+    },
+    {
+        "question": "Get formatted date of today with time",
+        "url": "https://stackoverflow.com/questions/14638018/current-time-formatting-with-javascript"
+    },
+    {
+        "question": "Deploying a Full-Stack MERN app with Heroku",
+        "url" : "https://dev.to/hawacodes/deploying-a-mern-app-with-heroku-3km7"
     }
 ]

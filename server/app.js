@@ -18,6 +18,7 @@ const experienceRoutes = require("./routes/experienceRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const contactFormRoutes = require("./routes/contactFormRoutes");
 const loginRoutes = require("./routes/loginRoutes");
+const settingsRoutes = require("./routes/settingsRoutes");
 
 // express app
 const app = express();
@@ -104,14 +105,14 @@ app.use("/api/contact_form", contactFormRoutes);
  * Login Routes
  */
 app.use("/api/login", loginRoutes);
-
-app.post("/api/test", (req, res) => {
-  console.log(req.body);
-
-  res.json(req.body);
-});
 /**
- * Read file from url
+ * Settings routes
+ */
+app.use("/api/settings", settingsRoutes)
+
+
+/**
+ * image file url
  */
 app.use("/server/uploads", express.static(__dirname + "/uploads"));
 

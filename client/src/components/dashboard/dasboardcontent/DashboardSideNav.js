@@ -18,12 +18,6 @@ export default function DashboardSideNav() {
               </div>
               Front
             </Link>
-            {/* <Link className="nav-link" to="/dashboard">
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-tachometer-alt"></i>
-              </div>
-              Dashboard
-            </Link> */}
             <Link className="nav-link" to="/dashboard/mail">
               <div className="sb-nav-link-icon">
                 <i className="fas fa-envelope"></i>
@@ -109,15 +103,6 @@ export default function DashboardSideNav() {
                 <Link className="nav-link" to="/dashboard/contact">
                   Contact
                 </Link>
-                <Link className="nav-link" to="/dashboard/portfolio">
-                  Portfolio
-                </Link>
-                <Link className="nav-link" to="/dashboard/services">
-                  Services
-                </Link>
-                <Link className="nav-link" to="/dashboard/testimonials">
-                  Testimonials
-                </Link>
               </nav>
             </div>
             {/* BLOG MENU */}
@@ -157,7 +142,6 @@ export default function DashboardSideNav() {
             <Link className="nav-link" to="/dashboard/settings">
               <div className="sb-nav-link-icon">
                 <i className="fas fa-wrench"></i>
-                {/* <i class="fa-solid fa-bars-progress"></i> */}
               </div>
               Settings
             </Link>

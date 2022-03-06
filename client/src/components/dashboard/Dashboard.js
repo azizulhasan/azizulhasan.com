@@ -37,6 +37,7 @@ import Experience from "./portfolio/resume/experience/Experience";
 import Portfolio from "./portfolio/Portfolio";
 import Services from "./portfolio/Services";
 import Contact from "./portfolio/contact/Contact";
+import Settings from "./settings/Settings";
 import Testimonials from "./portfolio/Testimonials";
 /**
  * Blog components
@@ -102,18 +103,8 @@ export default function Dashboard() {
                   path="/dashboard/resume/experience"
                   element={<Experience />}
                 />
-                <Route path="/dashboard/portfolio" element={<Portfolio />} />
-                <Route path="/dashboard/services" element={<Services />} />
-                <Route
-                  path="/dashboard/testimonials"
-                  element={<Testimonials />}
-                />
                 <Route path="/dashboard/contact" element={<Contact />} />
-                <Route path="/dashboard/blogs" element={<CreateBlog />} />
-                <Route
-                  path="/dashboard/category"
-                  element={<CreateCategory />}
-                />
+                <Route path="/dashboard/settings" element={<Settings/>} />
               </Routes>
               {/* <DataTable/> */}
             </div>
