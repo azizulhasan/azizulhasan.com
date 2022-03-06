@@ -1,29 +1,46 @@
-var nodemailer = require('nodemailer');
+var nodemailer = require("nodemailer");
+const Settings = require("./models/settings");
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'azizulhasan1995@gmail.com',
-    pass: 'Ahasan92@$'
-  }
-});
+/**
+ * Get email credentials from settings
+ */
+let credentials = {};
+const getData =  () => {
+  Settings.find()
+    .sort({ createdAt: -1 })
 
-const sendMail = (data)=> {
-    var mailOptions = {
-        from: data.email,
-        to: 'azizulhasan1995@gmail.com',
-        subject: data.subject+" - "+data.email,
-        text: data.message
-      };
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
-}
+    .then((res) => {
+      credentials.email = res[0].email;
+      credentials.password = res[0].password;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+getData()
+const sendMail = (data) => {
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: credentials.email,
+      pass: credentials.password,
+    },
+  });
+  var mailOptions = {
+    from: data.email,
+    to: credentials.email,
+    subject: data.subject + " - " + data.email,
+    text: data.message,
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error.message);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+};
 
 module.exports = {
-    sendMail
-}
+  sendMail,
+};

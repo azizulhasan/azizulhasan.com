@@ -93,7 +93,7 @@ export default function MailModal({
           ) : (
             ""
           )}
-
+          <h4>Date : {mail.date}</h4>
           <h4>Email : {mail.email}</h4>
           <h4>Subject : {mail.subject}</h4>
           <div>

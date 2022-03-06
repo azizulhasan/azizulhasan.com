@@ -1,4 +1,4 @@
-import {  getUserAddress } from "./utilities";
+import {  getUserAddress, getFormattedDate } from "./utilities";
 
 const submitContactForm = (e) => {
   e.preventDefault();
@@ -20,6 +20,7 @@ const submitContactForm = (e) => {
       thisForm.querySelector(".sent-message").classList.remove("d-block");
 
       let formData = new FormData(thisForm);
+      formData.append("date", getFormattedDate())
       php_email_form_submit(thisForm, action, formData);
     });
   });

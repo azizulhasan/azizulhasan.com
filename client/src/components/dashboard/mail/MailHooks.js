@@ -59,6 +59,7 @@ const getIframeContent = () => {
 };
 // Create table headers consisting of 4 columns.
 const STORY_HEADERS = [
+ 
   {
     prop: "name",
     title: "From",
@@ -78,11 +79,18 @@ const STORY_HEADERS = [
     isSortable: true,
   },
   {
-    prop: "message",
-    title: "Message",
+    prop: "date",
+    title: "Date",
     isFilterable: true,
     isSortable: true,
   },
+  {
+    prop: "action",
+    title: "Action",
+    isFilterable: true,
+    isSortable: true,
+  },
+  
 ];
 
 export{

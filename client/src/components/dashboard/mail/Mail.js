@@ -80,7 +80,6 @@ export default function Mail() {
         setIsWelcomeModalShow(res.data[0].welcome_message_is_display);
         let welcome_message = this.document.getElementById("welcome_message");
         welcome_message.innerHTML = res.data[0].welcome_message
-        // setChecked(res.data[0].welcome_message_is_display);
       });
     });
   }, []);
@@ -125,7 +124,7 @@ export default function Mail() {
             mails.map((experience, index) => (
               <tr key={index}>
                 {Object.keys(experience).map((key) => {
-                  if (key === "name" || key === "email" || key === "subject") {
+                  if ( key === "date" || key === "name" || key === "email" || key === "subject") {
                     return (
                       <td
                         key={key}

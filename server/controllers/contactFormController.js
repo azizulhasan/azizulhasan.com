@@ -8,8 +8,7 @@ const {sendMail} = require('../mail')
  */
 const contact_form_index = (req, res) => {
   ContactForm.find()
-    .sort({ createdAt: -1 })
-
+    .sort({_id: -1})
     .then((result) => {
       res.json({ data: result });
     })
@@ -25,7 +24,6 @@ const contact_form_index = (req, res) => {
  */
 const contact_form_details = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   ContactForm.findById(id)
     .then((result) => {
       res.json(result);
@@ -72,7 +70,6 @@ const contact_form_create_post = (req, res) => {
  */
 const contact_form_update_post = (req, res) => {
   const id = req.params.id;
-  console.log(req.params.id);
   ContactForm.findOneAndUpdate(
     {
       _id: id,
