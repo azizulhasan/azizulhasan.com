@@ -8,10 +8,6 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-
-// https://www.google.com/settings/security/lesssecureapps
-
-
 const sendMail = (data)=> {
     var mailOptions = {
         from: data.email,

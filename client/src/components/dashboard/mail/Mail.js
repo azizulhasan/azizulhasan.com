@@ -56,7 +56,7 @@ export default function Mail() {
   };
   useEffect(() => {
     /**
-     * Get data from and display to table.
+     * get all emails.
      */
     getData(process.env.REACT_APP_API_URL + "/api/contact_form").then((res) => {
       setMails(res.data);
@@ -68,11 +68,20 @@ export default function Mail() {
         );
       }
     });
+
     /**
      * Onload disply welcome message.
      */
     window.addEventListener("load", function () {
-      setIsWelcomeModalShow(true);
+      /**
+       * get settings data.
+       */
+      getData(process.env.REACT_APP_API_URL + "/api/settings").then((res) => {
+        setIsWelcomeModalShow(res.data[0].welcome_message_is_display);
+        let welcome_message = this.document.getElementById("welcome_message");
+        welcome_message.innerHTML = res.data[0].welcome_message
+        // setChecked(res.data[0].welcome_message_is_display);
+      });
     });
   }, []);
   /**

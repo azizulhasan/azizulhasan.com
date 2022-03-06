@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {  ToggleButton, Form, Row, Col } from "react-bootstrap";
+import { ToggleButton, Form, Row, Col } from "react-bootstrap";
 
 /**
  *
@@ -24,22 +24,19 @@ export default function Settings() {
 
   const [checked, setChecked] = useState(false);
 
-
   useEffect(() => {
     /**
      * Get data from and display to table.
      */
-    getData(process.env.REACT_APP_API_URL + "/api/settings").then(res=>{
-      
+    getData(process.env.REACT_APP_API_URL + "/api/settings").then((res) => {
       setSettings(res.data[0]);
-      setChecked(res.data[0].welcome_message_is_display)
-      
-    })
-}, []);
+      setChecked(res.data[0].welcome_message_is_display);
+    });
+  }, []);
 
   /**
    * handle change
-   * @param {*} e 
+   * @param {*} e
    */
   const handleChange = (e) => {
     setSettings({ ...settings, ...{ [e.target.name]: e.target.value } });
@@ -88,12 +85,6 @@ export default function Settings() {
     }
 
     data.welcome_message_is_display = checked;
-
-   
-    console.log(data);
-    
-    
-
     if (data._id !== undefined) {
       postWithoutImage(
         process.env.REACT_APP_API_URL + "/api/settings/" + data._id,
@@ -119,6 +110,7 @@ export default function Settings() {
         });
     }
   };
+
   return (
     <React.Fragment>
       <Row id="settings" className="mt-4">
@@ -126,13 +118,14 @@ export default function Settings() {
           xs={12}
           sm={12}
           lg={12}
-          className="d-flex flex-col justify-content-start align-items-start mt-2"
+          className=" justify-content-start align-items-start mt-2"
         >
           <h4>Mail Credentials</h4>
+          <p className="text-danger mt-2 mb-2">Note: Please Enable Less secure app access for recieving email. <a href="https://www.google.com/settings/security/lesssecureapps" target="_blank"><button className="azh_btn azh_btn_edit azh_btn azh_btn_edit-primary" type="button">Enable</button></a></p>
         </Col>
       </Row>
-      <Form onSubmit={handleSubmit}>
-        <Row>
+      <Form onSubmit={handleSubmit} >
+        <Row className="border " >
           <Col
             xs={12}
             sm={6}
@@ -191,9 +184,17 @@ export default function Settings() {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
+          <Col
+            xs={12}
+            sm={12}
+            lg={12}
+            className="d-flex flex-col justify-content-start align-items-start mt-2"
+          >
+            <h4>Show/Hide Welcome Message</h4>
+          </Col>
           <Col xs={12} sm={12} lg={8} className=" mt-3">
             <Form.Group>
-              <Form.Label>Welcome Message</Form.Label>
+              <Form.Label>Message</Form.Label>
               <Form.Control
                 type="text"
                 name="welcome_message"
@@ -219,11 +220,12 @@ export default function Settings() {
             </Form.Group>
           </Col>
           <div className="d-grid gap-3 col-2 mx-auto mt-5 mb-4">
-            <button type="submit" className="btn btn-primary btn-center">
-              {settings._id? "Update": "Submit"}
+            <button type="submit" className="azh_btn azh_btn_edit azh_btn azh_btn_edit-primary btn-center">
+              {settings._id ? "Update" : "Submit"}
             </button>
           </div>
         </Row>
+        
       </Form>
     </React.Fragment>
   );

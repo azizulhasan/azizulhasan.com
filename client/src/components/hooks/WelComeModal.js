@@ -65,7 +65,7 @@ export default function WelComeModal({ welcomeModalShow, isWelcomeModalShow }) {
             aria-label="Close"
           ></button>
 
-          <h1 style={welcome.message}>
+          <h1 id="welcome_message" style={welcome.message}>
             Welcomer {process.env.REACT_APP_WEBSITE_NAME} to your personal
             portfolio.
           </h1>
