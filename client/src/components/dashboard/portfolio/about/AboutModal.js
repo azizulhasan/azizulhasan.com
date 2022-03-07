@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import { getData, postData, previewImage } from "./AboutHooks";
-import { sliceComponentName } from "../../../context/utilities";
+import { sliceComponentName ,getIframeContent} from "../../../context/utilities";
 
 import { Editor } from "@tinymce/tinymce-react";
 /**
@@ -26,14 +26,6 @@ export default function AboutModal({ setAboutData, updateBton }) {
   const handleChange = (e) => {
     setData({ ...about, ...{ [e.target.name]: e.target.value } });
   };
-
-  const handleDetailsChange = (ed) => {
-    ed.on("change", function (e) {
-      about.details = ed.getContent();
-      console.log(about);
-    });
-  };
-
   /**
    * Handle about content form submission
    * @param {event} e
@@ -47,18 +39,23 @@ export default function AboutModal({ setAboutData, updateBton }) {
     let form = new FormData(e.target);
     let data = {};
     for (let [key, value] of form.entries()) {
-      if (
-        key === "" ||
-        value === "" ||
-        (key === "portfolioImage" && value.name === "")
-      ) {
-        alert("Please fill the value of : " + key);
-        return;
+      if (key !== "section_title" && key !== "top_details") {
+        if (
+          key === "" ||
+          value === "" ||
+          (key === "portfolioImage" && value.name === "" && !about.portfolioImage)
+        ) {
+          alert("Please fill the value of : " + key);
+          return;
+        }
       }
-
-      data[key] = value;
+      if(key === "portfolioImage" && value.name === "" && about.portfolioImage){
+        data[key] = about.portfolioImage;
+      }else{
+        data[key] = value;
+      }
     }
-
+    
     /**
      * format form data.
      */
@@ -69,8 +66,8 @@ export default function AboutModal({ setAboutData, updateBton }) {
         formData.append(key, data[key]);
       }
     });
-    formData.append("details", about.details);
-
+    formData.append("details", getIframeContent(1));
+    
     // for (let [key, value] of formData.entries()) {
     //   console.log(key, value);
     // }
@@ -80,7 +77,10 @@ export default function AboutModal({ setAboutData, updateBton }) {
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData(process.env.REACT_APP_API_URL + "/api/about/" + data._id, formData)
+      postData(
+        process.env.REACT_APP_API_URL + "/api/about/" + data._id,
+        formData
+      )
         .then((res) => {
           setAboutData(res);
           setLgShow(false);
@@ -151,7 +151,7 @@ export default function AboutModal({ setAboutData, updateBton }) {
               />
             )}
             <Form.Group className="mb-4" controlId="about.section_title">
-              <Form.Label>Section Title</Form.Label>
+              <Form.Label>Section Title (optional)</Form.Label>
               <Form.Control
                 type="text"
                 name="section_title"
@@ -161,7 +161,7 @@ export default function AboutModal({ setAboutData, updateBton }) {
               />
             </Form.Group>
             <Form.Group className="mb-4" controlId="about.top_details">
-              <Form.Label>Top Details</Form.Label>
+              <Form.Label>Top Details (optional)</Form.Label>
               <Form.Control
                 as="textarea"
                 row={2}
@@ -198,7 +198,6 @@ export default function AboutModal({ setAboutData, updateBton }) {
                     "insertfile a11ycheck undo redo | bold italic | forecolor backcolor | template codesample | alignleft aligncenter alignright alignjustify | bullist numlist | link image tinydrive",
                   content_style:
                     "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                  setup: handleDetailsChange,
                 }}
               />
             </Form.Group>
@@ -223,8 +222,8 @@ export default function AboutModal({ setAboutData, updateBton }) {
                     id="previewImage"
                     height="100"
                     width="100"
-                    alt={about.backgroundImage}
-                    src={about.backgroundImage}
+                    alt={about.portfolioImage}
+                    src={about.portfolioImage}
                   />
                 </Form.Group>
               </Col>

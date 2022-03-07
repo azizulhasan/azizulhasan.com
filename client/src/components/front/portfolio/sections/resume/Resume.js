@@ -7,13 +7,24 @@ import Experience from "./Experience";
  */
 import { getData } from "../../../../context/utilities";
 export default function Resume() {
-  const [summery, setSummery] = useState({});
+  const [summery, setSummery] = useState({
+    _id: "",
+    section_title: "",
+    top_details: "",
+    summery_title: "",
+    education_title: "",
+    experience_title: "",
+    name: "",
+    summery: "",
+  });
   useEffect(() => {
     /**
      * Get data from and display to table.
      */
     getData(process.env.REACT_APP_API_URL + "/api/summery").then((res) => {
-      setSummery(res.data[0]);
+      if(res.data.lenght){
+        setSummery(res.data[0]);
+      }
     });
   }, []);
   return (

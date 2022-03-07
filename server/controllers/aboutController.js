@@ -1,8 +1,8 @@
 const About = require("../models/about");
 const multer = require("multer");
-const fs = require('fs')
-const {getImagePath} = require('../utilities/utilities')
-
+const fs = require("fs");
+const { getImagePath } = require("../utilities/utilities");
+const { update } = require("../models/about");
 
 /**
  * Display all about content.
@@ -65,10 +65,12 @@ const about_create_post = (req, res) => {
       const about = new About({
         ...req.body,
         ...{
-          portfolioImage:  process.env.UPLOAD_FOLDER_URL+"/"+ req.file.filename,
+          portfolioImage:
+            process.env.UPLOAD_FOLDER_URL + "/" + req.file.filename,
         },
       });
-      about.save()
+      about
+        .save()
         .then((result) => {
           res.json(result);
         })
@@ -89,41 +91,55 @@ const about_update_post = (req, res) => {
 
   uploads(req, res, (err) => {
     if (err) {
-      console.log(err);
+      console.log(err.message);
     } else {
-
-      About.findById(id)
-    .then((result) => {
-      
-      let path = getImagePath(result.portfolioImage);
-      if (fs.existsSync(path)) {
-        fs.unlink(path, (err) => {
-          if (err) throw err;
-          console.log(result.portfolioImage + ' was deleted.');
-        })
-      }else{
-        console.log(result.portfolioImage + ' does not exist.');
+      /**
+       * if new image is uploaded. then delete previous image.
+       */
+      if (req.file !== undefined) {
+        About.findById(id).then((result) => {
+          let path = getImagePath(result.portfolioImage);
+          if (fs.existsSync(path)) {
+            fs.unlink(path, (err) => {
+              if (err) throw err;
+              console.log(result.portfolioImage + " was deleted.");
+            });
+          } else {
+            console.log(result.portfolioImage + " does not exist.");
+          }
+        });
       }
-    })
-    
+      /**
+       * if new image is uploaded. then add new ones file name.
+       */
+      let update_data = {};
+      if (req.file !== undefined) {
+        update_data = {
+          ...req.body,
+          ...{
+            portfolioImage:
+              process.env.UPLOAD_FOLDER_URL + "/" + req.file.filename,
+          },
+        };
+      } else {
+        update_data = {
+          ...req.body,
+        };
+      }
+
       About.findOneAndUpdate(
         {
           _id: id,
         },
         {
-          $set: {
-            ...req.body,
-            ...{
-              portfolioImage:  process.env.UPLOAD_FOLDER_URL+"/"+ req.file.filename,
-            },
-          },
+          $set: update_data,
         },
         {
           new: true,
         },
         (err, post) => {
           if (!err) {
-            res.json(post)
+            res.json(post);
           } else {
             console.log(err);
           }

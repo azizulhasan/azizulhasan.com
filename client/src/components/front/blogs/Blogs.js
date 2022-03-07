@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom'
 function Blogs() {
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {
-    const endPoint = "http://localhost:4000/blogs";
+    const endPoint = "http://hajarzellal.com/blogs";
     fetch(endPoint, {
       method: "GET",
     })

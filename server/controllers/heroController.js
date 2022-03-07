@@ -1,8 +1,7 @@
 const Hero = require("../models/hero");
 const multer = require("multer");
-const fs = require('fs')
-const {getImagePath} = require('../utilities/utilities')
-
+const fs = require("fs");
+const { getImagePath } = require("../utilities/utilities");
 
 /**
  * Display all blogs.
@@ -64,7 +63,8 @@ const hero_create_post = (req, res) => {
       const hero = new Hero({
         ...req.body,
         ...{
-          backgroundImage: process.env.UPLOAD_FOLDER_URL+"/"+ req.file.filename,
+          backgroundImage:
+            process.env.UPLOAD_FOLDER_URL + "/" + req.file.filename,
         },
       });
       hero
@@ -91,37 +91,54 @@ const hero_update_post = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-
-      Hero.findById(id)
-    .then((result) => {
-      let path = getImagePath(result.backgroundImage);
-      if (fs.existsSync(path)) {
-        fs.unlink(path, (err) => {
-          if (err) throw err;
-          console.log(result.backgroundImage + ' was deleted.');
-        })
-      }else{
-        console.log(result.backgroundImage + ' does not exist.');
+      /**
+       * if new image is uploaded. then delete previous image.
+       */
+      if (req.file !== undefined) {
+        Hero.findById(id).then((result) => {
+          let path = getImagePath(result.backgroundImage);
+          if (fs.existsSync(path)) {
+            fs.unlink(path, (err) => {
+              if (err) throw err;
+              console.log(result.backgroundImage + " was deleted.");
+            });
+          } else {
+            console.log(result.backgroundImage + " does not exist.");
+          }
+        });
       }
-    })
+
+      /**
+       * if new image is uploaded. then add new ones file name.
+       */
+      let update_data = {};
+      if (req.file !== undefined) {
+        update_data = {
+          ...req.body,
+          ...{
+            backgroundImage:
+              process.env.UPLOAD_FOLDER_URL + "/" + req.file.filename,
+          },
+        };
+      } else {
+        update_data = {
+          ...req.body,
+        };
+      }
+
       Hero.findOneAndUpdate(
         {
           _id: id,
         },
         {
-          $set: {
-            ...req.body,
-            ...{
-              backgroundImage: process.env.UPLOAD_FOLDER_URL+"/"+ req.file.filename,
-            },
-          },
+          $set: update_data,
         },
         {
           new: true,
         },
         (err, post) => {
           if (!err) {
-            res.json(post)
+            res.json(post);
           } else {
             console.log(err);
           }

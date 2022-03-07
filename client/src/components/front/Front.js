@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
-import Blogs from "./blogs/Blogs";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./portfolio/Login";
 import Home from "./portfolio/Home";
 import { Navbar, Container, Nav, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import BlogDetails from "./blogs/BlogDetails";
 import NotFound from "./notfound/NotFound";
 function Front() {
   // Similar to componentDidMount and componentDidUpdate:
@@ -85,8 +83,6 @@ function Front() {
         <Row>
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            {/* <Route path="/blogs" element={<Blogs />}></Route>
-            <Route path="/blogs/:blogTitle" element={<BlogDetails />}></Route> */}
             <Route path="/login" element={<Login />}></Route>
             {setTimeout(() => {
               <Route path="*" element={<NotFound />} />;

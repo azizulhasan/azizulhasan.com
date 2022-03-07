@@ -21,7 +21,6 @@ import DashboardContent from "./dasboardcontent/DashboardContent";
 import DashboardTopNav from "./dasboardcontent/DashboardTopNav";
 import DashboardSideNav from "./dasboardcontent/DashboardSideNav";
 import Mail from "./mail/Mail";
-// import DataTable from "./dasboardcontent/DataTable";
 
 /**
  * Portfolio components
@@ -29,22 +28,12 @@ import Mail from "./mail/Mail";
 import Hero from "./portfolio/hero/Hero";
 import About from "./portfolio/about/About";
 import Skills from "./portfolio/skills/Skills";
-import Facts from "./portfolio/Facts";
 import Summery from "./portfolio/resume/summery/Summery";
 import Education from "./portfolio/resume/education/Education";
 import Experience from "./portfolio/resume/experience/Experience";
 
-import Portfolio from "./portfolio/Portfolio";
-import Services from "./portfolio/Services";
 import Contact from "./portfolio/contact/Contact";
 import Settings from "./settings/Settings";
-import Testimonials from "./portfolio/Testimonials";
-/**
- * Blog components
- *
- */
-import CreateBlog from "./blogs/blogcontent/CreateBlog";
-import CreateCategory from "./blogs/categorycontent/CreateCategory";
 
 export default function Dashboard() {
   authenTicateUser();
@@ -59,12 +48,9 @@ export default function Dashboard() {
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js",
   ]);
 
-  
   return (
     <Router>
-
-
-<ToastContainer
+      <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -92,7 +78,6 @@ export default function Dashboard() {
                 <Route path="/dashboard/mail" element={<Mail />} />
                 <Route path="/dashboard/hero" element={<Hero />} />
                 <Route path="/dashboard/about" element={<About />} />
-                <Route path="/dashboard/facts" element={<Facts />} />
                 <Route path="/dashboard/skills" element={<Skills />} />
                 <Route path="/dashboard/resume/summery" element={<Summery />} />
                 <Route
@@ -104,16 +89,22 @@ export default function Dashboard() {
                   element={<Experience />}
                 />
                 <Route path="/dashboard/contact" element={<Contact />} />
-                <Route path="/dashboard/settings" element={<Settings/>} />
+                <Route path="/dashboard/settings" element={<Settings />} />
               </Routes>
-              {/* <DataTable/> */}
             </div>
           </main>
           <footer className="py-4 mt-auto footer_bg">
             <div className="container-fluid px-4">
               <div className="d-flex align-items-center justify-content-between small">
                 <div className="text-muted">
-                  Copyright &copy; Your Website 2021
+                  Copyright &copy;{" "}
+                  <a
+                    rel="noopener"
+                    href="http://azizulhasan.com/"
+                    target="_blank"
+                  >
+                    Azizul Hasan
+                  </a>
                 </div>
               </div>
             </div>

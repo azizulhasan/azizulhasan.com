@@ -6,13 +6,22 @@ import React, { useEffect, useState } from "react";
  */
 import { getData } from "../../../context/utilities";
 export default function Skills() {
-  const [skills, setSkills] = useState({});
+  const [skills, setSkills] = useState({
+    _id: "",
+    section_title: "",
+    top_details: "",
+    skills: [],
+    skill_name: "",
+    skill_proficiency: "",
+  });
   useEffect(() => {
     /**
      * Get data from and display to table.
      */
     getData(process.env.REACT_APP_API_URL + "/api/skills").then((res) => {
-      setSkills(res.data[0]);
+      if (res.data.length) {
+        setSkills(res.data[0]);
+      }
     });
   }, []);
 
@@ -46,12 +55,16 @@ export default function Skills() {
            * 2. `devideSkillsInTowColumn()` length is more then 2 column will be 2
            *
            */}
-          {skills.skills &&
+          {skills.skills.length &&
           devideSkillsInTowColumn(skills.skills.length).length > 1 ? (
             devideSkillsInTowColumn(skills.skills.length).map(
               (columnLen, columnIndex) => {
                 return (
-                  <div className="col-lg-6" data-id={Math.random()+ 1+columnIndex} key={Math.random()+ 1+columnIndex}>
+                  <div
+                    className="col-lg-6"
+                    data-id={Math.random() + 1 + columnIndex}
+                    key={Math.random() + 1 + columnIndex}
+                  >
                     {skills.skills &&
                       skills.skills.length > 0 &&
                       skills.skills.map((skill, index) => {
@@ -59,11 +72,19 @@ export default function Skills() {
                           <>
                             {/* Render first column if 'columnIndex == 0 && index < columnLen' */}
                             {columnIndex === 0 && index < columnLen ? (
-                              <ProgressBar key={index} skill={skill} index={index} />
+                              <ProgressBar
+                                key={index}
+                                skill={skill}
+                                index={index}
+                              />
                             ) : columnIndex === 1 && index >= columnLen ? (
                               <>
                                 {/* Render 2nd column if 'columnIndex == 1 && index >= columnLen' */}
-                                <ProgressBar key={index} skill={skill} index={index} />
+                                <ProgressBar
+                                  key={index}
+                                  skill={skill}
+                                  index={index}
+                                />
                               </>
                             ) : (
                               ""
@@ -76,7 +97,7 @@ export default function Skills() {
               }
             )
           ) : (
-            <SingleSkill key='0' skills={skills} />
+            <SingleSkill key="0" skills={skills} />
           )}
         </div>
       </div>
@@ -102,8 +123,8 @@ function SingleSkill({ skills }) {
 
 /**
  * Progressbar
- * @param {skill}  
- * @returns 
+ * @param {skill}
+ * @returns
  */
 function ProgressBar({ skill, index }) {
   return (

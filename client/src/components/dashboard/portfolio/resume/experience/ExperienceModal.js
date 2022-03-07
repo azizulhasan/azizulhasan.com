@@ -14,7 +14,6 @@ export default function ExperienceModal({
 }) {
   const [experience, setData] = useState({
     _id: "",
-
     position: "",
     from: "",
     to: "",

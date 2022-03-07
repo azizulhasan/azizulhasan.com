@@ -6,13 +6,23 @@ import React, { useEffect, useState } from "react";
 import { getData } from "../../../../context/utilities";
 
 export default function Education({ education_title }) {
-  const [educations, setEducations] = useState({});
+  const [educations, setEducations] = useState({
+    _id: "",
+    degree: "",
+    from: "",
+    to: "",
+    institution: "",
+    address: "",
+    details: "",
+  });
   useEffect(() => {
     /**
      * Get data from and display to table.
      */
     getData(process.env.REACT_APP_API_URL + "/api/education").then((res) => {
-      setEducations(res.data);
+      if(res.data.length){
+        setEducations(res.data);
+      }
     });
   }, []);
   return (

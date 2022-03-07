@@ -7,7 +7,14 @@ import { Form } from "react-bootstrap";
 import { getData , setUserAddress, hideMenuOnScroll, getFormattedDate} from "../../../context/utilities";
 import submitContactForm from "../../../context/validate";
 export default function Contact() {
-  const [contact, setContact] = useState({});
+  const [contact, setContact] = useState({
+    _id: "",
+    section_title: "",
+    subjects: "",
+    contacts: [],
+    contact_type: "",
+    contact_type_value: "",
+  });
   const [contactForm, setContactForm] = useState({
     name: "",
     email: "",
@@ -29,7 +36,9 @@ export default function Contact() {
      * Get data from and display to table.
      */
     getData(process.env.REACT_APP_API_URL + "/api/contact").then((res) => {
-      setContact(res.data[0]);
+      if(res.data.length){
+        setContact(res.data[0]);
+      }
     });
   }, []);
 

@@ -25,86 +25,41 @@ export default function DashboardSideNav() {
               Mail
             </Link>
             <div className="sb-sidenav-menu-heading">Interface</div>
-            <a
-              className="nav-link collapsed"
-              href="#"
-              data-bs-toggle="collapse"
-              data-bs-target="#portfolioLaouts"
-              aria-expanded="false"
-              aria-controls="portfolioLaouts"
-            >
-              {/* Portfolio Menu */}
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-book-open"></i>
-              </div>
-              Portfolio
-              <div className="sb-sidenav-collapse-arrow">
-                <i className="fas fa-angle-down"></i>
-              </div>
+            
+            <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+              <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
+                Portfolio
+              <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
             </a>
-            <div
-              className="collapse"
-              id="portfolioLaouts"
-              aria-labelledby="headingTwo"
-              data-bs-parent="#sidenavAccordion"
-            >
-              <nav className="sb-sidenav-menu-nested nav">
+            <div className="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                 <Link className="nav-link" to="/dashboard/hero">
                   Hero
                 </Link>
                 <Link className="nav-link" to="/dashboard/about">
                   About
                 </Link>
-                <Link className="nav-link" to="/dashboard/facts">
-                  Facts
-                </Link>
                 <Link className="nav-link" to="/dashboard/skills">
                   Skills
                 </Link>
-
-                <a
-                  className="nav-link collapsed"
-                  href="#"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#resumeLaouts"
-                  aria-expanded="false"
-                  aria-controls="resumeLaouts"
-                >
-                  {/* Resume Menu */}
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-columns"></i>
-                  </div>
-                  Resume
-                  <div className="sb-sidenav-collapse-arrow">
-                    <i className="fas fa-angle-down"></i>
-                  </div>
+                <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                    Resume
+                    <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
                 </a>
-                <div
-                  className="collapse"
-                  id="resumeLaouts"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#sidenavAccordion"
-                >
-                  <nav className="sb-sidenav-menu-nested nav accordion">
-                    <Link className="nav-link" to="/dashboard/resume/summery">
-                      Summery
-                    </Link>
-                    <Link className="nav-link" to="/dashboard/resume/education">
-                      Education
-                    </Link>
-                    <Link
-                      className="nav-link"
-                      to="/dashboard/resume/experience"
-                    >
-                      Experience
-                    </Link>
-                  </nav>
+                <div className="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                    <nav className="sb-sidenav-menu-nested nav">
+                      <Link className="nav-link" to="/dashboard/resume/summery">Summery</Link>
+                      <Link className="nav-link" to="/dashboard/resume/education">Education</Link>
+                      <Link className="nav-link" to="/dashboard/resume/experience">Experience</Link>
+                    </nav>
                 </div>
-                <Link className="nav-link" to="/dashboard/contact">
-                  Contact
-                </Link>
-              </nav>
+                <Link className="nav-link" to="/dashboard/contact">Contact</Link>
+                </nav>
             </div>
+
+
+
+
             {/* BLOG MENU */}
             {/* 
             <a

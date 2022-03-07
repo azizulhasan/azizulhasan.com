@@ -5,13 +5,23 @@ import React, { useEffect, useState } from "react";
  */
 import { getData } from "../../../../context/utilities";
 export default function Experience({experience_title}) {
-  const [experiences, setExperiences] = useState({});
+  const [experiences, setExperiences] = useState({
+    _id: "",
+    position: "",
+    from: "",
+    to: "",
+    company: "",
+    address: "",
+    details: "",
+  });
   useEffect(() => {
     /**
      * Get data from and display to table.
      */
     getData(process.env.REACT_APP_API_URL + "/api/experience").then((res) => {
-      setExperiences(res.data);
+      if(res.data.length){
+        setExperiences(res.data);
+      }
     });
   }, []);
   return (

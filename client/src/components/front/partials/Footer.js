@@ -6,13 +6,24 @@ import React, { useEffect, useState } from "react";
  */
 import { getData } from "../../context/utilities";
 export default function Footer() {
-  const [hero, setHero] = useState({});
+  const [hero, setHero] = useState({
+    _id: "",
+    title: "",
+    profession: "",
+    social_icon_name: "",
+    social_icon_url: "",
+    backgroundImage: "",
+    backgroundImageOpacity: "",
+    icons: [],
+  });
   useEffect(() => {
     /**
      * Get data from and display to table.
      */
     getData(process.env.REACT_APP_API_URL + "/api/hero").then((res) => {
-      setHero(res.data[0]);
+      if(res.data.length){
+        setHero(res.data[0]);
+      }
     });
   }, []);
   return (
@@ -22,7 +33,7 @@ export default function Footer() {
           <h3>{process.env.REACT_APP_WEBSITE_NAME}</h3>
           
           <div className="social-links">
-            {hero.icons &&
+            {hero.icons.length &&
               JSON.parse(hero.icons).map((icon) => {
                 return (
                   <a
@@ -39,14 +50,13 @@ export default function Footer() {
           <div className="copyright">
             &copy; Copyright{" "}
             <strong>
-              <span><a rel="noopener" href={hero.icons && JSON.parse(hero.icons)[0][1]} target="_blank">
+              <span><a rel="noopener" href={hero.icons.length && JSON.parse(hero.icons)[0][1]} target="_blank">
               {process.env.REACT_APP_WEBSITE_NAME}
         </a></span>
             </strong>
             . All Rights Reserved
           </div>
           <div className="credits">
-
             Developed by <a rel="noopener" href="http://azizulhasan.com/" target="_blank">
           Azizul Hasan
         </a>

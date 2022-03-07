@@ -7,7 +7,16 @@ import React, { useEffect, useState } from "react";
 import { getData } from "../../../context/utilities";
 
 export default function Hero() {
-  const [hero, setHero] = useState({});
+  const [hero, setHero] = useState({
+    _id: "",
+    title: "",
+    profession: "",
+    social_icon_name: "",
+    social_icon_url: "",
+    backgroundImage: "",
+    backgroundImageOpacity: "",
+    icons: [],
+  });
 
   const styles = {
     hero: {
@@ -21,13 +30,14 @@ export default function Hero() {
       zIndex: 9999,
     },
   };
-
   useEffect(() => {
     /**
      * Get data from and display to table.
      */
     getData(process.env.REACT_APP_API_URL + "/api/hero").then((res) => {
-      setHero(res.data[0]);
+      if(res.data.length){
+        setHero(res.data[0]);
+      }
     });
   }, []);
   return (
@@ -60,7 +70,7 @@ export default function Hero() {
             <span className="typed" data-typed-items={hero.profession}></span>
           </p>
           <div className="social-links">
-            {hero.icons &&
+            {hero.icons.length &&
               JSON.parse(hero.icons).map((icon) => {
                 return (
                   <a
@@ -68,6 +78,7 @@ export default function Hero() {
                     href={icon[1]}
                     target="_blank"
                     className={icon[1]}
+                    rel="noreferrer"
                   >
                     <i className={"bx bxl-" + icon[0]}></i>
                   </a>

@@ -53,19 +53,26 @@ export default function HeroModal({ setHeroData, updateBton }) {
       if (
         key === "" ||
         value === "" ||
-        (key === "backgroundImage" && value.name === "")
+        (key === "backgroundImage" && value.name === "" && !hero.backgroundImage)
       ) {
         alert("Please fill the value of : " + key);
         return;
       }
 
+
+
+      
       if (key === "social_icon_name") {
         iconMap["icon"] = [value];
       } else if (key === "social_icon_url") {
         iconMap["icon"].push(value);
         data["icons"].push(iconMap["icon"]);
       } else {
-        data[key] = value;
+        if(key === "backgroundImage" && value.name === "" && hero.backgroundImage){
+          data[key] = hero.backgroundImage;
+        }else{
+          data[key] = value;
+        }
       }
     }
 

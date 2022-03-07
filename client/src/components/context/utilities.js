@@ -413,3 +413,16 @@ export const getFormattedDate = () => {
   
    return  day + " " + hr + ":" + min + ampm + " " + date + " " + month + " " + year;
 };
+
+  /**
+   * Get ifram content
+   */
+ export  const getIframeContent = (textareaIndex) => {
+    let textareaId = document
+      .getElementsByTagName("textarea")[textareaIndex]
+      .getAttribute("id");
+    let iframeContent = document.getElementById(textareaId + "_ifr").contentWindow
+      .document.body.innerHTML;
+  
+    return iframeContent;
+  };
