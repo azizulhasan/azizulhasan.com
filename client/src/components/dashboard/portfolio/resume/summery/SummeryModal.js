@@ -9,7 +9,7 @@ import { Editor } from "@tinymce/tinymce-react";
  */
 import "./summery.css";
 
-export default function SummeryModal({ setAboutData, updateBton }) {
+export default function SummeryModal({ setSummeryData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
   const [summery, setData] = useState({
     _id: "",
@@ -42,22 +42,20 @@ export default function SummeryModal({ setAboutData, updateBton }) {
     let form = new FormData(e.target);
     let data = {};
     for (let [key, value] of form.entries()) {
-      if (key === "" || value === "") {
+      if (key === "name" && value === '') {
         alert("Please fill the value of : " + key);
         return;
       }
       data[key] = value;
     }
     data["summery"] = getIframeContent();
-
-    // return
     /**
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
       postData(process.env.REACT_APP_API_URL + "/api/summery/" + data._id, data)
         .then((res) => {
-          setAboutData(res);
+          setSummeryData(res);
           setLgShow(false);
         })
         .catch((err) => {
@@ -66,8 +64,7 @@ export default function SummeryModal({ setAboutData, updateBton }) {
     } else {
       postData(process.env.REACT_APP_API_URL + "/api/summery", data)
         .then((res) => {
-          console.log(res);
-          setAboutData(res);
+          setSummeryData(res);
           setLgShow(false);
         })
         .catch((err) => {
@@ -81,10 +78,12 @@ export default function SummeryModal({ setAboutData, updateBton }) {
    * @param {id} id
    */
   const getSummeryContent = (id) => {
-    getData(process.env.REACT_APP_API_URL + "/api/summery/" + id).then((res) => {
-      setData(res);
-      setLgShow(true);
-    });
+    getData(process.env.REACT_APP_API_URL + "/api/summery/" + id).then(
+      (res) => {
+        setData(res);
+        setLgShow(true);
+      }
+    );
   };
   return (
     <>
@@ -127,7 +126,7 @@ export default function SummeryModal({ setAboutData, updateBton }) {
               />
             )}
             <Form.Group className="mb-4" controlId="summery.section_title">
-              <Form.Label>Section Title</Form.Label>
+              <Form.Label>Section Title (Optional )</Form.Label>
               <Form.Control
                 type="text"
                 name="section_title"
@@ -137,7 +136,7 @@ export default function SummeryModal({ setAboutData, updateBton }) {
               />
             </Form.Group>
             <Form.Group className="mb-4" controlId="summery.top_details">
-              <Form.Label>Section Details</Form.Label>
+              <Form.Label>Section Details (Optional )</Form.Label>
               <Form.Control
                 as="textarea"
                 row={2}
@@ -149,7 +148,7 @@ export default function SummeryModal({ setAboutData, updateBton }) {
             </Form.Group>
             <br />
             <Form.Group className="mb-4" controlId="summery.summery_title">
-              <Form.Label>Summery Title</Form.Label>
+              <Form.Label>Summery Title (Optional )</Form.Label>
               <Form.Control
                 type="text"
                 name="summery_title"
@@ -159,7 +158,7 @@ export default function SummeryModal({ setAboutData, updateBton }) {
               />
             </Form.Group>
             <Form.Group className="mb-4" controlId="summery.education_title">
-              <Form.Label>Education Title</Form.Label>
+              <Form.Label>Education Title (Optional )</Form.Label>
               <Form.Control
                 type="text"
                 name="education_title"
@@ -169,7 +168,7 @@ export default function SummeryModal({ setAboutData, updateBton }) {
               />
             </Form.Group>
             <Form.Group className="mb-4" controlId="summery.experience_title">
-              <Form.Label>Experience Title</Form.Label>
+              <Form.Label>Experience Title (Optional )</Form.Label>
               <Form.Control
                 type="text"
                 name="experience_title"

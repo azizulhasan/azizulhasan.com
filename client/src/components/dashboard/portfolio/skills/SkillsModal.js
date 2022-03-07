@@ -12,7 +12,7 @@ export default function AboutModal({ setSkillsData, updateBton }) {
   const [lgShow, setLgShow] = useState(false);
   const [skills, setData] = useState({
     _id: "",
-    section_title:"",
+    section_title: "",
     top_details: "",
     skills: [],
     skill_name: "",
@@ -41,9 +41,11 @@ export default function AboutModal({ setSkillsData, updateBton }) {
     let data = {};
     data["skills"] = [];
     for (let [key, value] of form.entries()) {
-      if (key === "" || value === "") {
-        alert("Please fill the value of : " + key);
-        return;
+      if (key !== "section_title" && key !== "top_details") {
+        if (key === "" || value === "") {
+          alert("Please fill the value of : " + key);
+          return;
+        }
       }
 
       if (key === "skill_name") {
@@ -200,8 +202,10 @@ export default function AboutModal({ setSkillsData, updateBton }) {
                           lg={5}
                           className="d-flex flex-col  mb-2"
                         >
-                          <Form.Group className="mb-3" controlId="skill.skill_proficiency"
->
+                          <Form.Group
+                            className="mb-3"
+                            controlId="skill.skill_proficiency"
+                          >
                             <Form.Label>Skill Proficiency (%)</Form.Label>
                             <Form.Control
                               type="number"

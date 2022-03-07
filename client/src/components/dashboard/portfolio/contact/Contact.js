@@ -24,7 +24,6 @@ export default function Contact() {
   const [totalContact, setTotalContact] = useState([]) 
 
   const setContactData = (data) => {
-    console.log(data.contacts)
     setTotalContact(data.contacts)
     setUpdateBtn({ display: true, id: data._id });
   };
@@ -33,7 +32,9 @@ export default function Contact() {
        * Get data from and display to table.
        */
       getData(process.env.REACT_APP_API_URL + "/api/contact").then(res=>{
-        setTotalContact(res.data[0].contacts)
+        if(res.data.length){
+          setTotalContact(res.data[0].contacts)
+        }
         
         if (res.data.length > 0) {
           setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)

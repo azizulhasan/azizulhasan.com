@@ -46,7 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 /**
  * This middleware is used to console errors more elegent way.
  */
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 // app.use((req, res, next) => {
 //   res.locals.path = req.path;
 //   next();

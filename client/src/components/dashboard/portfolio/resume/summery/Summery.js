@@ -23,7 +23,7 @@ export default function Summery() {
   const [summery, setSummery] = useState([]);
   const [updateBton, setUpdateBtn] = useState({ display: false, id: "" });
 
-  const setAboutData = (data) => {
+  const setSummeryData = (data) => {
     setSummery([data]);
     setUpdateBtn({ display: true, id: data._id });
   };
@@ -56,7 +56,7 @@ export default function Summery() {
           lg={2}
           className="d-flex flex-col justify-content-end align-items-start"
         >
-          <SummeryModal updateBton={updateBton} setAboutData={setAboutData} />
+          <SummeryModal updateBton={updateBton} setSummeryData={setSummeryData} />
         </Col>
         <Col
           xs={12}

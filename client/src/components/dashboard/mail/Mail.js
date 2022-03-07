@@ -60,7 +60,6 @@ export default function Mail() {
      */
     getData(process.env.REACT_APP_API_URL + "/api/contact_form").then((res) => {
       setMails(res.data);
-      console.log(res.data);
       if (res.data.length > 0) {
         setTimeout(
           () => setUpdateBtn({ display: true, id: res.data[0]._id }),

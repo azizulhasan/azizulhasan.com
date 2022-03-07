@@ -27,25 +27,6 @@ export default function ContactModal({ setContactData, updateBton }) {
     contact_type_value: "",
   });
   /**
-   *
-   * @param {contact type} value
-   * @returns
-   */
-  const getContactType = (value) => {
-    contact["contact_type"] = value;
-    return contact;
-  };
-  /**
-   *
-   * @param {contact type value} value
-   * @returns
-   */
-  const getContactTypeValue = (value) => {
-    contact["contact_type_value"] = value;
-
-    return contact;
-  };
-  /**
    * Handle content change value.
    * @param {event} e
    */
@@ -67,9 +48,11 @@ export default function ContactModal({ setContactData, updateBton }) {
     let data = {};
     data["contacts"] = [];
     for (let [key, value] of form.entries()) {
-      if (key === "" || value === "") {
-        alert("Please fill the value of : " + key);
-        return;
+      if(key !== 'section_title'){
+        if (key === "" || value === "") {
+          alert("Please fill the value of : " + key);
+          return;
+        }
       }
 
       if (key === "contact_type") {
@@ -112,7 +95,6 @@ export default function ContactModal({ setContactData, updateBton }) {
    */
   const getContactContent = (id) => {
     getData(process.env.REACT_APP_API_URL + "/api/contact/" + id).then((res) => {
-      console.log(res);
       setData(res);
       setLgShow(true);
     });
@@ -158,7 +140,7 @@ export default function ContactModal({ setContactData, updateBton }) {
               />
             )}
             <Form.Group className="mb-4" controlId="contact.section_title">
-              <Form.Label>Section Title</Form.Label>
+              <Form.Label>Section Title (Optional )</Form.Label>
               <Form.Control
                 type="text"
                 name="section_title"

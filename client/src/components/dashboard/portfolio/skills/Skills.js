@@ -32,7 +32,9 @@ export default function Skills() {
        * Get data from and display to table.
        */
       getData(process.env.REACT_APP_API_URL + "/api/skills").then(res=>{
-        setTotalSkills(res.data[0].skills)
+        if(res.data.length){
+          setTotalSkills(res.data[0].skills)
+        }
         
         if (res.data.length > 0) {
           setTimeout(()=> setUpdateBtn({ display: true, id: res.data[0]._id }), 100)

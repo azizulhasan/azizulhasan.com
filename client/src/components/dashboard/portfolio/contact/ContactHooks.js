@@ -6,7 +6,6 @@
  */
    const postData = async (url = "", data = {}) => {
     // Default options are marked with *
-    console.log(JSON.stringify(data))
     const response = await fetch(url, {
       headers: {
         'Content-Type': 'application/json'
@@ -48,7 +47,7 @@
      */
     const deleteContact = (e) => {
       let row = e.target.parentElement.parentElement; // get clicked row
-      if(e.target.parentElement.parentElement.parentElement.childNodes.length == 1){
+      if(e.target.parentElement.parentElement.parentElement.childNodes.length === 1){
         let rowClone = e.target.parentElement.parentElement.parentElement.firstChild.cloneNode(true);
         e.target.parentElement.parentElement.parentElement.appendChild(rowClone);
         e.target.parentElement.parentElement.parentElement.removeChild(row);

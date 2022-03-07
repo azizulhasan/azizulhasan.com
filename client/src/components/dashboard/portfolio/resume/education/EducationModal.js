@@ -75,20 +75,29 @@ export default function EducationModal({
     let form = new FormData(e.target);
     let data = {};
     for (let [key, value] of form.entries()) {
-      if (key === "" || value === "") {
-        alert("Please fill the value of : " + key);
-        return;
+      if (key !== "to") {
+        if (key === "" || value === "") {
+          alert("Please fill the value of : " + key);
+          return;
+        }
       }
-      data[key] = value;
+      if (key === "to" && value === "") {
+        data[key] = "Present";
+      } else {
+        data[key] = value;
+      }
     }
     data["details"] = getIframeContent();
-
-    // return
+    // console.log(data);
+    // return;
     /**
      * Update data if "_id" exists. else save form data.
      */
     if (data._id !== undefined) {
-      postData(process.env.REACT_APP_API_URL + "/api/education/" + data._id, data)
+      postData(
+        process.env.REACT_APP_API_URL + "/api/education/" + data._id,
+        data
+      )
         .then((res) => {
           setEducationData(res.data);
           modalShow(false);
@@ -140,7 +149,6 @@ export default function EducationModal({
               />
             )}
 
-            
             <Form.Group className="mb-4" controlId="education.degree">
               <Form.Label>Degree Name</Form.Label>
               <Form.Control
@@ -176,7 +184,7 @@ export default function EducationModal({
                 className="d-flex flex-col justify-content-start align-items-start mb-2"
               >
                 <Form.Group className="mb-4" controlId="education.to">
-                  <Form.Label>To</Form.Label>
+                  <Form.Label>To(Optional)</Form.Label>
                   <Form.Control
                     type="text"
                     name="to"
