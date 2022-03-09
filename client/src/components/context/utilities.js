@@ -358,7 +358,7 @@ export const logout = () => {
 export const hideMenuOnScroll = () => {
   if (window.innerWidth > 991) {
     window.onscroll = function () {
-      if (window.pageYOffset >= 1900) {
+      if (window.pageYOffset >= 1800) {
         document.getElementById("header").style.display = "none";
         document.getElementById("header").className = "";
       } else {

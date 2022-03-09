@@ -20,7 +20,6 @@ import Skills from "./sections/Skills";
 import Resume from "./sections/resume/Resume";
 import Contact from "./sections/Contact";
 import Footer from "../partials/Footer";
-import ScrollToTop from "../partials/ScrollToTop";
 
 export default function Home(){
   useEffect(() => {
@@ -68,7 +67,7 @@ export default function Home(){
       <Footer />
       {/* End Footer */}
 
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
     </React.Fragment>
   );
 }

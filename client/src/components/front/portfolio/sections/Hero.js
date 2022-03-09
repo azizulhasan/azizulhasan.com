@@ -66,8 +66,7 @@ export default function Hero() {
         <div className="container" data-aos="zoom-in" data-aos-delay="100">
           <h1>{hero.title}</h1>
           <p>
-            I'm a{" "}
-            <span className="typed" data-typed-items={hero.profession}></span>
+            {hero.profession}
           </p>
           <div className="social-links">
             {hero.icons.length &&

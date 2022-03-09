@@ -32,7 +32,7 @@ export default function Experience({experience_title}) {
       {experiences && experiences.length > 0  && experiences.map((experience, index)=>{
           return (
             <div className="resume-item" key={index}>
-            <h4>{experience.degree}</h4>
+            <h4>{experience.position}</h4>
             <h5>{experience.from} {experience.to? " - "+experience.to: ""} </h5>
             <p>
               <em>{experience.company}, {experience.address}</em>
