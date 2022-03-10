@@ -25,7 +25,7 @@ Build your portfolio website with Mongodb, Express, React and NodeJs.
 
 6. After adding these variable properly now your app is ready for developement. run `npm run dev` from root directory.
 
-7. For deploying to heroku create an app
 
-8. ![Portfolio](https://woocommerce.com/wp-content/uploads/2012/01/2016-02-17-at-09.57.png?w=950)
-9. ![dashboard](https://woocommerce.com/wp-content/uploads/2012/01/2016-02-17-at-09.57.png?w=950)
+
+8. ![Portfolio](https://github.com/azizulhasan/azizulhasan.com/blob/main/mern_stack_app_portfolio.png?raw=true)
+9. ![dashboard](https://github.com/azizulhasan/azizulhasan.com/blob/main/mern_stack_app_dashboard.png?raw=true)
