@@ -2,6 +2,8 @@
 
 Build your portfolio website with Mongodb, Express, React and NodeJs.
 
+Live : [LIVE DEMO](https://azizulhasan.herokuapp.com/)
+
 # How to start ?
 1. Clone the repo to your local derectory.
 2. `cd local_dir` then install dependency for `server`
